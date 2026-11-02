@@ -15,7 +15,7 @@ jobs:
           node-version: 22
           cache: npm
       - name: No private keys in the repository
-        run: "! git grep -I -l -e \"PRIVATE KEY-----\" -- ."
+        run: "! git grep -I -l -E \"BEGIN [A-Z ]*PRIVATE[ ]KEY\" -- ."
       - run: npm ci
       - run: npm run check
       - run: npm run check:content
