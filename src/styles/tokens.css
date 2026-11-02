@@ -1,0 +1,69 @@
+/*
+ * Design tokens. One accent (the PegPeg blue), warm neutrals, and motion values shared by CSS and JS.
+ * Measured contrast. Light: ink 16.5:1, muted 6.0:1, accent 5.3:1. Dark: ink 16.1:1, muted 7.4:1, accent 8.6:1.
+ */
+:root {
+  color-scheme: light dark;
+
+  --paper: #f4f2ee;
+  --paper-2: #eae7e1;
+  --ink: #141413;
+  --muted: #5e5c57;
+  --line: rgb(20 20 19 / 0.12);
+  --accent: #1d6a96;
+  --accent-ink: #ffffff;
+
+  --font-display: 'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Inter Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, Menlo, monospace;
+
+  /* Fluid type: min at 360px, max at 1440px */
+  --step--1: clamp(0.8rem, 0.78rem + 0.1vw, 0.875rem);
+  --step-0: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --step-1: clamp(1.25rem, 1.16rem + 0.4vw, 1.5rem);
+  --step-2: clamp(1.6rem, 1.4rem + 0.9vw, 2.25rem);
+  --step-3: clamp(2.1rem, 1.7rem + 1.8vw, 3.5rem);
+  --step-4: clamp(2.8rem, 1.9rem + 4vw, 6rem);
+  --step-5: clamp(3.4rem, 1.8rem + 7.2vw, 9.5rem);
+
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2.5rem;
+  --space-xl: clamp(3rem, 2rem + 4vw, 6rem);
+  --space-2xl: clamp(5rem, 3rem + 8vw, 11rem);
+
+  --gutter: clamp(1rem, 0.5rem + 2.4vw, 2.5rem);
+  --max: 90rem;
+  --radius: 0.375rem;
+
+  /* Motion: one family of curves so everything moves the same way */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 160ms;
+  --dur-2: 320ms;
+  --dur-3: 700ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #0f0f0e;
+    --paper-2: #1a1a18;
+    --ink: #edebe6;
+    --muted: #a3a09a;
+    --line: rgb(237 235 230 / 0.14);
+    --accent: #6fb6e0;
+    --accent-ink: #0f0f0e;
+  }
+}
+
+:root[data-theme='dark'] {
+  --paper: #0f0f0e;
+  --paper-2: #1a1a18;
+  --ink: #edebe6;
+  --muted: #a3a09a;
+  --line: rgb(237 235 230 / 0.14);
+  --accent: #6fb6e0;
+  --accent-ink: #0f0f0e;
+}

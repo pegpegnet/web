@@ -1,0 +1,31 @@
+---
+// The PegPeg wordmark, set in type so it stays sharp and follows the theme colour.
+interface Props {
+  href: string;
+}
+const { href } = Astro.props;
+---
+<a class="wordmark" href={href} aria-label="PegPeg">
+  <span aria-hidden="true">peg<span class="second">peg</span></span>
+</a>
+
+<style>
+  .wordmark {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.04em;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .second {
+    color: var(--accent);
+    transition: color var(--dur-2) var(--ease-out);
+  }
+  .wordmark:hover {
+    color: inherit;
+  }
+  .wordmark:hover .second {
+    color: inherit;
+  }
+</style>
