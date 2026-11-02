@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import { t, path, locales, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const alternates = Object.fromEntries(locales.map((l) => [l, path(l)])) as Record<Locale, string>;
+const titles: Record<Locale, string> = {
+  es: 'Desarrollo apps Barcelona | PegPeg',
+  en: 'App development Barcelona | PegPeg',
+  ca: "Desenvolupament d'apps Barcelona | PegPeg",
+};
+---
+<Base locale={locale} title={titles[locale]} description={t(locale, 'ui-hero-sub')} alternates={alternates}>
+  <section class="hero container" aria-labelledby="hero-title">
+    <p class="eyebrow">PegPeg — Barcelona</p>
+    <h1 id="hero-title">{t(locale, 'ui-tagline')}</h1>
+    <p class="sub">{t(locale, 'ui-hero-sub')}</p>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    min-height: calc(100svh - 4.25rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: var(--space-xl);
+  }
+  h1 {
+    margin-top: var(--space-m);
+    font-size: var(--step-5);
+    font-weight: 650;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    max-width: 12ch;
+  }
+  .sub {
+    margin-top: var(--space-l);
+    max-width: 38ch;
+    font-size: var(--step-1);
+    line-height: 1.4;
+    color: var(--muted);
+  }
+</style>

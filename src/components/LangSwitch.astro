@@ -1,0 +1,55 @@
+---
+import { locales, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** The current page's URL in each locale. */
+  alternates: Record<Locale, string>;
+  label: string;
+}
+const { locale, alternates, label } = Astro.props;
+const names: Record<Locale, string> = { es: 'Español', en: 'English', ca: 'Català' };
+---
+<nav class="lang" aria-label={label}>
+  <ul>
+    {
+      locales.map((l) => (
+        <li>
+          <a
+            href={alternates[l]}
+            hreflang={l}
+            lang={l}
+            aria-current={l === locale ? 'true' : undefined}
+            title={names[l]}
+          >
+            {l.toUpperCase()}
+            <span class="visually-hidden">{names[l]}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  ul {
+    display: flex;
+    gap: 0.15rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+  a {
+    display: block;
+    padding: 0.35rem 0.45rem;
+    text-decoration: none;
+    color: var(--muted);
+    border-radius: var(--radius);
+  }
+  a[aria-current] {
+    color: var(--ink);
+    background: var(--paper-2);
+  }
+</style>
