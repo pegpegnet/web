@@ -1,21 +1,37 @@
 ---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { t, type Locale, type Section } from '../i18n';
+
 interface Props {
-  lang: 'es' | 'en' | 'ca';
+  locale: Locale;
   title: string;
   description: string;
+  /** This page's URL in each locale, for the language switcher. */
+  alternates: Record<Locale, string>;
+  current?: Section;
 }
-const { lang, title, description } = Astro.props;
+const { locale, title, description, alternates, current } = Astro.props;
 ---
 <!doctype html>
-<html lang={lang}>
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={new URL(Astro.url.pathname === "/" ? `/${locale}/` : Astro.url.pathname, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f4f2ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f0f0e" media="(prefers-color-scheme: dark)" />
   </head>
   <body>
-    <slot />
+    <a class="skip-link" href="#main">{t(locale, 'ui-skip')}</a>
+    <Header locale={locale} alternates={alternates} current={current} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} />
   </body>
 </html>

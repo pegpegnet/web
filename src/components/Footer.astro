@@ -1,0 +1,116 @@
+---
+import Wordmark from './Wordmark.astro';
+import { t, path, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <a class="cta" href={path(locale, 'contact')}>
+      <span class="eyebrow">{t(locale, 'contact')}</span>
+      <span class="cta-text">{t(locale, 'ui-start-project')} <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+    <div class="grid cols">
+      <div class="about">
+        <Wordmark href={path(locale)} />
+        <p>{t(locale, 'footer')}</p>
+      </div>
+      <div class="col">
+        <h2 class="eyebrow">{t(locale, 'address')}</h2>
+        <address>
+          Calle de Luis Antúnez&nbsp;6<br />08006 Barcelona
+        </address>
+      </div>
+      <div class="col">
+        <h2 class="eyebrow">{t(locale, 'ui-studio')}</h2>
+        <ul>
+          <li><a href={path(locale, 'projects')}>{t(locale, 'projects')}</a></li>
+          <li><a href={path(locale, 'services')}>{t(locale, 'services')}</a></li>
+          <li><a href={path(locale, 'glossary')}>{t(locale, 'glossary')}</a></li>
+        </ul>
+      </div>
+      <div class="col">
+        <h2 class="eyebrow">{t(locale, 'ui-follow')}</h2>
+        <ul>
+          <li><a href="https://www.linkedin.com/company/pegpeg" rel="me external">LinkedIn</a></li>
+          <li><a href="https://x.com/pegpegnet" rel="me external">X</a></li>
+          <li><a href="https://github.com/pegpegnet" rel="me external">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal eyebrow">© {year} PegPeg · Barcelona</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--space-2xl);
+    padding-block: var(--space-xl) var(--space-l);
+    border-top: 1px solid var(--line);
+  }
+  .cta {
+    display: block;
+    text-decoration: none;
+    padding-bottom: var(--space-xl);
+  }
+  .cta-text {
+    display: block;
+    margin-top: var(--space-s);
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .arrow {
+    display: inline-block;
+    transition: transform var(--dur-2) var(--ease-out);
+  }
+  .cta:hover .arrow {
+    transform: translateX(0.25em);
+  }
+  .cols {
+    row-gap: var(--space-l);
+    padding-top: var(--space-l);
+    border-top: 1px solid var(--line);
+  }
+  .about {
+    grid-column: span 12;
+  }
+  .about p {
+    margin-top: var(--space-s);
+    color: var(--muted);
+    max-width: 46ch;
+    font-size: 0.95rem;
+  }
+  .col {
+    grid-column: span 6;
+  }
+  .col ul {
+    list-style: none;
+    margin: var(--space-xs) 0 0;
+    padding: 0;
+  }
+  .col a {
+    text-decoration: none;
+  }
+  address {
+    margin-top: var(--space-xs);
+    font-style: normal;
+  }
+  .legal {
+    margin-top: var(--space-xl);
+  }
+  @media (min-width: 52rem) {
+    .about {
+      grid-column: span 6;
+    }
+    .col {
+      grid-column: span 2;
+    }
+  }
+</style>
