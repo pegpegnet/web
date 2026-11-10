@@ -25,6 +25,9 @@ const { locale, title, description, alternates, current, noindex = false } = Ast
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={new URL(Astro.url.pathname === "/" ? `/${locale}/` : Astro.url.pathname, Astro.site)} />
+    {Object.entries(alternates).map(([l, href]) => <link rel="alternate" hreflang={l} href={new URL(href, Astro.site)} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(alternates.es, Astro.site)} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#ffffff" />
     <script is:inline>
