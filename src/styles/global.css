@@ -141,6 +141,11 @@ button {
   white-space: nowrap;
 }
 
+/* Reveal targets start hidden only while motion is on (see Base.astro and scripts/motion.ts) */
+.motion [data-reveal] {
+  visibility: hidden;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
