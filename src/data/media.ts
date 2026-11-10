@@ -13,5 +13,15 @@ export function workImage(name: string): ImageMetadata {
 
 /** The largest picture a project has, for cards: a gallery shot, then the case-study banner, then the old thumbnail. */
 export function cover(project: Project): ImageMetadata {
-  return workImage(project.gallery?.[0] ?? project.page?.hero ?? project.thumb);
+  const img = maybeCover(project);
+  if (!img) throw new Error(`Project ${project.slug} has no image`);
+  return img;
 }
+
+export function maybeCover(project: Project): ImageMetadata | undefined {
+  const name = project.gallery?.[0] ?? project.page?.hero ?? project.thumb;
+  return name ? workImage(name) : undefined;
+}
+
+/** Shared by a card's picture and the case-study hero, so the browser can morph one into the other. */
+export const transitionName = (project: Project) => `work-${project.slug}`;
