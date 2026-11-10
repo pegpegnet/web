@@ -23,8 +23,7 @@ const { locale, title, description, alternates, current } = Astro.props;
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname === "/" ? `/${locale}/` : Astro.url.pathname, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#f4f2ee" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f0f0e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" />
     <script is:inline>
       // Hide reveal targets only when motion is allowed. If the motion module hasn't started
       // within 3 s (blocked script, slow network), show everything rather than leave it hidden.

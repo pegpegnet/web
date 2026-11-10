@@ -1,6 +1,5 @@
-@import '@fontsource-variable/bricolage-grotesque';
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/jetbrains-mono';
+@import '@fontsource-variable/funnel-display';
+@import '@fontsource-variable/figtree';
 @import './tokens.css';
 
 *,
@@ -22,7 +21,6 @@ body {
   font-family: var(--font-body);
   font-size: var(--step-0);
   line-height: 1.6;
-  font-feature-settings: 'ss01', 'cv11';
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
@@ -33,15 +31,22 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.025em;
+  font-weight: 650;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
   margin: 0;
   text-wrap: balance;
 }
 
-p {
+p,
+ul,
+ol,
+dl,
+dd {
   margin: 0;
+}
+
+p {
   text-wrap: pretty;
 }
 
@@ -57,22 +62,22 @@ canvas {
 a {
   color: inherit;
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.22em;
 }
 
 a:hover {
-  color: var(--accent);
+  color: var(--blue);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--blue);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 
 ::selection {
-  background: var(--accent);
-  color: var(--accent-ink);
+  background: var(--blue);
+  color: var(--on-blue);
 }
 
 button {
@@ -88,24 +93,29 @@ button {
   padding-inline: var(--gutter);
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--gutter);
+/* Page intro used by every inner page: one headline, one short lead */
+.page-head {
+  padding-block: var(--space-xl) var(--space-l);
 }
 
-/* Small uppercase label used for section numbers, categories and years */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: var(--step--1);
-  font-weight: 450;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--muted);
+.page-head h1 {
+  font-size: var(--step-5);
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+  max-width: 14ch;
 }
 
+.page-head .lead {
+  margin-top: var(--space-m);
+  max-width: 48ch;
+  font-size: var(--step-1);
+  line-height: 1.45;
+  color: var(--mist);
+}
+
+/* Long-form text */
 .prose {
-  max-width: 62ch;
+  max-width: 64ch;
 }
 
 .prose > * + * {
@@ -117,6 +127,46 @@ button {
   margin-top: 2em;
 }
 
+.prose a {
+  color: var(--blue);
+}
+
+/* Primary and secondary actions */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-out);
+}
+
+.button:hover {
+  background: var(--blue);
+  color: var(--on-blue);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button.quiet {
+  background: transparent;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.button.quiet:hover {
+  box-shadow: inset 0 0 0 1px var(--ink);
+  color: var(--ink);
+}
+
 .skip-link {
   position: absolute;
   left: var(--gutter);
@@ -125,7 +175,7 @@ button {
   padding: var(--space-xs) var(--space-s);
   background: var(--ink);
   color: var(--paper);
-  border-radius: var(--radius);
+  border-radius: var(--radius-s);
 }
 
 .skip-link:focus {

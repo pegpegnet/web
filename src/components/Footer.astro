@@ -11,22 +11,19 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="container">
     <a class="cta" href={path(locale, 'contact')}>
-      <span class="eyebrow">{t(locale, 'contact')}</span>
-      <span class="cta-text" data-reveal="lines">{t(locale, 'ui-start-project')} <span class="arrow" aria-hidden="true">→</span></span>
+      <span class="cta-text">{t(locale, 'ui-start-project')}</span>
     </a>
-    <div class="grid cols">
+    <div class="cols">
       <div class="about">
         <Wordmark href={path(locale)} />
         <p>{t(locale, 'footer')}</p>
       </div>
       <div class="col">
-        <h2 class="eyebrow">{t(locale, 'address')}</h2>
-        <address>
-          Calle de Luis Antúnez&nbsp;6<br />08006 Barcelona
-        </address>
+        <h2>{t(locale, 'address')}</h2>
+        <address>Calle de Luis Antúnez&nbsp;6<br />08006 Barcelona</address>
       </div>
       <div class="col">
-        <h2 class="eyebrow">{t(locale, 'ui-studio')}</h2>
+        <h2>{t(locale, 'ui-studio')}</h2>
         <ul>
           <li><a href={path(locale, 'projects')}>{t(locale, 'projects')}</a></li>
           <li><a href={path(locale, 'services')}>{t(locale, 'services')}</a></li>
@@ -34,7 +31,7 @@ const year = new Date().getFullYear();
         </ul>
       </div>
       <div class="col">
-        <h2 class="eyebrow">{t(locale, 'ui-follow')}</h2>
+        <h2>{t(locale, 'ui-follow')}</h2>
         <ul>
           <li><a href="https://www.linkedin.com/company/pegpeg" rel="me external">LinkedIn</a></li>
           <li><a href="https://x.com/pegpegnet" rel="me external">X</a></li>
@@ -42,7 +39,7 @@ const year = new Date().getFullYear();
         </ul>
       </div>
     </div>
-    <p class="legal eyebrow">© {year} PegPeg · Barcelona</p>
+    <p class="legal">© {year} PegPeg, Barcelona</p>
   </div>
 </footer>
 
@@ -50,49 +47,56 @@ const year = new Date().getFullYear();
   .site-footer {
     margin-top: var(--space-2xl);
     padding-block: var(--space-xl) var(--space-l);
-    border-top: 1px solid var(--line);
+    background: var(--surface);
   }
   .cta {
-    display: block;
+    display: inline-block;
     text-decoration: none;
     padding-bottom: var(--space-xl);
   }
   .cta-text {
-    display: block;
-    margin-top: var(--space-s);
     font-family: var(--font-display);
-    font-size: var(--step-4);
-    font-weight: 600;
-    letter-spacing: -0.035em;
-    line-height: 1;
+    font-size: var(--step-5);
+    font-weight: 650;
+    letter-spacing: -0.045em;
+    line-height: 0.95;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 0.06em;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition:
+      background-size var(--dur-3) var(--ease-out),
+      color var(--dur-2) var(--ease-out);
   }
-  .arrow {
-    display: inline-block;
-    transition: transform var(--dur-2) var(--ease-out);
-  }
-  .cta:hover .arrow {
-    transform: translateX(0.25em);
+  .cta:hover .cta-text {
+    color: var(--blue);
+    background-size: 100% 0.06em;
   }
   .cols {
-    row-gap: var(--space-l);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-l) var(--gutter);
     padding-top: var(--space-l);
     border-top: 1px solid var(--line);
   }
   .about {
-    grid-column: span 12;
+    grid-column: 1 / -1;
   }
   .about p {
     margin-top: var(--space-s);
-    color: var(--muted);
     max-width: 46ch;
-    font-size: 0.95rem;
+    color: var(--mist);
   }
-  .col {
-    grid-column: span 6;
+  .col h2 {
+    font-family: var(--font-body);
+    font-size: var(--step--1);
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--mist);
   }
   .col ul {
     list-style: none;
-    margin: var(--space-xs) 0 0;
+    margin-top: var(--space-xs);
     padding: 0;
   }
   .col a {
@@ -104,13 +108,15 @@ const year = new Date().getFullYear();
   }
   .legal {
     margin-top: var(--space-xl);
+    font-size: var(--step--1);
+    color: var(--mist);
   }
   @media (min-width: 52rem) {
-    .about {
-      grid-column: span 6;
+    .cols {
+      grid-template-columns: 2fr repeat(3, minmax(0, 1fr));
     }
-    .col {
-      grid-column: span 2;
+    .about {
+      grid-column: auto;
     }
   }
 </style>

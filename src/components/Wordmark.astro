@@ -1,31 +1,34 @@
 ---
-// The PegPeg wordmark, set in type so it stays sharp and follows the theme colour.
+// The PegPeg wordmark: the original lowercase "pegpeg" in the logo's blue, redrawn flat and heavy.
+// Set in type (Funnel Display) so it stays sharp at every size.
 interface Props {
   href: string;
+  size?: 'small' | 'large';
 }
-const { href } = Astro.props;
+const { href, size = 'small' } = Astro.props;
 ---
-<a class="wordmark" href={href} aria-label="PegPeg">
-  <span aria-hidden="true">peg<span class="second">peg</span></span>
+<a class:list={['wordmark', size]} href={href} aria-label="PegPeg">
+  <span aria-hidden="true">pegpeg</span>
 </a>
 
 <style>
   .wordmark {
+    display: inline-block;
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: -0.04em;
-    text-decoration: none;
+    font-weight: 800;
+    letter-spacing: -0.055em;
     line-height: 1;
-  }
-  .second {
-    color: var(--accent);
+    color: var(--blue);
+    text-decoration: none;
     transition: color var(--dur-2) var(--ease-out);
   }
-  .wordmark:hover {
-    color: inherit;
+  .small {
+    font-size: 1.6rem;
   }
-  .wordmark:hover .second {
-    color: inherit;
+  .large {
+    font-size: var(--step-4);
+  }
+  .wordmark:hover {
+    color: var(--ink);
   }
 </style>
