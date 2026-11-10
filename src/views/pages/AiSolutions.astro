@@ -1,0 +1,85 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import { t, path, alternatesFor, type Locale, type MessageKey } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const offers: { title: MessageKey; text: MessageKey; features: MessageKey[]; id: string }[] = [
+  { id: 'chatbots', title: 'chatbot-development', text: 'chatbot-development-description', features: ['chatbot-feature-1', 'chatbot-feature-2', 'chatbot-feature-3'] },
+  { id: 'rag', title: 'rag-solutions', text: 'rag-solutions-description', features: ['rag-feature-1', 'rag-feature-2', 'rag-feature-3'] },
+  { id: 'integration', title: 'ai-integration', text: 'ai-integration-description', features: ['ai-integration-feature-1', 'ai-integration-feature-2', 'ai-integration-feature-3'] },
+];
+const benefits: [MessageKey, MessageKey][] = [
+  ['ai-benefit-1-title', 'ai-benefit-1-description'],
+  ['ai-benefit-2-title', 'ai-benefit-2-description'],
+  ['ai-benefit-3-title', 'ai-benefit-3-description'],
+];
+---
+<Base
+  locale={locale}
+  title={t(locale, 'meta_ai_solutions_title')}
+  description={t(locale, 'meta_ai_solutions_description')}
+  alternates={alternatesFor('ai')}
+  current="ai"
+>
+  <header class="page-head container">
+    <h1>{t(locale, 'ai-solutions')}</h1>
+    <p class="lead">{t(locale, 'html5-css3-description')}</p>
+  </header>
+
+  {
+    offers.map((o) => (
+      <Section title={t(locale, o.title)} id={o.id}>
+        <p>{t(locale, o.text)}</p>
+        <ul>{o.features.map((k) => <li>{t(locale, k)}</li>)}</ul>
+      </Section>
+    ))
+  }
+
+  <Section title={t(locale, 'ai-benefits-title')} id="benefits">
+    <dl class="benefits">
+      {
+        benefits.map(([title, text]) => (
+          <div>
+            <dt>{t(locale, title)}</dt>
+            <dd>{t(locale, text)}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Section>
+
+  <section class="cta container" aria-labelledby="ai-cta">
+    <h2 id="ai-cta">{t(locale, 'ai-cta-title')}</h2>
+    <p>{t(locale, 'ai-cta-description')}</p>
+    <a class="button" href={path(locale, 'contact')}>{t(locale, 'contact-us-button')}</a>
+  </section>
+</Base>
+
+<style>
+  .benefits div + div {
+    margin-top: var(--space-m);
+  }
+  dt {
+    font-weight: 650;
+  }
+  dd {
+    color: var(--mist);
+  }
+  .cta {
+    padding-block: var(--space-xl) 0;
+    border-top: 1px solid var(--line);
+  }
+  .cta h2 {
+    font-size: var(--step-3);
+    max-width: 18ch;
+  }
+  .cta p {
+    margin-block: var(--space-s) var(--space-m);
+    max-width: 48ch;
+    color: var(--mist);
+  }
+</style>
