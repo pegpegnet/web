@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import { t, path, type Locale } from '../i18n';
+import { cover } from '../data/media';
+import type { Project } from '../data/projects';
+
+interface Props {
+  locale: Locale;
+  project: Project;
+  /** Above the fold: load eagerly. */
+  eager?: boolean;
+  sizes?: string;
+}
+const { locale, project, eager = false, sizes = '(min-width: 52rem) 33vw, 100vw' } = Astro.props;
+const title = 'key' in project.title ? t(locale, project.title.key) : project.title.text;
+const kinds = project.categories.map((c) => t(locale, c === 'app' ? 'apps' : c === 'web' ? 'web' : 'games')).join(', ');
+---
+<article class="work" data-categories={project.categories.join(' ')}>
+  <a href={path(locale, 'projects', project.slug)}>
+    <div class="media">
+      <Image
+        src={cover(project)}
+        alt=""
+        widths={[400, 640, 960]}
+        sizes={sizes}
+        loading={eager ? 'eager' : 'lazy'}
+        draggable="false"
+      />
+    </div>
+    <h3>{title}</h3>
+  </a>
+  <p class="kinds">{kinds}</p>
+  <p class="summary" set:html={t(locale, project.summaryKey)} />
+</article>
+
+<style>
+  .work {
+    position: relative;
+  }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  /* The whole card is clickable through the title link's area */
+  a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .media {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    isolation: isolate;
+  }
+  .media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-3) var(--ease-out);
+  }
+  .work:hover .media :global(img) {
+    transform: scale(1.04);
+  }
+  h3 {
+    margin-top: var(--space-s);
+    font-size: var(--step-1);
+    letter-spacing: -0.02em;
+    transition: color var(--dur-2) var(--ease-out);
+  }
+  .work:hover h3 {
+    color: var(--blue);
+  }
+  .kinds {
+    margin-top: 0.15rem;
+    font-size: var(--step--1);
+    color: var(--mist);
+  }
+  .summary {
+    margin-top: var(--space-xs);
+    font-size: var(--step--1);
+    color: var(--mist);
+    max-width: 44ch;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .work:has(a:focus-visible) .media {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+  }
+  a:focus-visible {
+    outline: none;
+  }
+</style>
