@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t, alternatesFor, type Locale, type MessageKey } from '../../i18n';
+import es from '../../i18n/es.json';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// Every glossary-<term> key that has a matching -desc, sorted by the term as it reads in this language.
+const terms = Object.keys(es)
+  .filter((k) => k.startsWith('glossary-') && k.endsWith('-desc'))
+  .map((desc) => ({ term: desc.slice(0, -'-desc'.length) as MessageKey, desc: desc as MessageKey }))
+  .map(({ term, desc }) => ({ id: term.replace('glossary-', ''), term: t(locale, term), desc: t(locale, desc) }))
+  .sort((a, b) => a.term.localeCompare(b.term, locale, { sensitivity: 'base' }));
+---
+<Base
+  locale={locale}
+  title={t(locale, 'meta_glossary_title')}
+  description={t(locale, 'meta_glossary_description')}
+  alternates={alternatesFor('glossary')}
+  current="glossary"
+>
+  <header class="page-head container">
+    <h1 data-reveal="lines" data-reveal-now>{t(locale, 'glossary')}</h1>
+    <p class="lead">{t(locale, 'ui-glossary-lead')}</p>
+  </header>
+
+  <div class="container">
+    <div class="search">
+      <label for="glossary-search">{t(locale, 'ui-glossary-search')}</label>
+      <input id="glossary-search" type="search" autocomplete="off" spellcheck="false" />
+    </div>
+    <dl class="terms">
+      {
+        terms.map((x) => (
+          <div class="term" id={x.id} data-text={`${x.term} ${x.desc}`.toLocaleLowerCase(locale)}>
+            <dt>{x.term}</dt>
+            <dd set:html={x.desc} />
+          </div>
+        ))
+      }
+    </dl>
+    <p class="none" role="status" hidden>{t(locale, 'ui-glossary-none')}</p>
+  </div>
+</Base>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('#glossary-search')!;
+  const rows = [...document.querySelectorAll<HTMLElement>('.term')];
+  const none = document.querySelector<HTMLElement>('.none')!;
+  const lang = document.documentElement.lang;
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLocaleLowerCase(lang);
+    let shown = 0;
+    for (const row of rows) {
+      const match = !q || row.dataset.text!.includes(q);
+      row.hidden = !match;
+      if (match) shown++;
+    }
+    none.hidden = shown > 0;
+  });
+</script>
+
+<style>
+  .search {
+    display: grid;
+    gap: var(--space-2xs);
+    max-width: 28rem;
+    margin-bottom: var(--space-l);
+  }
+  label {
+    font-weight: 600;
+    font-size: var(--step--1);
+    color: var(--mist);
+  }
+  input {
+    font: inherit;
+    padding: 0.8rem 1.1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--line);
+    color: var(--ink);
+    transition: box-shadow var(--dur-2) var(--ease-out);
+  }
+  input:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--blue);
+  }
+  .terms {
+    border-top: 1px solid var(--line);
+  }
+  .term {
+    display: grid;
+    gap: var(--space-2xs) var(--gutter);
+    padding-block: var(--space-m);
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 6rem;
+  }
+  .term[hidden] {
+    display: none;
+  }
+  .term:target dt {
+    color: var(--blue);
+  }
+  dt {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  dd {
+    margin: 0;
+    max-width: 64ch;
+    color: var(--mist);
+  }
+  .none {
+    padding-block: var(--space-l);
+    color: var(--mist);
+  }
+  @media (min-width: 52rem) {
+    .term {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+</style>
