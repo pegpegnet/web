@@ -18,10 +18,16 @@ const titles: Record<Locale, string> = {
   <section class="hero" aria-labelledby="hero-title">
     <HeroScene />
     <div class="container hero-text">
-      <p class="eyebrow">PegPeg — Barcelona</p>
-      <h1 id="hero-title">{t(locale, 'ui-tagline')}</h1>
-      <p class="sub">{t(locale, 'ui-hero-sub')}</p>
+      <p class="eyebrow" data-reveal="up" data-reveal-now>PegPeg — Barcelona</p>
+      <h1 id="hero-title" data-reveal="lines" data-reveal-now>{t(locale, 'ui-tagline')}</h1>
+      <p class="sub" data-reveal="up" data-reveal-now>{t(locale, 'ui-hero-sub')}</p>
     </div>
+  </section>
+
+  <section class="intro container" aria-labelledby="intro-title">
+    <p class="eyebrow" data-reveal="up">{t(locale, 'ui-studio')}</p>
+    <h2 id="intro-title" class="statement" data-reveal="lines">{t(locale, 'weare')}</h2>
+    <p class="statement-sub" data-reveal="up">{t(locale, 'weare2')}</p>
   </section>
 </Base>
 
@@ -56,7 +62,38 @@ const titles: Record<Locale, string> = {
     line-height: 1.4;
     color: var(--muted);
   }
+  .intro {
+    padding-block: var(--space-2xl) var(--space-xl);
+  }
+  .statement {
+    margin-top: var(--space-m);
+    max-width: 22ch;
+    font-size: var(--step-4);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+  .statement-sub {
+    margin-top: var(--space-l);
+    max-width: 44ch;
+    font-size: var(--step-1);
+    line-height: 1.45;
+    color: var(--muted);
+  }
   @media (min-width: 52rem) {
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      column-gap: var(--gutter);
+    }
+    .intro .eyebrow {
+      grid-row: 1 / span 2;
+      margin-top: 0.9rem;
+    }
+    .statement,
+    .statement-sub {
+      grid-column: 2;
+    }
     .hero :global(.hero-scene) {
       inset: 0 0 0 auto;
       width: 60%;
