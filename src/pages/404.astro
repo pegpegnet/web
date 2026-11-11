@@ -1,0 +1,35 @@
+---
+// Served by the web server for any unknown URL (ErrorDocument in public/.htaccess).
+// The language of a missing page isn't known, so it speaks Spanish and offers every home page.
+import Base from '../layouts/Base.astro';
+import { path, locales } from '../i18n';
+const names = { es: 'Español', en: 'English', ca: 'Català' } as const;
+---
+<Base locale="es" title="Página no encontrada | PegPeg" description="Esta página no existe." alternates={{ es: '/es/', en: '/en/', ca: '/ca/' }} noindex>
+  <header class="page-head container">
+    <h1 data-reveal="lines" data-reveal-now>Esta página no existe</h1>
+    <p class="lead">Puede que el enlace sea antiguo. Desde el inicio llegarás a nuestros proyectos y servicios.</p>
+    <ul class="homes">
+      {
+        locales.map((l) => (
+          <li>
+            <a class={l === 'es' ? 'button' : 'button quiet'} href={path(l)} hreflang={l} lang={l}>
+              {names[l]}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </header>
+</Base>
+
+<style>
+  .homes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-l);
+    padding: 0;
+    list-style: none;
+  }
+</style>
