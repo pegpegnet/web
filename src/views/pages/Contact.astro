@@ -1,0 +1,150 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t, alternatesFor, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const required = t(locale, 'ui-required');
+---
+<Base
+  locale={locale}
+  title={t(locale, 'meta_contact_title')}
+  description={t(locale, 'meta_contact_description')}
+  alternates={alternatesFor('contact')}
+  current="contact"
+>
+  <header class="page-head container">
+    <h1 data-reveal="lines" data-reveal-now>{t(locale, 'contact-us')}</h1>
+    <p class="lead">{t(locale, 'contact-us-description')}</p>
+  </header>
+
+  <div class="container layout">
+    <form class="form" method="post" action="/api/contact.php" data-contact>
+      <input type="hidden" name="locale" value={locale} />
+      <input type="hidden" name="t" value="" data-started />
+      <div class="field">
+        <label for="c-name">{t(locale, 'name')} <span class="req">({required})</span></label>
+        <input id="c-name" name="name" autocomplete="name" required maxlength="200" />
+      </div>
+      <div class="field">
+        <label for="c-email">{t(locale, 'email')} <span class="req">({required})</span></label>
+        <input id="c-email" name="email" type="email" autocomplete="email" required maxlength="254" />
+      </div>
+      <div class="field">
+        <label for="c-message">{t(locale, 'message')} <span class="req">({required})</span></label>
+        <textarea id="c-message" name="message" rows="7" required maxlength="5000"></textarea>
+      </div>
+      <!-- Left empty by people; bots that fill every field are dropped by the endpoint -->
+      <div class="trap" aria-hidden="true">
+        <label for="c-website">Website</label>
+        <input id="c-website" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+      <button class="button" type="submit" data-label={t(locale, 'ui-sending')}>{t(locale, 'send-message')}</button>
+    </form>
+
+    <aside class="where" aria-labelledby="where-title">
+      <h2 id="where-title">{t(locale, 'ui-find-us')}</h2>
+      <address>Calle de Luis Antúnez&nbsp;6<br />08006 Barcelona</address>
+      <ul>
+        <li><a href="https://www.linkedin.com/company/pegpeg" rel="me external">LinkedIn</a></li>
+        <li><a href="https://github.com/pegpegnet" rel="me external">GitHub</a></li>
+      </ul>
+    </aside>
+  </div>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact]')!;
+  form.querySelector<HTMLInputElement>('[data-started]')!.value = String(Math.floor(Date.now() / 1000));
+  form.addEventListener('submit', () => {
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    button.disabled = true;
+    button.textContent = button.dataset.label!;
+  });
+</script>
+
+<style>
+  .layout {
+    display: grid;
+    gap: var(--space-xl) var(--gutter);
+  }
+  .form {
+    display: grid;
+    gap: var(--space-m);
+    max-width: 40rem;
+  }
+  .field {
+    display: grid;
+    gap: var(--space-2xs);
+  }
+  label {
+    font-weight: 600;
+  }
+  .req {
+    font-weight: 400;
+    color: var(--mist);
+  }
+  input,
+  textarea {
+    font: inherit;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 0;
+    border-radius: var(--radius-s);
+    background: var(--surface);
+    box-shadow: inset 0 0 0 1px var(--line);
+    color: var(--ink);
+    transition: box-shadow var(--dur-2) var(--ease-out);
+  }
+  textarea {
+    resize: vertical;
+    min-height: 10rem;
+  }
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--blue);
+  }
+  input:user-invalid,
+  textarea:user-invalid {
+    box-shadow: inset 0 0 0 2px #b42318;
+  }
+  .trap {
+    position: absolute;
+    left: -9999px;
+  }
+  .button {
+    justify-self: start;
+    border: 0;
+    cursor: pointer;
+  }
+  .button:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+  .where h2 {
+    font-size: var(--step-2);
+  }
+  address {
+    margin-top: var(--space-s);
+    font-style: normal;
+    font-size: var(--step-1);
+    line-height: 1.4;
+  }
+  .where ul {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-m);
+    font-weight: 600;
+  }
+  .where li + li {
+    margin-top: var(--space-2xs);
+  }
+  @media (min-width: 52rem) {
+    .layout {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+</style>
