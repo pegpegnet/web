@@ -4,13 +4,27 @@ import Services from '../../views/pages/Services.astro';
 import MobileApps from '../../views/pages/MobileApps.astro';
 import WebApps from '../../views/pages/WebApps.astro';
 import AiSolutions from '../../views/pages/AiSolutions.astro';
+import Projects from '../../views/pages/Projects.astro';
+import Glossary from '../../views/pages/Glossary.astro';
+import Contact from '../../views/pages/Contact.astro';
+import FormResult from '../../views/pages/FormResult.astro';
 import { locales, segments, type Locale } from '../../i18n';
 
-const views = { services: Services, mobileApps: MobileApps, webApps: WebApps, ai: AiSolutions } as const;
+const views = {
+  projects: Projects,
+  services: Services,
+  mobileApps: MobileApps,
+  webApps: WebApps,
+  ai: AiSolutions,
+  glossary: Glossary,
+  contact: Contact,
+  sent: FormResult,
+  notSent: FormResult,
+} as const;
 type View = keyof typeof views;
 
 export function getStaticPaths() {
-  const pages: View[] = ['services', 'mobileApps', 'webApps', 'ai'];
+  const pages: View[] = ['projects', 'services', 'mobileApps', 'webApps', 'ai', 'glossary', 'contact', 'sent', 'notSent'];
   return locales.flatMap((locale) =>
     pages.map((view) => ({ params: { locale, page: segments[view][locale] }, props: { view } })),
   );
@@ -18,4 +32,4 @@ export function getStaticPaths() {
 const locale = Astro.params.locale as Locale;
 const Page = views[Astro.props.view as View];
 ---
-<Page locale={locale} />
+<Page locale={locale} ok={Astro.props.view === 'sent'} />

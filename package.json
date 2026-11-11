@@ -11,6 +11,7 @@
     "check:content": "node scripts/check-content.ts"
   },
   "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
     "@fontsource-variable/figtree": "5.3.0",
     "@fontsource-variable/funnel-display": "5.3.0",
     "astro": "5.18.2",

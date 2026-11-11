@@ -191,6 +191,18 @@ button {
   white-space: nowrap;
 }
 
+/* Page-to-page morphs (card picture to case-study hero) in browsers that support them */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.6s;
+  animation-timing-function: var(--ease-out);
+}
+
 /* Reveal targets start hidden only while motion is on (see Base.astro and scripts/motion.ts) */
 .motion [data-reveal] {
   visibility: hidden;
