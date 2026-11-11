@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import HeroScene from '../components/HeroScene.astro';
+import WorkReel from '../components/WorkReel.astro';
 import { t, path, locales, type Locale } from '../i18n';
 
 interface Props {
@@ -18,59 +19,67 @@ const titles: Record<Locale, string> = {
   <section class="hero" aria-labelledby="hero-title">
     <HeroScene />
     <div class="container hero-text">
-      <p class="eyebrow" data-reveal="up" data-reveal-now>PegPeg — Barcelona</p>
       <h1 id="hero-title" data-reveal="lines" data-reveal-now>{t(locale, 'ui-tagline')}</h1>
-      <p class="sub" data-reveal="up" data-reveal-now>{t(locale, 'ui-hero-sub')}</p>
+      <p class="lead" data-reveal="up" data-reveal-now>{t(locale, 'ui-hero-sub')}</p>
+      <div class="actions" data-reveal="up" data-reveal-now>
+        <a class="button" href={path(locale, 'projects')}>{t(locale, 'ui-see-work')}</a>
+        <a class="button quiet" href={path(locale, 'contact')}>{t(locale, 'contact-us')}</a>
+      </div>
     </div>
   </section>
 
   <section class="intro container" aria-labelledby="intro-title">
-    <p class="eyebrow" data-reveal="up">{t(locale, 'ui-studio')}</p>
-    <h2 id="intro-title" class="statement" data-reveal="lines">{t(locale, 'weare')}</h2>
-    <p class="statement-sub" data-reveal="up">{t(locale, 'weare2')}</p>
+    <h2 id="intro-title" class="statement">{t(locale, 'weare')}</h2>
+    <p class="statement-sub">{t(locale, 'weare2')}</p>
   </section>
+
+  <WorkReel locale={locale} />
 </Base>
 
 <style>
   .hero {
     position: relative;
-    min-height: calc(100svh - 4.25rem);
+    min-height: calc(100svh - 4.5rem);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
   }
   .hero :global(.hero-scene) {
     inset: 0 0 auto 0;
-    height: 56%;
+    height: 52%;
   }
   .hero-text {
     position: relative;
     padding-bottom: var(--space-xl);
   }
   h1 {
-    margin-top: var(--space-m);
     font-size: var(--step-5);
-    font-weight: 650;
-    letter-spacing: -0.045em;
+    font-weight: 700;
+    letter-spacing: -0.05em;
     line-height: 0.92;
-    max-width: 12ch;
+    max-width: 10ch;
   }
-  .sub {
-    margin-top: var(--space-l);
-    max-width: 38ch;
+  .lead {
+    margin-top: var(--space-m);
+    max-width: 40ch;
     font-size: var(--step-1);
-    line-height: 1.4;
-    color: var(--muted);
+    line-height: 1.45;
+    color: var(--mist);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-l);
   }
   .intro {
     padding-block: var(--space-2xl) var(--space-xl);
   }
   .statement {
-    margin-top: var(--space-m);
-    max-width: 22ch;
+    max-width: 20ch;
     font-size: var(--step-4);
     font-weight: 600;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.04em;
     line-height: 1.02;
   }
   .statement-sub {
@@ -78,22 +87,9 @@ const titles: Record<Locale, string> = {
     max-width: 44ch;
     font-size: var(--step-1);
     line-height: 1.45;
-    color: var(--muted);
+    color: var(--mist);
   }
   @media (min-width: 52rem) {
-    .intro {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      column-gap: var(--gutter);
-    }
-    .intro .eyebrow {
-      grid-row: 1 / span 2;
-      margin-top: 0.9rem;
-    }
-    .statement,
-    .statement-sub {
-      grid-column: 2;
-    }
     .hero :global(.hero-scene) {
       inset: 0 0 0 auto;
       width: 60%;
@@ -101,7 +97,9 @@ const titles: Record<Locale, string> = {
     }
     h1 {
       font-size: clamp(3.4rem, 1.2rem + 6vw, 8rem);
-      max-width: 9ch;
+    }
+    .intro {
+      padding-left: calc(var(--gutter) + (100% - 2 * var(--gutter)) / 3);
     }
   }
 </style>

@@ -38,18 +38,19 @@ const names: Record<Locale, string> = { es: 'Español', en: 'English', ca: 'Cata
     margin: 0;
     padding: 0;
     list-style: none;
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
+    font-weight: 600;
     font-size: var(--step--1);
   }
   a {
     display: block;
     padding: 0.35rem 0.45rem;
     text-decoration: none;
-    color: var(--muted);
-    border-radius: var(--radius);
+    color: var(--mist);
+    border-radius: var(--radius-s);
   }
   a[aria-current] {
     color: var(--ink);
-    background: var(--paper-2);
+    background: var(--surface);
   }
 </style>

@@ -40,3 +40,8 @@ export function path(locale: Locale, section?: Section, slug?: string): string {
   if (slug) parts.push(slug);
   return `/${parts.join('/')}/`;
 }
+
+/** The same section's URL in every locale, for the language switcher and hreflang. */
+export function alternatesFor(section?: Section, slug?: string): Record<Locale, string> {
+  return Object.fromEntries(locales.map((l) => [l, path(l, section, slug)])) as Record<Locale, string>;
+}
