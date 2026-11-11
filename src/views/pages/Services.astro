@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import { t, path, alternatesFor, type Locale, type MessageKey, type Section } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+// Each service, with the page that explains it in depth where there is one.
+const services: { title: MessageKey; text: MessageKey; more?: Section }[] = [
+  { title: 'iphone-ipad', text: 'iphone-ipad-description', more: 'mobileApps' },
+  { title: 'multiplatform-apps', text: 'multiplatform-apps-description', more: 'webApps' },
+  { title: 'html5-css3', text: 'html5-css3-description', more: 'ai' },
+  { title: 'web-development', text: 'web-development-description', more: 'webApps' },
+  { title: 'responsive', text: 'responsive-description' },
+  { title: 'accessibility', text: 'accessibility-description' },
+  { title: 'content-manager', text: 'content-manager-description' },
+  { title: 'content-creation', text: 'content-creation-description' },
+];
+---
+<Base
+  locale={locale}
+  title={t(locale, 'meta_services_title')}
+  description={t(locale, 'meta_services_description')}
+  alternates={alternatesFor('services')}
+  current="services"
+>
+  <header class="page-head container">
+    <h1>{t(locale, 'services')}</h1>
+    <p class="lead">{t(locale, 'services-description')}</p>
+  </header>
+
+  <ul class="services container">
+    {
+      services.map((s) => (
+        <li>
+          <h2>{s.more ? <a href={path(locale, s.more)}>{t(locale, s.title)}</a> : t(locale, s.title)}</h2>
+          <p>{t(locale, s.text)}</p>
+        </li>
+      ))
+    }
+  </ul>
+</Base>
+
+<style>
+  .services {
+    list-style: none;
+    padding-block: var(--space-l) 0;
+  }
+  li {
+    display: grid;
+    gap: var(--space-xs) var(--gutter);
+    padding-block: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+  h2 {
+    font-size: var(--step-2);
+  }
+  h2 a {
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--dur-3) var(--ease-out);
+  }
+  h2 a:hover {
+    background-size: 100% 2px;
+  }
+  p {
+    max-width: 52ch;
+    color: var(--mist);
+  }
+  @media (min-width: 52rem) {
+    li {
+      grid-template-columns: 1fr 1fr;
+      align-items: baseline;
+    }
+  }
+</style>

@@ -1,0 +1,35 @@
+---
+// Single-level pages, at the localized URLs of the previous site (/es/servicios/, /en/services/, ...).
+import Services from '../../views/pages/Services.astro';
+import MobileApps from '../../views/pages/MobileApps.astro';
+import WebApps from '../../views/pages/WebApps.astro';
+import AiSolutions from '../../views/pages/AiSolutions.astro';
+import Projects from '../../views/pages/Projects.astro';
+import Glossary from '../../views/pages/Glossary.astro';
+import Contact from '../../views/pages/Contact.astro';
+import FormResult from '../../views/pages/FormResult.astro';
+import { locales, segments, type Locale } from '../../i18n';
+
+const views = {
+  projects: Projects,
+  services: Services,
+  mobileApps: MobileApps,
+  webApps: WebApps,
+  ai: AiSolutions,
+  glossary: Glossary,
+  contact: Contact,
+  sent: FormResult,
+  notSent: FormResult,
+} as const;
+type View = keyof typeof views;
+
+export function getStaticPaths() {
+  const pages: View[] = ['projects', 'services', 'mobileApps', 'webApps', 'ai', 'glossary', 'contact', 'sent', 'notSent'];
+  return locales.flatMap((locale) =>
+    pages.map((view) => ({ params: { locale, page: segments[view][locale] }, props: { view } })),
+  );
+}
+const locale = Astro.params.locale as Locale;
+const Page = views[Astro.props.view as View];
+---
+<Page locale={locale} ok={Astro.props.view === 'sent'} />

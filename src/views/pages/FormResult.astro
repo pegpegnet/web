@@ -1,0 +1,39 @@
+---
+// Where the contact endpoint sends the visitor after posting: /…/enviado/ or /…/noenviado/.
+import Base from '../../layouts/Base.astro';
+import { t, path, alternatesFor, type Locale } from '../../i18n';
+
+interface Props {
+  locale: Locale;
+  ok: boolean;
+}
+const { locale, ok } = Astro.props;
+const title = t(locale, ok ? 'ui-sent-title' : 'ui-notsent-title');
+---
+<Base
+  locale={locale}
+  title={`${title} | PegPeg`}
+  description={t(locale, ok ? 'ui-sent-text' : 'ui-notsent-text')}
+  alternates={alternatesFor(ok ? 'sent' : 'notSent')}
+  noindex
+>
+  <header class="page-head container">
+    <h1 data-reveal="lines" data-reveal-now>{title}</h1>
+    <p class="lead">{t(locale, ok ? 'ui-sent-text' : 'ui-notsent-text')}</p>
+    <p class="actions">
+      {
+        ok ? (
+          <a class="button" href={path(locale)}>{t(locale, 'ui-back-home')}</a>
+        ) : (
+          <a class="button" href={path(locale, 'contact')}>{t(locale, 'ui-try-again')}</a>
+        )
+      }
+    </p>
+  </header>
+</Base>
+
+<style>
+  .actions {
+    margin-top: var(--space-l);
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+// One content section on inner pages: its title in the left column, the content on the right.
+interface Props {
+  title: string;
+  id?: string;
+}
+const { title, id } = Astro.props;
+---
+<section class="container" aria-labelledby={id}>
+  <div class="section">
+    <h2 id={id}>{title}</h2>
+    <div class="body"><slot /></div>
+  </div>
+</section>
+
+<style>
+  .section {
+    display: grid;
+    gap: var(--space-m) var(--gutter);
+    padding-block: var(--space-l);
+    border-top: 1px solid var(--line);
+  }
+  h2 {
+    font-size: var(--step-2);
+    max-width: 16ch;
+  }
+  .body {
+    max-width: 64ch;
+  }
+  .body :global(p + p),
+  .body :global(p + ul),
+  .body :global(p + ol) {
+    margin-top: 1em;
+  }
+  .body :global(ul),
+  .body :global(ol) {
+    padding-left: 1.2em;
+  }
+  .body :global(li + li) {
+    margin-top: 0.35em;
+  }
+  .body :global(a) {
+    color: var(--blue);
+  }
+  @media (min-width: 52rem) {
+    .section {
+      grid-template-columns: 1fr 2fr;
+      padding-block: var(--space-xl);
+    }
+  }
+</style>
