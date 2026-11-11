@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { t, path, type Locale } from '../i18n';
-import { cover } from '../data/media';
+import { cover, transitionName } from '../data/media';
 import type { Project } from '../data/projects';
 
 interface Props {
@@ -17,7 +17,7 @@ const kinds = project.categories.map((c) => t(locale, c === 'app' ? 'apps' : c =
 ---
 <article class="work" data-categories={project.categories.join(' ')}>
   <a href={path(locale, 'projects', project.slug)}>
-    <div class="media">
+    <div class="media" style={`view-transition-name:${transitionName(project)}`}>
       <Image
         src={cover(project)}
         alt=""
