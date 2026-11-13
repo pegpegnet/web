@@ -46,6 +46,32 @@ const en = {
     next: 'Next project',
     all: 'All projects',
   },
+  services: {
+    title: 'What we do',
+    lead: 'Five things we’re good at, often in the same project.',
+    items: [
+      {
+        name: 'Native iOS and iPadOS',
+        text: 'Apps that feel at home on Apple devices, written in Swift and SwiftUI and shipped through the App Store.',
+      },
+      {
+        name: 'Cross-platform apps',
+        text: 'One codebase for iPhone and Android when that’s the better deal: Flutter, React Native or Kotlin Multiplatform, chosen per project.',
+      },
+      {
+        name: 'Web design and development',
+        text: 'Fast, accessible websites and web apps, with a content manager when you’d rather update them yourself.',
+      },
+      {
+        name: 'AI products',
+        text: 'Assistants that know your documents, and AI features built into the apps and tools you already use.',
+      },
+      {
+        name: 'Spatial and experimental',
+        text: 'visionOS apps, 3D on the web and the odd experiment. This site is one of them.',
+      },
+    ],
+  },
   openSource: {
     title: 'Open source, made for the Mac',
     lead: 'Apps we build in the open. Free to download, free to read, and made with the same care as client work.',
