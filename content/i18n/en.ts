@@ -1,0 +1,27 @@
+/** English copy. Other languages must provide the same keys (see content/i18n/index.ts). */
+const en = {
+  meta: {
+    title: 'PegPeg: creative technology studio in Barcelona',
+    description:
+      'Independent creative technology studio in Barcelona. We design, develop and experiment with apps, websites, AI and immersive experiences.',
+  },
+  hero: {
+    title: 'We make digital things come alive.',
+    lead: 'Independent creative technology studio in Barcelona. We design, develop, and experiment with apps, websites, AI, and immersive experiences.',
+  },
+  nav: {
+    work: 'Work',
+    services: 'What we do',
+    about: 'Studio',
+    contact: 'Contact',
+  },
+  projects: {
+    title: 'Projects',
+  },
+  contact: {
+    title: 'Have something interesting in mind?',
+  },
+};
+
+export default en;
+export type Dictionary = typeof en;
