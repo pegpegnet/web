@@ -10,6 +10,10 @@ const en = {
     lead: 'Independent creative technology studio in Barcelona. We design, develop, and experiment with apps, websites, AI, and immersive experiences.',
   },
   nav: {
+    menu: 'Menu',
+    close: 'Close',
+    mainNav: 'Main',
+    skip: 'Skip to content',
     work: 'Work',
     services: 'What we do',
     about: 'Studio',

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function SectionPage({ params }: { params: Promise<{ locale: string; section: string }> }) {
   const { which, t } = await resolve(params);
   return (
-    <main className="container-page py-24">
+    <main id="main" className="container-page pt-40 pb-24">
       <h1 className="type-poster text-step-5">{which === 'projects' ? t.projects.title : t.contact.title}</h1>
     </main>
   );

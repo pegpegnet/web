@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { locales, isLocale } from '@/lib/i18n';
 import { getDictionary } from '@/content/i18n';
+import { Header } from '@/components/Header';
 import '../globals.css';
 
 export const dynamicParams = false;
@@ -31,9 +32,19 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+  const t = getDictionary(locale);
   return (
     <html lang={locale}>
-      <body>{children}</body>
+      <body>
+        <a
+          href="#main"
+          className="fixed top-2 left-2 z-[100] -translate-y-24 rounded-full bg-char px-4 py-2 text-bone focus:translate-y-0"
+        >
+          {t.nav.skip}
+        </a>
+        <Header locale={locale} t={t.nav} />
+        {children}
+      </body>
     </html>
   );
 }

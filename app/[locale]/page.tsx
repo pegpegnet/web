@@ -7,7 +7,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   if (!isLocale(locale)) notFound();
   const t = getDictionary(locale);
   return (
-    <main className="container-page py-24">
+    <main id="main" className="container-page pt-40 pb-24">
       <h1 className="type-poster text-step-6">{t.hero.title}</h1>
       <p className="mt-8 max-w-[44ch] text-step-1 text-graphite">{t.hero.lead}</p>
     </main>
