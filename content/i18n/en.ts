@@ -7,6 +7,8 @@ const en = {
   },
   hero: {
     title: 'We make digital things come alive.',
+    seeWork: 'See the work',
+    talk: "Let's talk",
     lead: 'Independent creative technology studio in Barcelona. We design, develop, and experiment with apps, websites, AI, and immersive experiences.',
   },
   nav: {
