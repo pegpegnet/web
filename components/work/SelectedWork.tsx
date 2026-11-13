@@ -6,12 +6,14 @@ import { WorkChapter } from './WorkChapter';
 import { WorkStack } from './WorkStack';
 import { YutubScene } from './scenes/YutubScene';
 import { SocialPreviewScene } from './scenes/SocialPreviewScene';
+import { RetroPongScene } from './scenes/RetroPongScene';
 import type { ReactNode } from 'react';
 import type { SceneId } from '@/content/projects';
 
 const scenes: Partial<Record<SceneId, ReactNode>> = {
   yutub: <YutubScene />,
   socialpreview: <SocialPreviewScene />,
+  retropong: <RetroPongScene />,
 };
 
 /** The home page's Selected Work: an intro on the hero's blue, then one chapter per featured project. */

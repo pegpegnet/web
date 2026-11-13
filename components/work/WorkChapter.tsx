@@ -5,6 +5,7 @@ import { MagneticButton } from '@/components/motion/MagneticButton';
 import { SceneView } from '@/components/three/SceneView';
 import { href, type Locale } from '@/lib/i18n';
 import { image, textOf, type Project } from '@/lib/projects';
+import { isDark } from '@/lib/color';
 import type { Dictionary } from '@/content/i18n';
 
 type Props = {
@@ -51,7 +52,9 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
       data-chapter
       aria-labelledby={`work-${project.slug}`}
       style={style}
-      className="sticky top-0 flex min-h-[100svh] items-center overflow-hidden bg-[var(--chapter-bg)] text-[var(--chapter-fg)]"
+      className={`sticky top-0 flex min-h-[100svh] items-center overflow-hidden bg-[var(--chapter-bg)] text-[var(--chapter-fg)] ${
+        isDark(project.theme.bg) ? 'dark' : ''
+      }`}
     >
       <div data-chapter-inner className="container-page grid w-full items-center gap-10 py-24 md:grid-cols-12">
         <div className="relative z-[2] md:col-span-5">
@@ -72,14 +75,14 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
           </KineticHeading>
           <p className="mt-6 max-w-[34ch] text-step-1 leading-snug">{text.summary}</p>
           <div className="mt-10">
-            <MagneticButton href={href(locale, 'projects', project.slug)} variant="outline">
+            <MagneticButton href={href(locale, 'projects', project.slug)} variant="outline" tone={isDark(project.theme.bg) ? 'dark' : 'light'}>
               {t.view}
             </MagneticButton>
           </div>
         </div>
         <div className="md:col-span-7">
           {scene ? (
-            <SceneView className="aspect-[4/3] w-full" fallback={fallback} cursor={t.exploreCursor} layer="own">
+            <SceneView className="aspect-[4/3] w-full touch-pan-y" fallback={fallback} cursor={project.scene === 'retropong' ? t.playCursor : t.exploreCursor} layer="own">
               {scene}
             </SceneView>
           ) : (

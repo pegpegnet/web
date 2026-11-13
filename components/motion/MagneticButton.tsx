@@ -9,6 +9,8 @@ type Props = {
   children: ReactNode;
   variant?: 'solid' | 'outline';
   size?: 'md' | 'xl';
+  /** 'dark' when the button sits on a dark background. */
+  tone?: 'light' | 'dark';
   className?: string;
 };
 
@@ -17,7 +19,7 @@ type Props = {
  * overshoot when it leaves. The label travels further than the pill, which gives it depth.
  * On hover a fill rises from the edge the pointer came in from.
  */
-export function MagneticButton({ href, children, variant = 'solid', size = 'md', className = '' }: Props) {
+export function MagneticButton({ href, children, variant = 'solid', size = 'md', tone = 'light', className = '' }: Props) {
   const root = useRef<HTMLAnchorElement>(null);
   const label = useRef<HTMLSpanElement>(null);
   const fill = useRef<HTMLSpanElement>(null);
@@ -76,11 +78,16 @@ export function MagneticButton({ href, children, variant = 'solid', size = 'md',
     size === 'xl'
       ? 'h-[clamp(7rem,16vw,13rem)] px-[clamp(2.5rem,6vw,5.5rem)] text-[clamp(2rem,5vw,4.5rem)] font-display font-[800] [font-stretch:80%]'
       : 'h-14 px-7 text-step-0 font-semibold';
+  const dark = tone === 'dark';
   const look =
     variant === 'solid'
-      ? 'bg-char text-bone hover:bg-volt [&.is-magnetic:hover]:bg-char [&.is-magnetic:hover]:text-char'
-      : 'text-char shadow-[inset_0_0_0_1.5px_currentColor] hover:bg-char hover:text-bone [&.is-magnetic:hover]:bg-transparent';
-  const fillColor = variant === 'solid' ? 'bg-ember' : 'bg-char';
+      ? dark
+        ? 'bg-bone text-char hover:bg-ember [&.is-magnetic:hover]:bg-bone'
+        : 'bg-char text-bone hover:bg-volt [&.is-magnetic:hover]:bg-char [&.is-magnetic:hover]:text-char'
+      : dark
+        ? 'text-bone shadow-[inset_0_0_0_1.5px_currentColor] hover:bg-bone hover:text-char [&.is-magnetic:hover]:bg-transparent'
+        : 'text-char shadow-[inset_0_0_0_1.5px_currentColor] hover:bg-char hover:text-bone [&.is-magnetic:hover]:bg-transparent';
+  const fillColor = variant === 'solid' ? 'bg-ember' : dark ? 'bg-bone' : 'bg-char';
 
   return (
     <Link
