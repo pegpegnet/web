@@ -7,6 +7,8 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import { Cursor } from '@/components/motion/Cursor';
+import { QualityProvider } from '@/components/three/QualityProvider';
+import { StageLoader } from '@/components/three/StageLoader';
 import '../globals.css';
 
 export const dynamicParams = false;
@@ -54,12 +56,15 @@ export default async function LocaleLayout({
         >
           {t.nav.skip}
         </a>
-        <SmoothScroll>
-          <Header locale={locale} t={t.nav} />
-          {children}
-          <Footer locale={locale} t={t} />
-        </SmoothScroll>
-        <Cursor />
+        <QualityProvider>
+          <SmoothScroll>
+            <Header locale={locale} t={t.nav} />
+            {children}
+            <Footer locale={locale} t={t} />
+          </SmoothScroll>
+          <StageLoader />
+          <Cursor />
+        </QualityProvider>
       </body>
     </html>
   );

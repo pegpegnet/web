@@ -3,6 +3,8 @@ import { isLocale } from '@/lib/i18n';
 import { getDictionary } from '@/content/i18n';
 import { MagneticButton } from '@/components/motion/MagneticButton';
 import { KineticHeading } from '@/components/motion/KineticHeading';
+import { SceneView } from '@/components/three/SceneView';
+import { LabScene } from '@/components/three/LabScene';
 import { href } from '@/lib/i18n';
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
@@ -21,6 +23,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           {t.hero.talk}
         </MagneticButton>
       </div>
+      <SceneView className="mt-16 h-[60vh]" cursor="Drag">
+        <LabScene />
+      </SceneView>
     </main>
   );
 }
