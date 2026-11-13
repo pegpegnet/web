@@ -32,6 +32,14 @@ const en = {
   projects: {
     title: 'Projects',
   },
+  openSource: {
+    title: 'Open source, made for the Mac',
+    lead: 'Apps we build in the open. Free to download, free to read, and made with the same care as client work.',
+    source: 'Source',
+    download: 'Download',
+    details: 'Details',
+    cursor: 'Open',
+  },
   work: {
     title: 'Selected work',
     lead: 'Things we’ve made and still love. Each one is a small world: move, drag and play.',
