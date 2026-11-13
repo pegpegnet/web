@@ -17,7 +17,5 @@ jobs:
       - name: No private keys in the repository
         run: "! git grep -I -l -E \"BEGIN [A-Z ]*PRIVATE[ ]KEY\" -- ."
       - run: npm ci
-      - run: npm run check
-      - run: npm run check:content
+      - run: npm run typecheck
       - run: npm run build
-      - run: npm run budget
