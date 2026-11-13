@@ -24,9 +24,7 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
   const text = textOf(project, locale);
   const cover = project.cover ? image(project.cover) : null;
   const meta = [
-    ...project.kinds.map((k) => t.kinds[k]),
-    ...project.platforms,
-    ...(project.year ? [String(project.year)] : []),
+    ...new Set([...project.kinds.map((k) => t.kinds[k]), ...project.platforms, ...(project.year ? [String(project.year)] : [])]),
   ];
   const style = {
     '--chapter-bg': project.theme.bg,
@@ -82,7 +80,7 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
         </div>
         <div className="md:col-span-7">
           {scene ? (
-            <SceneView className="aspect-[4/3] w-full touch-pan-y" fallback={fallback} cursor={project.scene === 'retropong' ? t.playCursor : t.exploreCursor} layer="own">
+            <SceneView className="aspect-[4/3] w-full touch-pan-y" fallback={fallback} cursor={project.scene === 'retropong' ? t.playCursor : project.scene === 'mixmaster' ? t.mixCursor : t.exploreCursor} layer="own">
               {scene}
             </SceneView>
           ) : (

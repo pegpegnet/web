@@ -39,6 +39,7 @@ const en = {
     viewCursor: 'View',
     exploreCursor: 'Explore',
     playCursor: 'Play',
+    mixCursor: 'Mix',
     kinds: { app: 'App', web: 'Web', game: 'Game', 'open-source': 'Open source' },
   },
   contact: {

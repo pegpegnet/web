@@ -7,6 +7,7 @@ import { WorkStack } from './WorkStack';
 import { YutubScene } from './scenes/YutubScene';
 import { SocialPreviewScene } from './scenes/SocialPreviewScene';
 import { RetroPongScene } from './scenes/RetroPongScene';
+import { MixMasterScene } from './scenes/MixMasterScene';
 import type { ReactNode } from 'react';
 import type { SceneId } from '@/content/projects';
 
@@ -14,6 +15,7 @@ const scenes: Partial<Record<SceneId, ReactNode>> = {
   yutub: <YutubScene />,
   socialpreview: <SocialPreviewScene />,
   retropong: <RetroPongScene />,
+  mixmaster: <MixMasterScene />,
 };
 
 /** The home page's Selected Work: an intro on the hero's blue, then one chapter per featured project. */
