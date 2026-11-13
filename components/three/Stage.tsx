@@ -2,6 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { View } from '@react-three/drei';
+import { NeutralToneMapping } from 'three';
 import { useQuality } from './QualityProvider';
 
 /**
@@ -18,7 +19,7 @@ export default function Stage() {
       eventSource={typeof document !== 'undefined' ? document.body : undefined}
       eventPrefix="client"
       dpr={quality.dpr}
-      gl={{ antialias: quality.tier === 'high', alpha: true, powerPreference: 'high-performance' }}
+      gl={{ antialias: quality.tier === 'high', alpha: true, powerPreference: 'high-performance', toneMapping: NeutralToneMapping }}
       camera={{ position: [0, 0, 6], fov: 35 }}
       aria-hidden="true"
     >
