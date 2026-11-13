@@ -37,7 +37,16 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound();
   const t = getDictionary(locale);
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
+      <head>
+        {/* Hide animated headlines before first paint when motion is allowed; show them after 3 s regardless. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var d=document.documentElement;d.classList.add('motion');setTimeout(function(){d.classList.remove('motion')},3000)}",
+          }}
+        />
+      </head>
       <body>
         <a
           href="#main"

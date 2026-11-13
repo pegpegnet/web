@@ -90,6 +90,21 @@
   }
 }
 
+/*
+ * Headlines that animate in start hidden, but only once the inline script in the layout has
+ * confirmed motion is allowed. If scripts never run, the failsafe there shows everything.
+ */
+.motion [data-reveal] {
+  visibility: hidden;
+}
+
+/* Masked lines from SplitText keep descenders from being clipped */
+.kt-line,
+.kt-line-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
 /* Where the custom cursor shows a label, it stands in for the system cursor */
 .has-cursor [data-cursor] {
   cursor: none;
