@@ -19,6 +19,12 @@ const en = {
     about: 'Studio',
     contact: 'Contact',
   },
+  footer: {
+    about: 'A small studio that designs and builds apps, websites and experiments, from the first sketch to the App Store.',
+    studio: 'Studio',
+    sitemap: 'Explore',
+    follow: 'Follow',
+  },
   projects: {
     title: 'Projects',
   },
