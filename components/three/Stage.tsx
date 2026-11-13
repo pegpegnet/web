@@ -19,6 +19,7 @@ export default function Stage() {
       eventSource={typeof document !== 'undefined' ? document.body : undefined}
       eventPrefix="client"
       dpr={quality.dpr}
+      shadows="soft"
       gl={{ antialias: quality.tier === 'high', alpha: true, powerPreference: 'high-performance', toneMapping: NeutralToneMapping }}
       camera={{ position: [0, 0, 6], fov: 35 }}
       aria-hidden="true"

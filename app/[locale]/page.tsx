@@ -10,7 +10,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   return (
     <main id="main">
       <Hero locale={locale} t={t.hero} />
-      <div id="work" className="h-[60vh]" />
+      <section id="work" aria-label="Work" className="h-[80vh] bg-volt" />
     </main>
   );
 }

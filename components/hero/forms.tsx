@@ -115,7 +115,7 @@ export const Peg = forwardRef<THREE.Group, { tier: Tier }>(function Peg({ tier }
         )}
       </mesh>
       {/* Brushed-metal collar under the head */}
-      <mesh position={[0, 0.44, 0]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh position={[0, 0.44, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
         <torusGeometry args={[0.385, 0.055, 24, 96]} />
         <meshPhysicalMaterial color="#d8d4cc" metalness={1} roughness={0.32} anisotropy={0.9} anisotropyRotation={Math.PI / 2} />
       </mesh>

@@ -2,6 +2,7 @@ import { KineticHeading } from '@/components/motion/KineticHeading';
 import { MagneticButton } from '@/components/motion/MagneticButton';
 import { DragHint } from './DragHint';
 import { HeroStage } from './HeroStage';
+import { HeroScroll } from './HeroScroll';
 import { href, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
 
@@ -18,8 +19,9 @@ export function Hero({ locale, t }: { locale: Locale; t: Dictionary['hero'] }) {
       className="relative flex min-h-[100svh] touch-pan-y flex-col justify-end overflow-hidden select-none"
     >
       <HeroStage />
+      <HeroScroll />
       <DragHint label={t.drag} />
-      <div className="container-page relative pb-[clamp(2rem,6vh,5rem)]">
+      <div id="hero-copy" className="container-page relative pb-[clamp(2rem,6vh,5rem)]">
         <KineticHeading as="h1" id="hero-title" reveal="load" stretch className="type-poster max-w-[12ch] text-[clamp(3.6rem,1.4rem+8.6vw,12rem)]">
           {t.title}
         </KineticHeading>
