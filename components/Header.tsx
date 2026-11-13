@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Wordmark } from './Wordmark';
+import { useLenis } from './motion/SmoothScroll';
 import { href, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
 
@@ -12,7 +13,10 @@ type Props = { locale: Locale; t: Dictionary['nav'] & { menu: string; close: str
 /** Fixed header: wordmark, section links on wide screens, and a full-screen menu on small ones. */
 export function Header({ locale, t }: Props) {
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [solid, setSolid] = useState(false);
   const reduce = useReducedMotion();
+  const lenis = useLenis();
   const toggle = useRef<HTMLButtonElement>(null);
   const home = href(locale);
   const links = [
@@ -21,6 +25,22 @@ export function Header({ locale, t }: Props) {
     { label: t.about, to: `${home}#studio` },
     { label: t.contact, to: href(locale, 'contact') },
   ];
+
+  // Out of the way while reading down the page, back as soon as the visitor scrolls up.
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = window.scrollY;
+      setSolid(y > 40);
+      if (Math.abs(y - last) > 6) {
+        setHidden(y > last && y > 160);
+        last = y;
+      }
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Escape closes the menu and returns focus to the button; the page behind can't scroll while it's open.
   useEffect(() => {
@@ -33,15 +53,25 @@ export function Header({ locale, t }: Props) {
     };
     document.addEventListener('keydown', onKey);
     document.documentElement.style.overflow = 'hidden';
+    lenis?.stop();
     return () => {
       document.removeEventListener('keydown', onKey);
       document.documentElement.style.overflow = '';
+      lenis?.start();
     };
-  }, [open]);
+  }, [open, lenis]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <div className="container-page flex items-center justify-between py-5">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ease-out-expo ${
+        hidden && !open ? '-translate-y-full' : 'translate-y-0'
+      }`}
+    >
+      <div
+        aria-hidden="true"
+        className={`absolute inset-0 bg-bone/80 backdrop-blur-md transition-opacity duration-300 ${solid && !open ? 'opacity-100' : 'opacity-0'}`}
+      />
+      <div className="container-page relative flex items-center justify-between py-4">
         <Wordmark href={home} className={open ? 'relative z-10 !text-bone' : ''} />
 
         <nav aria-label={t.mainNav} className="hidden md:block">

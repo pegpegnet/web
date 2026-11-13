@@ -5,6 +5,7 @@ import { locales, isLocale } from '@/lib/i18n';
 import { getDictionary } from '@/content/i18n';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import '../globals.css';
 
 export const dynamicParams = false;
@@ -43,9 +44,11 @@ export default async function LocaleLayout({
         >
           {t.nav.skip}
         </a>
-        <Header locale={locale} t={t.nav} />
-        {children}
-        <Footer locale={locale} t={t} />
+        <SmoothScroll>
+          <Header locale={locale} t={t.nav} />
+          {children}
+          <Footer locale={locale} t={t} />
+        </SmoothScroll>
       </body>
     </html>
   );
