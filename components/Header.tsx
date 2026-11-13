@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Wordmark } from './Wordmark';
 import { useLenis } from './motion/SmoothScroll';
-import { href, type Locale } from '@/lib/i18n';
+import { alternatesFromPath, href, localeNames, locales, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
 
 type Props = { locale: Locale; t: Dictionary['nav'] & { menu: string; close: string; mainNav: string } };
@@ -22,6 +22,25 @@ export function Header({ locale, t }: Props) {
   const pathname = usePathname();
   const toggle = useRef<HTMLButtonElement>(null);
   const home = href(locale);
+  const switchTo = alternatesFromPath(pathname) ?? Object.fromEntries(locales.map((l) => [l, href(l)]));
+  const languages = (
+    <ul className="flex gap-1" aria-label={t.language}>
+      {locales.map((l) => (
+        <li key={l}>
+          <a
+            href={switchTo[l]}
+            hrefLang={l}
+            lang={l}
+            aria-label={localeNames[l]}
+            aria-current={l === locale ? 'true' : undefined}
+            className="block rounded-full px-2.5 py-2 text-step--1 font-semibold uppercase no-underline opacity-60 transition-opacity hover:opacity-100 aria-[current=true]:opacity-100 aria-[current=true]:underline aria-[current=true]:decoration-2 aria-[current=true]:underline-offset-4"
+          >
+            {l}
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
   const links = [
     { label: t.work, to: `${home}#work` },
     { label: t.services, to: `${home}#services` },
@@ -99,7 +118,7 @@ export function Header({ locale, t }: Props) {
       >
         <Wordmark href={home} className={open || onDark ? 'relative z-10 !text-bone' : ''} />
 
-        <nav aria-label={t.mainNav} className="hidden md:block">
+        <nav aria-label={t.mainNav} className="hidden items-center gap-4 md:flex">
           <ul className="flex gap-1">
             {links.map((l) => (
               <li key={l.to}>
@@ -114,6 +133,7 @@ export function Header({ locale, t }: Props) {
               </li>
             ))}
           </ul>
+          {languages}
         </nav>
 
         <button
@@ -168,6 +188,7 @@ export function Header({ locale, t }: Props) {
                   </li>
                 ))}
               </ul>
+              <div className="mt-10 text-bone">{languages}</div>
             </nav>
           </motion.div>
         )}

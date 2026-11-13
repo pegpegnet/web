@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { locales, isLocale } from '@/lib/i18n';
 import { getDictionary } from '@/content/i18n';
+import { languageAlternates } from '@/lib/seo';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
@@ -26,6 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     metadataBase: new URL('https://pegpeg.net'),
     title: { default: t.meta.title, template: '%s | PegPeg' },
     description: t.meta.description,
+    alternates: languageAlternates(locale),
+    openGraph: { siteName: 'PegPeg', locale: { es: 'es_ES', en: 'en_GB', ca: 'ca_ES' }[locale], type: 'website' },
   };
 }
 

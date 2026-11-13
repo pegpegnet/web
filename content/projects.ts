@@ -6,6 +6,8 @@
  * Text is per language; the build fails if a language is missing.
  */
 import type { Locale } from '../lib/i18n';
+import { es } from './projects.es.ts';
+import { ca } from './projects.ca.ts';
 
 export type Kind = 'app' | 'web' | 'game' | 'open-source';
 
@@ -43,9 +45,16 @@ export type Project = {
   text: Record<Locale, ProjectText>;
 };
 
-const github = (repo: string): Link => ({ label: { en: 'Source on GitHub' }, href: `https://github.com/${repo}` });
+const github = (repo: string): Link => ({
+  label: { en: 'Source on GitHub', es: 'Código en GitHub', ca: 'Codi a GitHub' },
+  href: `https://github.com/${repo}`,
+});
+const downloadLabel = { en: 'Download for Mac', es: 'Descargar para Mac', ca: 'Descarrega per a Mac' };
 
-export const projects: Project[] = [
+/** As written below: English inline; Spanish and Catalan come from projects.es.ts and projects.ca.ts. */
+type Draft = Omit<Project, 'text'> & { text: { en: ProjectText } };
+
+const drafts: Draft[] = [
   // Selected work: each has its own scene on the home page.
   {
     slug: 'app-visionos-yutub',
@@ -96,7 +105,12 @@ export const projects: Project[] = [
     theme: { bg: '#f3dbe9', fg: '#161719', accent: '#c4268a' },
     cover: 'bot-top',
     gallery: ['bg-bot', 'telegram-bot'],
-    links: [{ label: { en: 'Try @socialpreviewbot on Telegram' }, href: 'https://t.me/socialpreviewbot' }],
+    links: [
+      {
+        label: { en: 'Try @socialpreviewbot on Telegram', es: 'Prueba @socialpreviewbot en Telegram', ca: 'Prova @socialpreviewbot a Telegram' },
+        href: 'https://t.me/socialpreviewbot',
+      },
+    ],
     scene: 'socialpreview',
     listed: true,
     text: {
@@ -215,7 +229,7 @@ export const projects: Project[] = [
     gallery: ['abadia-amstrad', 'abadia-icon'],
     links: [
       github('pballada/abadia'),
-      { label: { en: 'Download for Mac' }, href: 'https://github.com/pballada/abadia/releases/latest' },
+      { label: downloadLabel, href: 'https://github.com/pballada/abadia/releases/latest' },
     ],
     repo: 'pballada/abadia',
     listed: true,
@@ -254,7 +268,7 @@ export const projects: Project[] = [
     gallery: ['shinymac-uninstaller', 'shinymac-welcome', 'shinymac-icon'],
     links: [
       github('pballada/shinyMac'),
-      { label: { en: 'Download for Mac' }, href: 'https://github.com/pballada/shinyMac/releases/latest' },
+      { label: downloadLabel, href: 'https://github.com/pballada/shinyMac/releases/latest' },
     ],
     repo: 'pballada/shinyMac',
     listed: true,
@@ -298,7 +312,7 @@ export const projects: Project[] = [
     gallery: ['forest-changes', 'forest-review', 'forest-icon'],
     links: [
       github('pballada/forest'),
-      { label: { en: 'Download for Mac' }, href: 'https://github.com/pballada/forest/releases/latest' },
+      { label: downloadLabel, href: 'https://github.com/pballada/forest/releases/latest' },
     ],
     repo: 'pballada/forest',
     listed: true,
@@ -491,7 +505,7 @@ export const projects: Project[] = [
       ['caravana-donettes', 'Caravana Donettes', 'A promotional site for Donettes.', ['Web'], ['web'], 'donettes-1', ['donettes-2', 'donettes-3'], '#f5ead9', '#d94f00'],
     ] as const
   ).map(
-    ([slug, name, summary, platforms, kinds, cover, gallery, bg, accent]): Project => ({
+    ([slug, name, summary, platforms, kinds, cover, gallery, bg, accent]): Draft => ({
       slug,
       kinds: [...kinds],
       platforms: [...platforms],
@@ -535,3 +549,14 @@ export const projects: Project[] = [
     },
   },
 ];
+
+function translation(table: Record<string, ProjectText>, slug: string, locale: string): ProjectText {
+  const text = table[slug];
+  if (!text) throw new Error(`Project ${slug} has no ${locale} text`);
+  return text;
+}
+
+export const projects: Project[] = drafts.map((p) => ({
+  ...p,
+  text: { en: p.text.en, es: translation(es, p.slug, 'es'), ca: translation(ca, p.slug, 'ca') },
+}));

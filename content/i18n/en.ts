@@ -22,6 +22,7 @@ const en = {
     services: 'What we do',
     about: 'Studio',
     contact: 'Contact',
+    language: 'Language',
   },
   footer: {
     about: 'A small studio that designs and builds apps, websites and experiments, from the first sketch to the App Store.',

@@ -4,6 +4,7 @@ import { locales, segments, isLocale, sectionFor } from '@/lib/i18n';
 import { getProject, image, projects, textOf } from '@/lib/projects';
 import { getDictionary } from '@/content/i18n';
 import { ProjectPage } from '@/components/project/ProjectPage';
+import { languageAlternates } from '@/lib/seo';
 
 export const dynamicParams = false;
 
@@ -22,11 +23,12 @@ async function resolve(params: Params) {
 }
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const { project, text } = await resolve(params);
+  const { locale, project, text } = await resolve(params);
   const cover = project.cover ? image(project.cover) : undefined;
   return {
     title: text.name,
     description: text.summary,
+    alternates: languageAlternates(locale, 'projects', project.slug),
     openGraph: cover ? { images: [{ url: cover.src, width: cover.width, height: cover.height }] } : undefined,
   };
 }

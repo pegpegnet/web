@@ -7,6 +7,7 @@ import { KineticHeading } from '@/components/motion/KineticHeading';
 import { listedProjects, image, textOf } from '@/lib/projects';
 import { href } from '@/lib/i18n';
 import { ContactForm } from '@/components/contact/ContactForm';
+import { languageAlternates } from '@/lib/seo';
 import { MagneticButton } from '@/components/motion/MagneticButton';
 import type { Kind } from '@/content/projects';
 
@@ -27,11 +28,15 @@ async function resolve(params: Promise<{ locale: string; section: string }>) {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string; section: string }> }): Promise<Metadata> {
-  const { which, t } = await resolve(params);
+  const { locale, which, t } = await resolve(params);
   if (which === 'sent' || which === 'notSent') {
     return { title: which === 'sent' ? t.contact.sentTitle : t.contact.notSentTitle, robots: { index: false } };
   }
-  return { title: which === 'projects' ? t.projects.title : t.nav.contact };
+  return {
+    title: which === 'projects' ? t.projects.title : t.nav.contact,
+    description: which === 'projects' ? t.projects.lead : t.contact.pageLead,
+    alternates: languageAlternates(locale, which),
+  };
 }
 
 export default async function SectionPage({ params }: { params: Promise<{ locale: string; section: string }> }) {

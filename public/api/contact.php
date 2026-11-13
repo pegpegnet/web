@@ -40,7 +40,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
 }
 
 $locale = field('locale', 2);
-if (!isset(RESULT_PAGES[$locale])) $locale = 'en';
+if (!isset(RESULT_PAGES[$locale])) $locale = 'es';
 
 // Bots: filled the trap field, or submitted within 3 seconds of loading the page.
 $started = (int) field('t', 12);
