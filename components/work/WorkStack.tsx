@@ -19,7 +19,15 @@ export function WorkStack({ children }: { children: ReactNode }) {
           const next = chapters[i + 1];
           if (!next) return;
           const tl = gsap.timeline({
-            scrollTrigger: { trigger: next, start: 'top bottom', end: 'top top', scrub: true },
+            scrollTrigger: {
+              trigger: next,
+              start: 'top bottom',
+              end: 'top top',
+              scrub: true,
+              // Fully covered: its scene can stop rendering (see OwnCanvas).
+              onLeave: () => (chapter.dataset.covered = 'true'),
+              onEnterBack: () => delete chapter.dataset.covered,
+            },
           });
           tl.to(chapter.querySelector('[data-chapter-inner]'), { scale: 0.9, yPercent: -6, ease: 'none' }, 0);
           tl.to(chapter.querySelector('[data-chapter-shade]'), { opacity: 0.55, ease: 'none' }, 0);

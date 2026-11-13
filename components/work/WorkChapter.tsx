@@ -60,7 +60,13 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
             as="h3"
             id={`work-${project.slug}`}
             stretch
-            className="type-poster mt-4 text-[clamp(3.4rem,1.6rem+7vw,9.5rem)]"
+            className={`type-poster mt-4 ${
+              text.name.length > 12
+                ? 'text-[clamp(2.4rem,1rem+4vw,5.6rem)]'
+                : text.name.length > 8
+                  ? 'text-[clamp(2.8rem,1.2rem+4.6vw,6.4rem)]'
+                  : 'text-[clamp(3.4rem,1.6rem+7vw,9.5rem)]'
+            }`}
           >
             {text.name}
           </KineticHeading>
@@ -73,7 +79,7 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
         </div>
         <div className="md:col-span-7">
           {scene ? (
-            <SceneView className="aspect-[4/3] w-full" fallback={fallback} cursor={t.exploreCursor}>
+            <SceneView className="aspect-[4/3] w-full" fallback={fallback} cursor={t.exploreCursor} layer="own">
               {scene}
             </SceneView>
           ) : (
