@@ -47,7 +47,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
       {/* The wordmark, cropped by the bottom edge of the page */}
       <p
         aria-hidden="true"
-        className="-mb-[0.2em] text-center font-display leading-[0.8] font-[850] tracking-[-0.04em] text-volt select-none [font-size:clamp(4rem,20.5vw,23rem)] [font-stretch:112%]"
+        className="-mb-[0.2em] text-center font-display leading-[0.8] font-[850] tracking-[-0.04em] text-volt-bright select-none [font-size:clamp(4rem,20.5vw,23rem)] [font-stretch:112%]"
       >
         pegpeg
       </p>

@@ -3,7 +3,7 @@
 import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { SceneView } from '@/components/three/SceneView';
-import { DockScene } from './DockScene';
+import { DockScene } from '@/components/scenes';
 import { dock, useActiveApp } from './dockStore';
 
 export type ShelfApp = {

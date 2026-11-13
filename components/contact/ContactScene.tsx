@@ -3,7 +3,7 @@ import { KineticHeading } from '@/components/motion/KineticHeading';
 import { SceneView } from '@/components/three/SceneView';
 import { href, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
-import { PegBoard } from './PegBoard';
+import { PegBoard } from '@/components/scenes';
 
 /** The last scene of the home page: the question, the oversized "Let's talk", and a pegboard to play with. */
 export function ContactScene({ locale, t }: { locale: Locale; t: Dictionary['contact'] }) {

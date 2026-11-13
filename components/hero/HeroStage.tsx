@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react';
 import { SceneView } from '@/components/three/SceneView';
-import { HeroScene } from './HeroScene';
+import { HeroScene } from '@/components/scenes';
 
 /** The hero's 3D box. Lives in a client component so the scene can report the first drag. */
 export function HeroStage() {

@@ -21,3 +21,4 @@ jobs:
       - run: npm run build
       # After the build, so Next's generated route types are checked too
       - run: npm run typecheck
+      - run: npm run budget

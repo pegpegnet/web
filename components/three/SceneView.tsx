@@ -1,11 +1,11 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { View } from '@react-three/drei';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useQuality } from './QualityProvider';
 
 const OwnCanvas = dynamic(() => import('./OwnCanvas'), { ssr: false });
+const SharedView = dynamic(() => import('./SharedView'), { ssr: false });
 
 type Props = {
   /** What the scene shows when 3D is unavailable: a still, an illustration, or nothing. */
@@ -40,7 +40,7 @@ export function SceneView({ fallback = null, className = '', cursor, layer = 'sh
   }, [layer]);
 
   let content: ReactNode = fallback;
-  if (live && layer === 'shared') content = <View className="absolute inset-0">{children}</View>;
+  if (live && layer === 'shared') content = <SharedView>{children}</SharedView>;
   if (live && layer === 'own')
     content = near ? (
       <OwnCanvas quality={quality} host={box}>

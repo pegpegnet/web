@@ -2,7 +2,7 @@ import { KineticHeading } from '@/components/motion/KineticHeading';
 import { SceneView } from '@/components/three/SceneView';
 import type { Dictionary } from '@/content/i18n';
 import { ServiceList } from './ServiceList';
-import { ServiceObjects } from './ServiceObjects';
+import { ServiceObjects } from '@/components/scenes';
 
 /**
  * What we do: a sticky 3D composition beside the list of services. Scrolling through the list,

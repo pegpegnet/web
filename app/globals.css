@@ -8,8 +8,9 @@
  * Surfaces are warm bone and charcoal; colour comes from two saturated accents taken from the
  * studio's history: electric "volt" blue (the wordmark) and "ember" orange (the peg).
  * Contrast, measured: char on bone 15.2, graphite on bone 5.8, volt on bone 5.6, bone on char 15.2,
- * ash on char 6.9, ember on char 5.8. Ember on light surfaces is 2.6, so there it is decoration or
- * display-size type only, never body text.
+ * ash on char 6.9, ember on char 5.8. Plain ember on light surfaces is 2.6-2.9, so there it is
+ * decoration only; display type in orange on light surfaces uses ember-type (3.2-3.5:1), never body
+ * text. On charcoal, volt drops to 2.7:1, so blue type there uses volt-bright (4.1:1).
  *
  * Type: Anybody (a variable face with a 50-150% width axis) for display, so headlines can stretch
  * and condense as part of the motion; Schibsted Grotesk for text, a sober Scandinavian grotesk.
@@ -21,7 +22,11 @@
   --color-graphite: #5c5a55;
   --color-ash: #a3a19b;
   --color-volt: #2b3bff;
+  /* Volt for dark surfaces: 4.1:1 on charcoal, where plain volt is only 2.7:1 */
+  --color-volt-bright: #5a67ff;
   --color-ember: #ff5b14;
+  /* Ember for display type on light surfaces: 3.5:1 on chalk, 3.2:1 on bone (plain ember is 2.6-2.9) */
+  --color-ember-type: #eb4d0c;
   --color-line: rgb(22 23 25 / 0.12);
 
   --font-display: 'Anybody Variable', 'Arial Narrow', sans-serif;

@@ -12,7 +12,8 @@
     "build": "next build",
     "start": "npx serve@14.2.4 out",
     "typecheck": "tsc --noEmit",
-    "check:content": "node scripts/check-content.ts"
+    "check:content": "node scripts/check-content.ts",
+    "budget": "node scripts/budget.mjs"
   },
   "dependencies": {
     "@fontsource-variable/anybody": "5.3.0",

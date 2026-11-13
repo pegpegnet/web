@@ -32,7 +32,7 @@ export function ServiceList({ items }: { items: { name: string; text: string }[]
           onPointerEnter={() => services.setPointed(i)}
           onFocus={() => services.setPointed(i)}
           onBlur={() => services.setPointed(null)}
-          className={`rounded-xl outline-offset-8 transition-opacity duration-500 ${i === active ? 'opacity-100' : 'opacity-35'}`}
+          className={`rounded-xl outline-offset-8 transition-opacity duration-500 ${i === active ? 'opacity-100' : 'opacity-65'}`}
         >
           <h3 className="type-poster text-[clamp(2.4rem,1.2rem+3.6vw,5rem)]">{item.name}</h3>
           <p className="mt-4 max-w-[38ch] text-step-1 leading-snug">{item.text}</p>

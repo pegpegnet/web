@@ -4,12 +4,8 @@ import type { Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
 import { WorkChapter } from './WorkChapter';
 import { WorkStack } from './WorkStack';
-import { BlueCaustics } from './BlueCaustics';
 import { SceneView } from '@/components/three/SceneView';
-import { YutubScene } from './scenes/YutubScene';
-import { SocialPreviewScene } from './scenes/SocialPreviewScene';
-import { RetroPongScene } from './scenes/RetroPongScene';
-import { MixMasterScene } from './scenes/MixMasterScene';
+import { YutubScene, SocialPreviewScene, RetroPongScene, MixMasterScene, BlueCaustics } from '@/components/scenes';
 import type { ReactNode } from 'react';
 import type { SceneId } from '@/content/projects';
 

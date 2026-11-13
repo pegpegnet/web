@@ -66,7 +66,7 @@ export function StretchLines({ lines }: { lines: string[] }) {
           data-line
           aria-hidden="true"
           className={`w-max max-w-none font-display leading-[0.9] font-[850] tracking-[-0.02em] whitespace-nowrap [font-stretch:88%] ${
-            i === 1 ? 'ml-auto text-ember' : ''
+            i === 1 ? 'ml-auto text-ember-type' : ''
           } text-[clamp(2.2rem,0.3rem+7.3vw,10rem)]`}
         >
           {line}
