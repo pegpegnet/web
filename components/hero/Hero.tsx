@@ -1,7 +1,7 @@
 import { KineticHeading } from '@/components/motion/KineticHeading';
 import { MagneticButton } from '@/components/motion/MagneticButton';
-import { SceneView } from '@/components/three/SceneView';
-import { HeroScene } from './HeroScene';
+import { DragHint } from './DragHint';
+import { HeroStage } from './HeroStage';
 import { href, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
 
@@ -11,10 +11,14 @@ import type { Dictionary } from '@/content/i18n';
  */
 export function Hero({ locale, t }: { locale: Locale; t: Dictionary['hero'] }) {
   return (
-    <section aria-labelledby="hero-title" className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden">
-      <SceneView className="!absolute inset-0" cursor="Drag">
-        <HeroScene />
-      </SceneView>
+    <section
+      id="hero"
+      data-cursor={t.dragCursor}
+      aria-labelledby="hero-title"
+      className="relative flex min-h-[100svh] touch-pan-y flex-col justify-end overflow-hidden select-none"
+    >
+      <HeroStage />
+      <DragHint label={t.drag} />
       <div className="container-page relative pb-[clamp(2rem,6vh,5rem)]">
         <KineticHeading as="h1" id="hero-title" reveal="load" stretch className="type-poster max-w-[12ch] text-[clamp(3.6rem,1.4rem+8.6vw,12rem)]">
           {t.title}

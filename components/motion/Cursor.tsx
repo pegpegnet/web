@@ -45,12 +45,13 @@ export function Cursor() {
       x(e.clientX);
       y(e.clientY);
       const target = e.target as Element | null;
+      // Links and controls win over a labelled area they sit inside.
       const labelled = target?.closest<HTMLElement>('[data-cursor]');
-      if (labelled) {
+      if (target?.closest('a, button, [role="button"], input, textarea, label')) {
+        setMode('link');
+      } else if (labelled) {
         setMode('label');
         setLabel(labelled.dataset.cursor ?? '');
-      } else if (target?.closest('a, button, [role="button"], input, textarea, label')) {
-        setMode('link');
       } else {
         setMode('idle');
       }

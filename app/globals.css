@@ -105,9 +105,23 @@
   margin-bottom: -0.14em;
 }
 
+@keyframes hint {
+  0%,
+  100% {
+    transform: translateX(-6px);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
 /* Where the custom cursor shows a label, it stands in for the system cursor */
 .has-cursor [data-cursor] {
   cursor: none;
+}
+
+.has-cursor [data-cursor] :is(a, button, input, textarea, label) {
+  cursor: pointer;
 }
 
 @utility container-page {
