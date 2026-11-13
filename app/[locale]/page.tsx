@@ -6,6 +6,7 @@ import { SelectedWork } from '@/components/work/SelectedWork';
 import { OpenSource } from '@/components/opensource/OpenSource';
 import { Services } from '@/components/services/Services';
 import { About } from '@/components/about/About';
+import { ContactScene } from '@/components/contact/ContactScene';
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -18,6 +19,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <OpenSource locale={locale} t={t.openSource} />
       <Services t={t.services} />
       <About t={t.about} />
+      <ContactScene locale={locale} t={t.contact} />
     </main>
   );
 }

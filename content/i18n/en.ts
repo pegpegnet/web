@@ -111,6 +111,9 @@ const en = {
   },
   contact: {
     title: 'Have something interesting in mind?',
+    lead: 'Let’s make something extraordinary together.',
+    talk: 'Let’s talk',
+    boardCursor: 'Touch',
   },
 };
 
