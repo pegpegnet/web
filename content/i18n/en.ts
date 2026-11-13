@@ -31,6 +31,10 @@ const en = {
   },
   projects: {
     title: 'Projects',
+    lead: 'Apps, websites, games and experiments, from client work for TV3 and Niessen to our own open-source Mac apps.',
+    filterLabel: 'Show projects of a kind',
+    all: 'All',
+    showing: '{n} projects',
   },
   openSource: {
     title: 'Open source, made for the Mac',
