@@ -32,6 +32,13 @@ const en = {
   projects: {
     title: 'Projects',
   },
+  work: {
+    title: 'Selected work',
+    lead: 'Things we’ve made and still love. Each one is a small world: move, drag and play.',
+    view: 'View project',
+    viewCursor: 'View',
+    kinds: { app: 'App', web: 'Web', game: 'Game', 'open-source': 'Open source' },
+  },
   contact: {
     title: 'Have something interesting in mind?',
   },
