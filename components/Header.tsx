@@ -15,6 +15,7 @@ export function Header({ locale, t }: Props) {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [solid, setSolid] = useState(false);
+  const [onDark, setOnDark] = useState(false);
   const reduce = useReducedMotion();
   const lenis = useLenis();
   const toggle = useRef<HTMLButtonElement>(null);
@@ -29,17 +30,27 @@ export function Header({ locale, t }: Props) {
   // Out of the way while reading down the page, back as soon as the visitor scrolls up.
   useEffect(() => {
     let last = window.scrollY;
+    const sample = () => {
+      // What is just under the header? Dark sections and chapters carry the .dark class.
+      const probe = document.elementFromPoint(window.innerWidth / 2, 72);
+      setOnDark(!!probe?.closest('.dark'));
+    };
     const onScroll = () => {
       const y = window.scrollY;
       setSolid(y > 40);
+      sample();
       if (Math.abs(y - last) > 6) {
         setHidden(y > last && y > 160);
         last = y;
       }
     };
     onScroll();
+    const late = window.setTimeout(sample, 600);
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.clearTimeout(late);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   // Escape closes the menu and returns focus to the button; the page behind can't scroll while it's open.
@@ -69,10 +80,14 @@ export function Header({ locale, t }: Props) {
     >
       <div
         aria-hidden="true"
-        className={`absolute inset-0 bg-bone/80 backdrop-blur-md transition-opacity duration-300 ${solid && !open ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 backdrop-blur-md transition-[opacity,background-color] duration-300 ${onDark ? 'bg-char/70' : 'bg-bone/80'} ${
+          solid && !open ? 'opacity-100' : 'opacity-0'
+        }`}
       />
-      <div className="container-page relative flex items-center justify-between py-4">
-        <Wordmark href={home} className={open ? 'relative z-10 !text-bone' : ''} />
+      <div
+        className={`container-page relative flex items-center justify-between py-4 transition-colors duration-300 ${onDark && !open ? 'text-bone' : ''}`}
+      >
+        <Wordmark href={home} className={open || onDark ? 'relative z-10 !text-bone' : ''} />
 
         <nav aria-label={t.mainNav} className="hidden md:block">
           <ul className="flex gap-1">
@@ -80,7 +95,9 @@ export function Header({ locale, t }: Props) {
               <li key={l.to}>
                 <Link
                   href={l.to}
-                  className="rounded-full px-4 py-2 text-step--1 font-semibold no-underline transition-colors hover:bg-char hover:text-bone"
+                  className={`rounded-full px-4 py-2 text-step--1 font-semibold no-underline transition-colors ${
+                    onDark ? 'hover:bg-bone hover:text-char' : 'hover:bg-char hover:text-bone'
+                  }`}
                 >
                   {l.label}
                 </Link>
@@ -96,7 +113,7 @@ export function Header({ locale, t }: Props) {
           aria-controls="site-menu"
           onClick={() => setOpen((o) => !o)}
           className={`relative z-10 flex h-11 items-center gap-3 rounded-full px-5 text-step--1 font-semibold md:hidden ${
-            open ? 'bg-bone text-char' : 'bg-char text-bone'
+            open || onDark ? 'bg-bone text-char' : 'bg-char text-bone'
           }`}
         >
           {open ? t.close : t.menu}

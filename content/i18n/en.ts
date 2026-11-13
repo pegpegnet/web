@@ -36,6 +36,16 @@ const en = {
     all: 'All',
     showing: '{n} projects',
   },
+  project: {
+    platforms: 'Runs on',
+    year: 'Year',
+    kind: 'What it is',
+    links: 'Links',
+    press: 'In the press',
+    video: 'Play the video',
+    next: 'Next project',
+    all: 'All projects',
+  },
   openSource: {
     title: 'Open source, made for the Mac',
     lead: 'Apps we build in the open. Free to download, free to read, and made with the same care as client work.',
