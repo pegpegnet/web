@@ -37,6 +37,7 @@ const en = {
     lead: 'Things we’ve made and still love. Each one is a small world: move, drag and play.',
     view: 'View project',
     viewCursor: 'View',
+    exploreCursor: 'Explore',
     kinds: { app: 'App', web: 'Web', game: 'Game', 'open-source': 'Open source' },
   },
   contact: {

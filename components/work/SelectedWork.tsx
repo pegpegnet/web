@@ -4,6 +4,13 @@ import type { Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
 import { WorkChapter } from './WorkChapter';
 import { WorkStack } from './WorkStack';
+import { YutubScene } from './scenes/YutubScene';
+import type { ReactNode } from 'react';
+import type { SceneId } from '@/content/projects';
+
+const scenes: Partial<Record<SceneId, ReactNode>> = {
+  yutub: <YutubScene />,
+};
 
 /** The home page's Selected Work: an intro on the hero's blue, then one chapter per featured project. */
 export function SelectedWork({ locale, t }: { locale: Locale; t: Dictionary['work'] }) {
@@ -19,7 +26,13 @@ export function SelectedWork({ locale, t }: { locale: Locale; t: Dictionary['wor
       </div>
       <WorkStack>
         {featuredProjects.map((project) => (
-          <WorkChapter key={project.slug} locale={locale} project={project} t={t} />
+          <WorkChapter
+            key={project.slug}
+            locale={locale}
+            project={project}
+            t={t}
+            scene={project.scene ? scenes[project.scene] : undefined}
+          />
         ))}
       </WorkStack>
     </section>

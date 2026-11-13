@@ -73,7 +73,7 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
         </div>
         <div className="md:col-span-7">
           {scene ? (
-            <SceneView className="aspect-[4/3] w-full" fallback={fallback}>
+            <SceneView className="aspect-[4/3] w-full" fallback={fallback} cursor={t.exploreCursor}>
               {scene}
             </SceneView>
           ) : (
