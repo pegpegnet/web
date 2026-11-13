@@ -4,6 +4,8 @@ import type { Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
 import { WorkChapter } from './WorkChapter';
 import { WorkStack } from './WorkStack';
+import { BlueCaustics } from './BlueCaustics';
+import { SceneView } from '@/components/three/SceneView';
 import { YutubScene } from './scenes/YutubScene';
 import { SocialPreviewScene } from './scenes/SocialPreviewScene';
 import { RetroPongScene } from './scenes/RetroPongScene';
@@ -22,8 +24,11 @@ const scenes: Partial<Record<SceneId, ReactNode>> = {
 export function SelectedWork({ locale, t }: { locale: Locale; t: Dictionary['work'] }) {
   return (
     <section id="work" aria-labelledby="work-title">
-      <div className="bg-volt text-bone">
-        <div className="container-page flex min-h-[70svh] flex-col justify-end pt-32 pb-16">
+      <div className="relative bg-volt text-bone">
+        <SceneView className="!absolute inset-0" layer="own">
+          <BlueCaustics />
+        </SceneView>
+        <div className="container-page relative flex min-h-[70svh] flex-col justify-end pt-32 pb-16">
           <KineticHeading id="work-title" className="type-poster text-[clamp(4rem,1rem+13vw,17rem)]">
             {t.title}
           </KineticHeading>
