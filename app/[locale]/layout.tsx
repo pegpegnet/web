@@ -7,6 +7,7 @@ import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
 import { Cursor } from '@/components/motion/Cursor';
+import { PageTransition } from '@/components/motion/PageTransition';
 import { QualityProvider } from '@/components/three/QualityProvider';
 import { StageLoader } from '@/components/three/StageLoader';
 import '../globals.css';
@@ -64,6 +65,7 @@ export default async function LocaleLayout({
           </SmoothScroll>
           <StageLoader />
           <Cursor />
+          <PageTransition />
         </QualityProvider>
       </body>
     </html>

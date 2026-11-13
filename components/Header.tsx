@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Wordmark } from './Wordmark';
 import { useLenis } from './motion/SmoothScroll';
@@ -18,6 +19,7 @@ export function Header({ locale, t }: Props) {
   const [onDark, setOnDark] = useState(false);
   const reduce = useReducedMotion();
   const lenis = useLenis();
+  const pathname = usePathname();
   const toggle = useRef<HTMLButtonElement>(null);
   const home = href(locale);
   const links = [
@@ -52,6 +54,14 @@ export function Header({ locale, t }: Props) {
       window.removeEventListener('scroll', onScroll);
     };
   }, []);
+
+  // A new page may start on a different surface: look again once it has painted (and after the curtain lifts).
+  useEffect(() => {
+    const look = () => setOnDark(!!document.elementFromPoint(window.innerWidth / 2, 72)?.closest('.dark'));
+    const timers = [80, 400, 1000].map((ms) => window.setTimeout(look, ms));
+    setHidden(false);
+    return () => timers.forEach(window.clearTimeout);
+  }, [pathname]);
 
   // Escape closes the menu and returns focus to the button; the page behind can't scroll while it's open.
   useEffect(() => {
