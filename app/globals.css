@@ -90,6 +90,11 @@
   }
 }
 
+/* Where the custom cursor shows a label, it stands in for the system cursor */
+.has-cursor [data-cursor] {
+  cursor: none;
+}
+
 @utility container-page {
   width: 100%;
   max-width: 100rem;

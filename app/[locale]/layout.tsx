@@ -6,6 +6,7 @@ import { getDictionary } from '@/content/i18n';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SmoothScroll } from '@/components/motion/SmoothScroll';
+import { Cursor } from '@/components/motion/Cursor';
 import '../globals.css';
 
 export const dynamicParams = false;
@@ -49,6 +50,7 @@ export default async function LocaleLayout({
           {children}
           <Footer locale={locale} t={t} />
         </SmoothScroll>
+        <Cursor />
       </body>
     </html>
   );
