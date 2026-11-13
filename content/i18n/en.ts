@@ -72,6 +72,25 @@ const en = {
       },
     ],
   },
+  about: {
+    lines: ['Small studio.', 'Big ideas.', 'Beautifully engineered.'],
+    intro:
+      'PegPeg is a small studio in Barcelona. We’ve made the first app in Spain to show live television, reached the final of Atari’s Pong contest and built a breathalyser people actually blew into. Today we design and build apps for Apple platforms and Android, websites, AI tools and open-source software for the Mac.',
+    principles: [
+      {
+        title: 'Design and code, together',
+        text: 'The people who shape your product are the people who build it, so ideas survive contact with the code.',
+      },
+      {
+        title: 'Engineering is part of the design',
+        text: 'We care about frame rates, file sizes and accessibility as much as type and colour. How a thing feels depends on all of them.',
+      },
+      {
+        title: 'Always an experiment going',
+        text: 'Open-source Mac apps, a Vision Pro client, a Pong table on this page. Side projects keep the main ones sharp.',
+      },
+    ],
+  },
   openSource: {
     title: 'Open source, made for the Mac',
     lead: 'Apps we build in the open. Free to download, free to read, and made with the same care as client work.',
