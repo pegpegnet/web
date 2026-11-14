@@ -1,6 +1,6 @@
 <?php
 /**
- * Contact form endpoint. Receives the POST from /<locale>/<contact>/ and redirects to the
+ * Contact form endpoint for pegpeg.net. Receives the POST from /<locale>/<contact>/ and redirects to the
  * localized "sent" or "not sent" page.
  *
  * Configuration comes from the server environment only; nothing secret lives in this repo:
