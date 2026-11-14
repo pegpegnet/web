@@ -52,7 +52,7 @@ export function SocialPreviewScene() {
   }, [gradient, avatar]);
 
   const link = useMemo(() => textTexture('instagram.com/reel/…', { color: '#ffffff', width: 1024, height: 128 }), []);
-  const caption = useMemo(() => textTexture('Instagram reel', { font: '600 40px "Schibsted Grotesk Variable", sans-serif', width: 1024, height: 128 }), []);
+  const caption = useMemo(() => textTexture('Instagram reel', { font: '600 40px "Inter Variable", sans-serif', width: 1024, height: 128 }), []);
 
   const root = useRef<THREE.Group>(null);
   const out = useRef<THREE.Group>(null);

@@ -23,10 +23,10 @@ export default function GlobalNotFound() {
       <body>
         <main className="container-page flex min-h-[100svh] flex-col justify-center gap-16 py-24 md:flex-row md:items-center md:justify-between">
           <div>
-            <a href="/es/" className="font-display text-[1.9rem] leading-none font-[850] tracking-[-0.03em] text-volt no-underline [font-stretch:118%]">
+            <a href="/es/" className="font-display text-[1.45rem] leading-none font-bold tracking-[-0.05em] text-volt no-underline">
               pegpeg
             </a>
-            <h1 className="type-poster mt-10 text-[clamp(4rem,1rem+12vw,14rem)]">404</h1>
+            <h1 className="type-poster mt-10 text-step-6">404</h1>
             <ul className="mt-8 space-y-5">
               {homes.map((h) => (
                 <li key={h.lang} lang={h.lang} className="text-step-1">

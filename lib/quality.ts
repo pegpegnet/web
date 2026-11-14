@@ -28,5 +28,6 @@ export function detectQuality(): Quality {
   const weak = (nav.deviceMemory ?? 8) <= 4 || (nav.hardwareConcurrency ?? 8) <= 4;
   const saver = nav.connection?.saveData === true;
   const tier: Tier = small || weak || saver ? 'low' : 'high';
-  return { tier, still, dpr: tier === 'high' ? [1, 2] : [1, 1.5] };
+  // 3D at full Retina resolution quadruples the pixels for little visible gain; 1.5x keeps edges crisp.
+  return { tier, still, dpr: tier === 'high' ? [1, 1.5] : [1, 1.25] };
 }

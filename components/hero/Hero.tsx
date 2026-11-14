@@ -16,18 +16,18 @@ export function Hero({ locale, t }: { locale: Locale; t: Dictionary['hero'] }) {
       id="hero"
       data-cursor={t.dragCursor}
       aria-labelledby="hero-title"
-      className="relative flex min-h-[100svh] touch-pan-y flex-col justify-end overflow-hidden select-none"
+      className="relative flex min-h-[100svh] touch-pan-y flex-col justify-center overflow-hidden select-none"
     >
       <HeroStage />
       <HeroScroll />
       <DragHint label={t.drag} />
-      <div id="hero-copy" className="container-page relative pb-[clamp(2rem,6vh,5rem)]">
-        <KineticHeading as="h1" id="hero-title" reveal="load" stretch className="type-poster max-w-[12ch] text-[clamp(3.6rem,1.4rem+8.6vw,12rem)]">
-          {t.title}
-        </KineticHeading>
-        <div className="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-[46ch] text-step-1 text-graphite">{t.lead}</p>
-          <div className="flex flex-wrap gap-5">
+      <div id="hero-copy" className="container-page relative pt-24 max-md:mt-[38svh] max-md:pb-12">
+        <div className="md:max-w-[52%]">
+          <KineticHeading as="h1" id="hero-title" reveal="load" className="type-poster max-w-[13ch] text-step-6">
+            {t.title}
+          </KineticHeading>
+          <p className="mt-6 max-w-[40ch] text-step-1 leading-relaxed text-graphite">{t.lead}</p>
+          <div className="mt-9 flex flex-wrap gap-3">
             <MagneticButton href="#work">{t.seeWork}</MagneticButton>
             <MagneticButton href={href(locale, 'contact')} variant="outline">
               {t.talk}

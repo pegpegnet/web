@@ -30,12 +30,12 @@ export function OpenSource({ locale, t }: { locale: Locale; t: Dictionary['openS
     };
   });
   return (
-    <section id="open-source" aria-labelledby="open-source-title" className="dark bg-char py-28 text-bone">
+    <section id="open-source" aria-labelledby="open-source-title" className="bg-bone py-28 md:py-36">
       <div className="container-page">
-        <KineticHeading id="open-source-title" className="type-poster max-w-[14ch] text-[clamp(3rem,1rem+7vw,9rem)]">
+        <KineticHeading id="open-source-title" className="type-poster max-w-[16ch] text-step-5">
           {t.title}
         </KineticHeading>
-        <p className="mt-6 mb-16 max-w-[44ch] text-step-1 leading-snug text-ash">{t.lead}</p>
+        <p className="mt-5 mb-14 max-w-[44ch] text-step-1 leading-relaxed text-graphite">{t.lead}</p>
         <OpenSourceShelf apps={apps} t={t} />
       </div>
     </section>

@@ -19,11 +19,11 @@ export function DragHint({ label }: { label: string }) {
   return (
     <p
       aria-hidden="true"
-      className={`pointer-events-none absolute top-[22%] right-[clamp(1rem,6vw,6rem)] flex items-center gap-3 text-step--1 font-semibold text-graphite transition-opacity duration-700 max-md:top-auto max-md:right-auto max-md:bottom-[52%] max-md:left-[var(--spacing-gutter)] ${
+      className={`pointer-events-none absolute bottom-10 right-[var(--spacing-gutter)] flex items-center gap-2.5 text-step--1 font-medium text-graphite transition-opacity duration-700 max-md:hidden ${
         gone ? 'opacity-0' : 'opacity-100'
       }`}
     >
-      <span className="relative block h-8 w-8 rounded-full border-[1.5px] border-graphite/50">
+      <span className="relative block h-6 w-6 rounded-full border border-graphite/40">
         <span className="absolute top-1/2 left-1/2 block h-1.5 w-1.5 -translate-1/2 animate-[hint_2.4s_var(--ease-in-out-quart)_infinite] rounded-full bg-ember" />
       </span>
       {label}

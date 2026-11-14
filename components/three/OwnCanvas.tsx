@@ -7,10 +7,18 @@ import type { Quality } from '@/lib/quality';
 
 /**
  * A canvas that lives inside its section, for scenes that other page content must be able to
- * cover (stacked chapters). It renders only while its section is not covered by the next one.
+ * cover (stacked chapters). It renders only while on screen and not covered by the next chapter.
  */
 export default function OwnCanvas({ quality, host, children }: { quality: Quality; host: RefObject<HTMLElement | null>; children: ReactNode }) {
   const [covered, setCovered] = useState(false);
+  const [onScreen, setOnScreen] = useState(true);
+  useEffect(() => {
+    const el = host.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(!!e?.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, [host]);
   useEffect(() => {
     const chapter = host.current?.closest<HTMLElement>('[data-chapter]');
     if (!chapter) return;
@@ -23,7 +31,7 @@ export default function OwnCanvas({ quality, host, children }: { quality: Qualit
   return (
     <Canvas
       className="!absolute !inset-0"
-      frameloop={covered ? 'never' : 'always'}
+      frameloop={covered || !onScreen ? 'never' : 'always'}
       dpr={quality.dpr}
       gl={{ antialias: quality.tier === 'high', alpha: true, powerPreference: 'high-performance', toneMapping: NeutralToneMapping }}
       camera={{ position: [0, 0, 6], fov: 35 }}

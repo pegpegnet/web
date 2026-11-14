@@ -55,10 +55,10 @@ export function HeroScene({ onExplored }: { onExplored?: () => void }) {
   const squash = useRef(spring(1));
 
   const rigPos = useMemo(
-    () => (narrow ? new THREE.Vector3(0.35, height * 0.24, 0) : new THREE.Vector3(width * 0.2, 0.2, 0)),
+    () => (narrow ? new THREE.Vector3(0.35, height * 0.24, 0) : new THREE.Vector3(width * 0.27, 0.1, 0)),
     [narrow, width, height],
   );
-  const rigScale = narrow ? 0.5 : 0.95;
+  const rigScale = narrow ? 0.5 : 0.82;
 
   // Scratch objects reused every frame.
   const tmp = useMemo(
@@ -157,7 +157,7 @@ export function HeroScene({ onExplored }: { onExplored?: () => void }) {
     }
   });
 
-  const shadowSize = tier === 'high' ? 1024 : 512;
+  const shadowSize = tier === 'high' ? 512 : 256;
   return (
     <>
       <PerspectiveCamera ref={camera} makeDefault position={[0, 0, 9]} fov={30}>

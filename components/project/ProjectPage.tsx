@@ -28,15 +28,15 @@ export function ProjectPage({ locale, project, t }: { locale: Locale; project: P
             {t.project.all}
           </Link>
         </p>
-        <KineticHeading as="h1" reveal="load" stretch className="type-poster mt-6 max-w-[14ch] text-[clamp(3.6rem,1rem+10vw,13rem)]">
+        <KineticHeading as="h1" reveal="load" className="type-poster mt-5 max-w-[16ch] text-step-6">
           {text.name}
         </KineticHeading>
-        <p className="mt-8 max-w-[38ch] text-step-2 leading-tight">{text.summary}</p>
+        <p className="mt-6 max-w-[40ch] text-step-2 leading-snug opacity-80">{text.summary}</p>
       </header>
 
       {cover && (
         <div className="container-page">
-          <RevealImage {...cover} alt={text.name} parallax eager className="aspect-[16/9] max-h-[80svh] w-full" />
+          <RevealImage {...cover} alt={text.name} eager className="aspect-[16/9] max-h-[80svh] w-full rounded-[2rem]" />
         </div>
       )}
 
@@ -75,7 +75,7 @@ export function ProjectPage({ locale, project, t }: { locale: Locale; project: P
       {/* The story */}
       {text.sections.map((s) => (
         <section key={s.heading} className="container-page grid gap-6 py-16 md:grid-cols-12">
-          <h2 className="font-sans text-step-2 font-bold tracking-normal md:col-span-4">{s.heading}</h2>
+          <h2 className="text-step-2 font-semibold tracking-[-0.02em] md:col-span-4">{s.heading}</h2>
           <div className="space-y-5 text-step-1 leading-relaxed md:col-span-7 md:col-start-6">
             {s.body.map((b) => (
               <p key={b}>{b}</p>
@@ -102,7 +102,7 @@ export function ProjectPage({ locale, project, t }: { locale: Locale; project: P
               key={img.src}
               {...img}
               alt={`${text.name}, ${i + 1}`}
-              className={`${i % 3 === 0 ? 'md:col-span-8' : i % 3 === 1 ? 'md:col-span-4 md:self-end' : 'md:col-span-6 md:col-start-4'} bg-black/5`}
+              className={`${i % 3 === 0 ? 'md:col-span-8' : i % 3 === 1 ? 'md:col-span-4 md:self-end' : 'md:col-span-6 md:col-start-4'} rounded-2xl bg-black/5`}
             />
           ))}
         </div>
@@ -116,7 +116,7 @@ export function ProjectPage({ locale, project, t }: { locale: Locale; project: P
 
       {project.press && (
         <section className="container-page grid gap-6 py-12 md:grid-cols-12">
-          <h2 className="font-sans text-step-2 font-bold tracking-normal md:col-span-4">{t.project.press}</h2>
+          <h2 className="text-step-2 font-semibold tracking-[-0.02em] md:col-span-4">{t.project.press}</h2>
           <ul className="flex flex-wrap gap-x-8 gap-y-3 text-step-1 md:col-span-7 md:col-start-6">
             {project.press.map((p) => (
               <li key={p.href}>
@@ -129,17 +129,15 @@ export function ProjectPage({ locale, project, t }: { locale: Locale; project: P
         </section>
       )}
 
-      {/* Next project: floods with the next project's colours on hover */}
+      {/* Next project */}
       <nav aria-label={t.project.next} className="mt-16 border-t border-current/15">
         <Link
           href={href(locale, 'projects', next.slug)}
-          style={{ '--n-bg': next.theme.bg, '--n-fg': next.theme.fg } as CSSProperties}
           className="group relative block overflow-hidden no-underline"
         >
-          <span aria-hidden="true" className="absolute inset-0 origin-bottom scale-y-0 bg-[var(--n-bg)] transition-transform duration-700 ease-out-expo group-hover:scale-y-100 group-focus-visible:scale-y-100" />
-          <span className="container-page relative block py-20 transition-colors duration-500 group-hover:text-[var(--n-fg)]">
+                    <span className="container-page relative block py-20">
             <span className="block text-step--1 font-semibold opacity-70">{t.project.next}</span>
-            <span className="type-poster mt-3 block text-[clamp(3rem,1rem+8vw,10rem)]">{nextText.name}</span>
+            <span className="type-poster mt-2 flex items-center gap-4 text-step-5">{nextText.name}<span aria-hidden="true" className="inline-block transition-transform duration-300 group-hover:translate-x-2">→</span></span>
           </span>
         </Link>
       </nav>

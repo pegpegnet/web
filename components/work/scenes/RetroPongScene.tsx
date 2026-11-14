@@ -46,7 +46,7 @@ export function RetroPongScene() {
   const game = useRef<Game>({ x: 0, z: 0, vx: 1.1, vz: 2.2, player: 0, cpu: 0, you: 0, them: 0, serve: 0 });
   const [score, setScore] = useState<[number, number]>([0, 0]);
   const scoreTex = useMemo(
-    () => textTexture(`${score[1]}   ${score[0]}`, { font: '800 120px "Anybody Variable", sans-serif', color: GREEN, width: 512, height: 160, align: 'center' }),
+    () => textTexture(`${score[1]}   ${score[0]}`, { font: '700 120px "Inter Variable", sans-serif', color: GREEN, width: 512, height: 160, align: 'center' }),
     [score],
   );
   const playing = useRef(false);
