@@ -62,8 +62,8 @@ export default async function SectionPage({ params }: { params: Promise<{ locale
       ...kinds.map((k) => ({ value: k, label: t.work.kinds[k] })),
     ];
     return (
-      <main id="main" className="container-page pt-40 pb-32">
-        <KineticHeading as="h1" reveal="load" className="type-poster text-[clamp(4rem,1rem+12vw,15rem)]">
+      <main id="main" className="container-page pt-32 pb-28 md:pt-40">
+        <KineticHeading as="h1" reveal="load" className="type-poster text-step-6">
           {t.projects.title}
         </KineticHeading>
         <p className="mt-6 mb-14 max-w-[46ch] text-step-1 text-graphite">{t.projects.lead}</p>
@@ -75,7 +75,7 @@ export default async function SectionPage({ params }: { params: Promise<{ locale
     const ok = which === 'sent';
     return (
       <main id="main" className="container-page flex min-h-[80svh] flex-col justify-end pt-40 pb-24">
-        <KineticHeading as="h1" reveal="load" className="type-poster max-w-[12ch] text-[clamp(3.6rem,1rem+8vw,10rem)]">
+        <KineticHeading as="h1" reveal="load" className="type-poster max-w-[14ch] text-step-6">
           {ok ? t.contact.sentTitle : t.contact.notSentTitle}
         </KineticHeading>
         <p className="mt-8 max-w-[44ch] text-step-1 text-graphite">{ok ? t.contact.sentText : t.contact.notSentText}</p>
@@ -86,27 +86,27 @@ export default async function SectionPage({ params }: { params: Promise<{ locale
     );
   }
   return (
-    <main id="main" className="container-page pt-40 pb-32">
-      <KineticHeading as="h1" reveal="load" stretch className="type-poster text-[clamp(4rem,1rem+12vw,15rem)]">
+    <main id="main" className="container-page pt-32 pb-28 md:pt-40">
+      <KineticHeading as="h1" reveal="load" className="type-poster text-step-6">
         {t.contact.pageTitle}
       </KineticHeading>
       <p className="mt-6 max-w-[40ch] text-step-1 text-graphite">{t.contact.pageLead}</p>
-      <div className="mt-20 grid gap-20 md:grid-cols-12">
+      <div className="mt-14 grid gap-12 md:grid-cols-12">
         <div className="md:col-span-7">
           <ContactForm locale={locale} t={t.contact} />
         </div>
-        <aside className="md:col-span-4 md:col-start-9" aria-labelledby="where-title">
-          <h2 id="where-title" className="font-sans text-step--1 font-semibold tracking-normal text-graphite">
+        <aside className="self-start rounded-[1.5rem] bg-chalk p-8 md:col-span-4 md:col-start-9" aria-labelledby="where-title">
+          <h2 id="where-title" className="font-sans text-step--1 font-medium tracking-normal text-graphite">
             {t.contact.where}
           </h2>
-          <address className="mt-3 text-step-2 leading-tight not-italic">
+          <address className="mt-3 text-step-1 leading-snug not-italic">
             Calle de Luis Antúnez&nbsp;6
             <br />
             08006 Barcelona
           </address>
-          <ul className="mt-8 space-y-2 text-step-1 font-semibold">
-            <li><a href="https://www.linkedin.com/company/pegpeg" rel="me external" className="hover:text-volt">LinkedIn</a></li>
-            <li><a href="https://github.com/pegpegnet" rel="me external" className="hover:text-volt">GitHub</a></li>
+          <ul className="mt-6 space-y-1 text-step-0 font-medium text-volt">
+            <li><a href="https://www.linkedin.com/company/pegpeg" rel="me external" className="hover:underline">LinkedIn</a></li>
+            <li><a href="https://github.com/pegpegnet" rel="me external" className="hover:underline">GitHub</a></li>
           </ul>
         </aside>
       </div>

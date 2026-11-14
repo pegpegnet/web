@@ -27,9 +27,9 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
         <nav className="md:col-span-2" aria-label={t.footer.sitemap}>
           <h2 className={heading}>{t.footer.sitemap}</h2>
           <ul className="mt-3 space-y-2">
-            <li><Link className={link} href={`${home}#work`}>{t.nav.work}</Link></li>
-            <li><Link className={link} href={`${home}#services`}>{t.nav.services}</Link></li>
             <li><Link className={link} href={href(locale, 'projects')}>{t.projects.title}</Link></li>
+            <li><Link className={link} href={`${home}#services`}>{t.nav.services}</Link></li>
+            <li><Link className={link} href={`${home}#studio`}>{t.nav.about}</Link></li>
             <li><Link className={link} href={href(locale, 'contact')}>{t.nav.contact}</Link></li>
           </ul>
         </nav>

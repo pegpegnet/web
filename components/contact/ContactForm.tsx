@@ -17,11 +17,11 @@ export function ContactForm({ locale, t }: { locale: Locale; t: Dictionary['cont
   }, []);
 
   const field =
-    'w-full border-0 border-b-2 border-char/25 bg-transparent px-0 pt-2 pb-3 text-step-2 text-char transition-colors placeholder:text-graphite/60 focus:border-volt focus:outline-none user-invalid:border-[#b42318]';
-  const label = 'block text-step--1 font-semibold';
+    'mt-2 w-full rounded-xl border border-transparent bg-chalk px-4 py-3 text-step-0 text-char transition-colors placeholder:text-graphite/60 hover:border-line focus:border-volt focus:bg-bone focus:outline-none user-invalid:border-[#b42318]';
+  const label = 'block text-step--1 font-medium';
 
   return (
-    <form method="post" action="/api/contact.php" onSubmit={() => setSending(true)} className="grid gap-10">
+    <form method="post" action="/api/contact.php" onSubmit={() => setSending(true)} className="grid gap-6">
       <input type="hidden" name="locale" value={locale} />
       <input type="hidden" name="t" ref={started} defaultValue="" />
       <div>
@@ -50,7 +50,7 @@ export function ContactForm({ locale, t }: { locale: Locale; t: Dictionary['cont
       <button
         type="submit"
         disabled={sending}
-        className="justify-self-start rounded-full bg-char px-9 py-5 text-step-1 font-semibold text-bone transition-colors hover:bg-volt disabled:cursor-progress disabled:opacity-60"
+        className="mt-2 h-12 justify-self-start rounded-full bg-char px-7 text-step-0 font-medium text-bone transition-colors hover:bg-volt disabled:cursor-progress disabled:opacity-60"
       >
         {sending ? t.sending : t.send}
       </button>

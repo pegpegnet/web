@@ -6,7 +6,7 @@ import { gsap, useGSAP } from '@/lib/gsap';
 type Props = { src: string; width: number; height: number; alt: string; className?: string; parallax?: boolean; eager?: boolean };
 
 /**
- * An image that wipes open (clip-path) as it scrolls into view; with `parallax`, it also drifts
+ * An image that fades and rises gently as it scrolls into view; with `parallax`, it also drifts
  * inside its frame while the page scrolls. Reduced motion shows it plainly.
  */
 export function RevealImage({ src, width, height, alt, className = '', parallax = false, eager = false }: Props) {
@@ -20,8 +20,8 @@ export function RevealImage({ src, width, height, alt, className = '', parallax 
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.fromTo(
           el,
-          { clipPath: 'inset(12% 8% 12% 8% round 2rem)' },
-          { clipPath: 'inset(0% 0% 0% 0% round 1.25rem)', duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: el, start: 'top 85%', once: true } },
+          { autoAlpha: 0, y: 24 },
+          { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } },
         );
         if (parallax) {
           gsap.fromTo(img, { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: true } });
