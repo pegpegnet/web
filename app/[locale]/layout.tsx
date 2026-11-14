@@ -6,7 +6,7 @@ import { getDictionary } from '@/content/i18n';
 import { languageAlternates } from '@/lib/seo';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { SmoothScroll } from '@/components/motion/SmoothScroll';
+import { ScrollRestoration } from '@/components/motion/ScrollRestoration';
 import { Cursor } from '@/components/motion/Cursor';
 import { PageTransition } from '@/components/motion/PageTransition';
 import { QualityProvider } from '@/components/three/QualityProvider';
@@ -61,11 +61,10 @@ export default async function LocaleLayout({
           {t.nav.skip}
         </a>
         <QualityProvider>
-          <SmoothScroll>
-            <Header locale={locale} t={t.nav} />
-            {children}
-            <Footer locale={locale} t={t} />
-          </SmoothScroll>
+          <ScrollRestoration />
+          <Header locale={locale} t={t.nav} />
+          {children}
+          <Footer locale={locale} t={t} />
           <StageLoader />
           <Cursor />
           <PageTransition />

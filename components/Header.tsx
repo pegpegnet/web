@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { Wordmark } from './Wordmark';
-import { useLenis } from './motion/SmoothScroll';
 import { alternatesFromPath, href, localeNames, locales, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/i18n';
 
@@ -18,7 +17,6 @@ export function Header({ locale, t }: Props) {
   const [solid, setSolid] = useState(false);
   const [onDark, setOnDark] = useState(false);
   const reduce = useReducedMotion();
-  const lenis = useLenis();
   const pathname = usePathname();
   const toggle = useRef<HTMLButtonElement>(null);
   const home = href(locale);
@@ -56,7 +54,9 @@ export function Header({ locale, t }: Props) {
       const probe = document.elementFromPoint(window.innerWidth / 2, 72);
       setOnDark(!!probe?.closest('.dark'));
     };
-    const onScroll = () => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
       const y = window.scrollY;
       setSolid(y > 40);
       sample();
@@ -65,11 +65,16 @@ export function Header({ locale, t }: Props) {
         last = y;
       }
     };
-    onScroll();
+    // At most once per frame, however many scroll events arrive.
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
     const late = window.setTimeout(sample, 600);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => {
       window.clearTimeout(late);
+      cancelAnimationFrame(frame);
       window.removeEventListener('scroll', onScroll);
     };
   }, []);
@@ -93,13 +98,11 @@ export function Header({ locale, t }: Props) {
     };
     document.addEventListener('keydown', onKey);
     document.documentElement.style.overflow = 'hidden';
-    lenis?.stop();
     return () => {
       document.removeEventListener('keydown', onKey);
       document.documentElement.style.overflow = '';
-      lenis?.start();
     };
-  }, [open, lenis]);
+  }, [open]);
 
   return (
     <header
@@ -109,7 +112,7 @@ export function Header({ locale, t }: Props) {
     >
       <div
         aria-hidden="true"
-        className={`absolute inset-0 backdrop-blur-md transition-[opacity,background-color] duration-300 ${onDark ? 'bg-char/70' : 'bg-bone/80'} ${
+        className={`absolute inset-0 transition-[opacity,background-color] duration-300 ${onDark ? 'bg-char/95' : 'bg-bone/95'} ${
           solid && !open ? 'opacity-100' : 'opacity-0'
         }`}
       />

@@ -104,8 +104,8 @@ export const Peg = forwardRef<THREE.Group, { tier: Tier }>(function Peg({ tier }
             distortion={0.12}
             distortionScale={0.4}
             temporalDistortion={0.05}
-            samples={6}
-            resolution={512}
+            samples={4}
+            resolution={256}
             backside
             backsideThickness={0.4}
             background={GLASS_BACKDROP}

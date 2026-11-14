@@ -157,7 +157,7 @@ export function HeroScene({ onExplored }: { onExplored?: () => void }) {
     }
   });
 
-  const shadowSize = tier === 'high' ? 1024 : 512;
+  const shadowSize = tier === 'high' ? 512 : 256;
   return (
     <>
       <PerspectiveCamera ref={camera} makeDefault position={[0, 0, 9]} fov={30}>

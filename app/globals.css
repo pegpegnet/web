@@ -50,6 +50,8 @@
 
 @layer base {
   html {
+    scroll-behavior: smooth; /* anchor links; the reduced-motion block below turns it off */
+    scroll-padding-top: 5rem;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
     color-scheme: light;
