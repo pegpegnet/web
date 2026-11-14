@@ -10,10 +10,9 @@ import type { Dictionary } from '@/content/i18n';
 
 type Props = { locale: Locale; t: Dictionary['nav'] & { menu: string; close: string; mainNav: string } };
 
-/** Fixed header: wordmark, section links on wide screens, and a full-screen menu on small ones. */
+/** Fixed header: wordmark, section links and languages on wide screens, a full-screen menu on small ones. */
 export function Header({ locale, t }: Props) {
   const [open, setOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [solid, setSolid] = useState(false);
   const [onDark, setOnDark] = useState(false);
   const reduce = useReducedMotion();
@@ -31,7 +30,7 @@ export function Header({ locale, t }: Props) {
             lang={l}
             aria-label={localeNames[l]}
             aria-current={l === locale ? 'true' : undefined}
-            className="block rounded-full px-2.5 py-2 text-step--1 font-semibold uppercase no-underline opacity-60 transition-opacity hover:opacity-100 aria-[current=true]:opacity-100 aria-[current=true]:underline aria-[current=true]:decoration-2 aria-[current=true]:underline-offset-4"
+            className="block rounded-full px-2 py-1.5 text-step--1 font-medium uppercase no-underline opacity-55 transition-opacity hover:opacity-100 aria-[current=true]:opacity-100"
           >
             {l}
           </a>
@@ -46,7 +45,7 @@ export function Header({ locale, t }: Props) {
     { label: t.contact, to: href(locale, 'contact') },
   ];
 
-  // Out of the way while reading down the page, back as soon as the visitor scrolls up.
+  // A backdrop once the page has moved, and light text over dark sections.
   useEffect(() => {
     let last = window.scrollY;
     const sample = () => {
@@ -60,10 +59,7 @@ export function Header({ locale, t }: Props) {
       const y = window.scrollY;
       setSolid(y > 40);
       sample();
-      if (Math.abs(y - last) > 6) {
-        setHidden(y > last && y > 160);
-        last = y;
-      }
+      last = y;
     };
     // At most once per frame, however many scroll events arrive.
     const onScroll = () => {
@@ -83,7 +79,6 @@ export function Header({ locale, t }: Props) {
   useEffect(() => {
     const look = () => setOnDark(!!document.elementFromPoint(window.innerWidth / 2, 72)?.closest('.dark'));
     const timers = [80, 400, 1000].map((ms) => window.setTimeout(look, ms));
-    setHidden(false);
     return () => timers.forEach(window.clearTimeout);
   }, [pathname]);
 
@@ -105,30 +100,26 @@ export function Header({ locale, t }: Props) {
   }, [open]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-transform duration-500 ease-out-expo ${
-        hidden && !open ? '-translate-y-full' : 'translate-y-0'
-      }`}
-    >
+    <header className="fixed inset-x-0 top-0 z-50">
       <div
         aria-hidden="true"
-        className={`absolute inset-0 transition-[opacity,background-color] duration-300 ${onDark ? 'bg-char/95' : 'bg-bone/95'} ${
-          solid && !open ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`absolute inset-0 border-b transition-[opacity,background-color] duration-300 ${
+          onDark ? 'border-white/10 bg-char/95' : 'border-line bg-bone/95'
+        } ${solid && !open ? 'opacity-100' : 'opacity-0'}`}
       />
       <div
-        className={`container-page relative flex items-center justify-between py-4 transition-colors duration-300 ${onDark && !open ? 'text-bone' : ''}`}
+        className={`container-page relative flex h-16 items-center justify-between transition-colors duration-300 ${onDark && !open ? 'text-bone' : ''}`}
       >
-        <Wordmark href={home} className={open || onDark ? 'relative z-10 !text-bone' : ''} />
+        <Wordmark href={home} className={onDark && !open ? '!text-bone' : 'relative z-10'} />
 
-        <nav aria-label={t.mainNav} className="hidden items-center gap-4 md:flex">
-          <ul className="flex gap-1">
+        <nav aria-label={t.mainNav} className="hidden items-center gap-6 md:flex">
+          <ul className="flex gap-6">
             {links.map((l) => (
               <li key={l.to}>
                 <Link
                   href={l.to}
-                  className={`rounded-full px-4 py-2 text-step--1 font-semibold no-underline transition-colors ${
-                    onDark ? 'hover:bg-bone hover:text-char' : 'hover:bg-char hover:text-bone'
+                  className={`text-step--1 font-medium no-underline transition-colors ${
+                    onDark ? 'text-bone/75 hover:text-bone' : 'text-graphite hover:text-char'
                   }`}
                 >
                   {l.label}
@@ -145,8 +136,8 @@ export function Header({ locale, t }: Props) {
           aria-expanded={open}
           aria-controls="site-menu"
           onClick={() => setOpen((o) => !o)}
-          className={`relative z-10 flex h-11 items-center gap-3 rounded-full px-5 text-step--1 font-semibold md:hidden ${
-            open || onDark ? 'bg-bone text-char' : 'bg-char text-bone'
+          className={`relative z-10 flex h-10 items-center gap-3 rounded-full px-4 text-step--1 font-medium md:hidden ${
+            onDark && !open ? 'bg-bone text-char' : 'bg-chalk text-char'
           }`}
         >
           {open ? t.close : t.menu}
@@ -165,25 +156,25 @@ export function Header({ locale, t }: Props) {
         {open && (
           <motion.div
             id="site-menu"
-            className="fixed inset-0 flex flex-col justify-end bg-char pb-12 text-bone md:hidden"
-            initial={reduce ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
-            animate={reduce ? { opacity: 1 } : { clipPath: 'inset(0 0 0% 0)' }}
-            exit={reduce ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: reduce ? 0.15 : 0.7, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 flex flex-col bg-bone pt-24 pb-12 text-char md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduce ? 0.1 : 0.2 }}
           >
             <nav aria-label={t.mainNav} className="container-page">
               <ul>
                 {links.map((l, i) => (
-                  <li key={l.to} className="overflow-hidden">
+                  <li key={l.to} className="border-b border-line">
                     <motion.div
-                      initial={reduce ? false : { y: '110%' }}
-                      animate={{ y: 0 }}
-                      transition={{ delay: 0.25 + i * 0.06, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                      initial={reduce ? false : { opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.04 * i, duration: 0.3 }}
                     >
                       <Link
                         href={l.to}
                         onClick={() => setOpen(false)}
-                        className="type-poster block py-1 text-[clamp(3.5rem,17vw,6rem)] no-underline transition-colors hover:text-ember focus-visible:text-ember"
+                        className="block py-4 text-step-3 font-semibold tracking-[-0.03em] no-underline"
                       >
                         {l.label}
                       </Link>
@@ -191,7 +182,7 @@ export function Header({ locale, t }: Props) {
                   </li>
                 ))}
               </ul>
-              <div className="mt-10 text-bone">{languages}</div>
+              <div className="mt-8">{languages}</div>
             </nav>
           </motion.div>
         )}

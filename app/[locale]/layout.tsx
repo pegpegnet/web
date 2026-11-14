@@ -7,7 +7,6 @@ import { languageAlternates } from '@/lib/seo';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ScrollRestoration } from '@/components/motion/ScrollRestoration';
-import { Cursor } from '@/components/motion/Cursor';
 import { PageTransition } from '@/components/motion/PageTransition';
 import { QualityProvider } from '@/components/three/QualityProvider';
 import { StageLoader } from '@/components/three/StageLoader';
@@ -66,7 +65,6 @@ export default async function LocaleLayout({
           {children}
           <Footer locale={locale} t={t} />
           <StageLoader />
-          <Cursor />
           <PageTransition />
         </QualityProvider>
       </body>
