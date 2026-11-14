@@ -6,7 +6,7 @@ import * as THREE from 'three';
  */
 export function textTexture(
   text: string,
-  { font = '600 44px "Schibsted Grotesk Variable", sans-serif', color = '#161719', width = 1024, height = 128, align = 'left' as CanvasTextAlign } = {},
+  { font = '600 44px "Inter Variable", sans-serif', color = '#161719', width = 1024, height = 128, align = 'left' as CanvasTextAlign } = {},
 ): THREE.CanvasTexture {
   const canvas = document.createElement('canvas');
   canvas.width = width;

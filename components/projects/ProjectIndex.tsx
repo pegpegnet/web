@@ -103,7 +103,7 @@ export function ProjectIndex({ items, filters, t }: Props) {
               </span>
               <span className="min-w-0">
                 <span className="block text-step-2 font-semibold tracking-[-0.025em]">{p.name}</span>
-                <span className="mt-1 block truncate text-step--1 text-graphite">{p.summary}</span>
+                <span className="mt-1 line-clamp-2 text-step--1 text-graphite md:line-clamp-1">{p.summary}</span>
               </span>
               <span className="text-step--1 text-graphite max-md:hidden">{p.meta}</span>
               <span className="text-right text-step--1 tabular-nums text-graphite">{p.year ?? ''}</span>
