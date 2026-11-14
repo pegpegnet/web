@@ -30,7 +30,7 @@ export function OpenSourceShelf({ apps, t }: { apps: ShelfApp[]; t: { details: s
   return (
     <div>
       {/* The window */}
-      <div className="mx-auto max-w-[64rem] overflow-hidden rounded-[1.1rem] bg-[#202125] shadow-[0_40px_80px_-30px_rgb(0_0_0/0.6)]">
+      <div className="mx-auto max-w-[64rem] overflow-hidden rounded-[1.1rem] bg-[#202125] shadow-[0_30px_60px_-30px_rgb(17_18_20/0.35)]">
         <div className="flex h-9 items-center gap-2 px-4" aria-hidden="true">
           <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
           <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
@@ -79,17 +79,17 @@ export function OpenSourceShelf({ apps, t }: { apps: ShelfApp[]; t: { details: s
             key={app.slug}
             onPointerEnter={() => dock.setActive(i)}
             onFocus={() => dock.setActive(i)}
-            className={`border-t pt-4 transition-colors duration-300 ${i === active ? 'border-ember' : 'border-bone/20'}`}
+            className={`border-t pt-4 transition-colors duration-300 ${i === active ? 'border-volt' : 'border-line'}`}
           >
-            <h3 className="font-sans text-step-1 font-bold tracking-normal">
-              <a href={app.href} className="no-underline hover:text-ember">
+            <h3 className="text-step-1 font-semibold tracking-[-0.02em]">
+              <a href={app.href} className="no-underline hover:text-volt">
                 {app.name}
               </a>
             </h3>
-            <p className="mt-2 text-step--1 text-ash">{app.summary}</p>
-            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-step--1 font-semibold">
+            <p className="mt-2 text-step--1 text-graphite">{app.summary}</p>
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-step--1 font-medium">
               {app.links.map((l) => (
-                <a key={l.href} href={l.href} rel="external" className="underline decoration-1 underline-offset-4 hover:text-ember">
+                <a key={l.href} href={l.href} rel="external" className="text-volt no-underline hover:underline">
                   {l.label}
                 </a>
               ))}

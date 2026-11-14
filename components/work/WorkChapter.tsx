@@ -16,10 +16,7 @@ type Props = {
   scene?: ReactNode;
 };
 
-/**
- * One full-screen chapter of Selected Work, in the project's own colours. Chapters are sticky,
- * so each one slides over the last (see WorkStack for the depth effect).
- */
+/** One project of Selected Work: a rounded panel in the project's own colours, with its scene. */
 export function WorkChapter({ locale, project, t, scene }: Props) {
   const text = textOf(project, locale);
   const cover = project.cover ? image(project.cover) : null;
@@ -41,38 +38,24 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
       alt=""
       loading="lazy"
       decoding="async"
-      className="h-full w-full rounded-[2rem] object-cover"
+      className="h-full w-full rounded-[1.25rem] object-cover"
     />
   ) : null;
 
   return (
-    <article
-      data-chapter
-      aria-labelledby={`work-${project.slug}`}
-      style={style}
-      className={`sticky top-0 flex min-h-[100svh] items-center overflow-hidden bg-[var(--chapter-bg)] text-[var(--chapter-fg)] ${
-        isDark(project.theme.bg) ? 'dark' : ''
-      }`}
-    >
-      <div data-chapter-inner className="container-page grid w-full items-center gap-10 py-24 md:grid-cols-12">
+    <article data-chapter aria-labelledby={`work-${project.slug}`} style={style} className="container-page">
+      <div
+        className={`grid items-center gap-8 overflow-hidden rounded-[2rem] bg-[var(--chapter-bg)] p-6 text-[var(--chapter-fg)] md:grid-cols-12 md:gap-10 md:p-12 ${
+          isDark(project.theme.bg) ? 'dark' : ''
+        }`}
+      >
         <div className="relative z-[2] md:col-span-5">
-          <p className="text-step--1 font-semibold opacity-70">{meta.join(', ')}</p>
-          <KineticHeading
-            as="h3"
-            id={`work-${project.slug}`}
-            stretch
-            className={`type-poster mt-4 ${
-              text.name.length > 12
-                ? 'text-[clamp(2.4rem,1rem+4vw,5.6rem)]'
-                : text.name.length > 8
-                  ? 'text-[clamp(2.8rem,1.2rem+4.6vw,6.4rem)]'
-                  : 'text-[clamp(3.4rem,1.6rem+7vw,9.5rem)]'
-            }`}
-          >
+          <p className="text-step--1 font-medium opacity-70">{meta.join(', ')}</p>
+          <KineticHeading as="h3" id={`work-${project.slug}`} className="type-poster mt-3 text-[clamp(2rem,1.4rem+2.4vw,3.5rem)]">
             {text.name}
           </KineticHeading>
-          <p className="mt-6 max-w-[34ch] text-step-1 leading-snug">{text.summary}</p>
-          <div className="mt-10">
+          <p className="mt-4 max-w-[34ch] text-step-1 leading-relaxed opacity-85">{text.summary}</p>
+          <div className="mt-8">
             <MagneticButton href={href(locale, 'projects', project.slug)} variant="outline" tone={isDark(project.theme.bg) ? 'dark' : 'light'}>
               {t.view}
             </MagneticButton>
@@ -97,8 +80,6 @@ export function WorkChapter({ locale, project, t, scene }: Props) {
           )}
         </div>
       </div>
-      {/* Darkens as the next chapter slides over this one */}
-      <div data-chapter-shade aria-hidden="true" className="pointer-events-none absolute inset-0 bg-char opacity-0" />
     </article>
   );
 }
