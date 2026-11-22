@@ -13,9 +13,11 @@ export type UniverseState = {
   hover: string | null;
   /** True once the scene has drawn its first frame */
   ready: boolean;
+  /** Share of the worlds' surfaces baked so far, 0 to 1 */
+  baked: number;
 };
 
-let state: UniverseState = { focus: null, hover: null, ready: false };
+let state: UniverseState = { focus: null, hover: null, ready: false, baked: 0 };
 const listeners = new Set<() => void>();
 
 export const universe = {
@@ -41,7 +43,8 @@ export function useUniverse<T>(select: (s: UniverseState) => T): T {
 }
 
 /**
- * The system's clock. Orbits advance with `time`, which slows to a stop when a world is in focus
- * (so the camera can rest on it) and never moves when the visitor prefers reduced motion.
+ * The system's clocks. Orbits advance with `time` at `scale`, which slows to a stop when a world
+ * is in focus so the camera can rest on it. `spin` drives everything else that moves on its own
+ * (days, clouds, moons). Both are zero when the visitor prefers reduced motion.
  */
-export const clock = { time: 0, scale: 1 };
+export const clock = { time: 0, scale: 1, spin: 1 };

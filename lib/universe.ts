@@ -74,7 +74,7 @@ const inner: Spec[] = [
     moons: 2,
   },
   { slug: 'instavision', type: 'toxic', radius: 1.0, palette: ['#2a0f2e', '#7a2a6e', '#d65a9e', '#ffb35a'], atmosphere: '#ff7ac8', clouds: 0.35, rings: null },
-  { slug: 'app-visionos-yutub', type: 'ocean', radius: 1.2, palette: ['#05223f', '#1f6f8b', '#c9b98d', '#3e6b3a'], atmosphere: '#7ab8ff', clouds: 0.6, rings: null, moons: 1 },
+  { slug: 'app-visionos-yutub', type: 'ocean', radius: 1.2, palette: ['#05223f', '#1f6f8b', '#c9b98d', '#3e6b3a'], atmosphere: '#7ab8ff', clouds: 0.45, rings: null, moons: 1 },
   { slug: 'whassap', type: 'gas', radius: 0.85, palette: ['#0d3b34', '#2d8a74', '#9fe0c8', '#e9fff6'], atmosphere: '#8ff0d0', clouds: 0, rings: null },
   { slug: 'swiftui-debug-tools', type: 'barren', radius: 0.6, palette: ['#22262e', '#5a616e', '#a9b0bd', '#0a6cff'], atmosphere: null, clouds: 0, rings: null },
 ];

@@ -7,13 +7,15 @@ import { clock, universe } from './store';
 import { Sky, Stars } from './scene/Sky';
 import { Companion, Star } from './scene/Star';
 import { Worlds } from './scene/Worlds';
+import { Belt } from './scene/Belt';
 import { OVERVIEW, Rig } from './scene/Rig';
 import { Effects } from './scene/Effects';
 
 /** Advances the system's clock once per frame, before anything reads it. */
 function SystemClock({ still }: { still: boolean }) {
   useFrame((_, dt) => {
-    clock.scale = still ? 0 : 1;
+    clock.spin = still ? 0 : 1;
+    if (still) clock.scale = 0;
     clock.time += Math.min(dt, 0.1) * clock.scale;
   }, -1);
   return null;
@@ -45,7 +47,8 @@ export default function UniverseCanvas({ quality }: { quality: Quality }) {
       <Stars tier={quality.tier} />
       <Star />
       <Companion />
-      <Worlds />
+      <Worlds tier={quality.tier} />
+      <Belt tier={quality.tier} />
       <ambientLight intensity={0.015} />
       <Rig still={quality.still} />
       <Effects tier={quality.tier} />
