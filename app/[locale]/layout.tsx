@@ -4,12 +4,9 @@ import { notFound } from 'next/navigation';
 import { locales, isLocale } from '@/lib/i18n';
 import { getDictionary } from '@/content/i18n';
 import { languageAlternates } from '@/lib/seo';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import { ScrollRestoration } from '@/components/motion/ScrollRestoration';
 import { PageTransition } from '@/components/motion/PageTransition';
 import { QualityProvider } from '@/components/three/QualityProvider';
-import { StageLoader } from '@/components/three/StageLoader';
 import '../globals.css';
 
 export const dynamicParams = false;
@@ -61,10 +58,7 @@ export default async function LocaleLayout({
         </a>
         <QualityProvider>
           <ScrollRestoration />
-          <Header locale={locale} t={t.nav} />
           {children}
-          <Footer locale={locale} t={t} />
-          <StageLoader />
           <PageTransition />
         </QualityProvider>
       </body>

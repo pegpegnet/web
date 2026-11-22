@@ -1,5 +1,5 @@
 // Fails the build if the home page's first-load JavaScript grows past the budget, or if three.js
-// sneaks into it (3D must load after hydration; see components/scenes.tsx). Run after `next build`.
+// sneaks into it (3D must load after hydration; see components/universe/Universe.tsx). Run after `next build`.
 import { readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 

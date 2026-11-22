@@ -11,9 +11,6 @@ import { ca } from './projects.ca.ts';
 
 export type Kind = 'app' | 'web' | 'game' | 'open-source';
 
-/** Projects with their own interactive scene in the Selected Work section. */
-export type SceneId = 'yutub' | 'socialpreview' | 'retropong' | 'mixmaster';
-
 export type Section = { heading: string; body: string[]; list?: string[] };
 
 export type ProjectText = {
@@ -30,7 +27,7 @@ export type Project = {
   kinds: Kind[];
   year?: number;
   platforms: string[];
-  /** The project's own colours, used for its chapter and page. */
+  /** The project's own colours, used for its page. */
   theme: { bg: string; fg: string; accent: string };
   /** Main picture; a few old projects have none. */
   cover?: string;
@@ -38,7 +35,6 @@ export type Project = {
   links: Link[];
   youtube?: string;
   press?: { name: string; href: string }[];
-  scene?: SceneId;
   repo?: string;
   /** Hidden projects keep their page (old links work) but are not listed. */
   listed: boolean;
@@ -55,7 +51,6 @@ const downloadLabel = { en: 'Download for Mac', es: 'Descargar para Mac', ca: 'D
 type Draft = Omit<Project, 'text'> & { text: { en: ProjectText } };
 
 const drafts: Draft[] = [
-  // Selected work: each has its own scene on the home page.
   {
     slug: 'app-visionos-yutub',
     kinds: ['app', 'open-source'],
@@ -65,7 +60,6 @@ const drafts: Draft[] = [
     cover: 'yutub-top',
     gallery: ['yutub-screenshot', 'yutub-capture'],
     links: [github('pballada/yutub')],
-    scene: 'yutub',
     repo: 'pballada/yutub',
     listed: true,
     text: {
@@ -111,7 +105,6 @@ const drafts: Draft[] = [
         href: 'https://t.me/socialpreviewbot',
       },
     ],
-    scene: 'socialpreview',
     listed: true,
     text: {
       en: {
@@ -154,7 +147,6 @@ const drafts: Draft[] = [
     gallery: ['pong-capture', 'pong-ipad', 'pong-iphone', 'pong-box'],
     links: [],
     youtube: '9_xsibeqIqM',
-    scene: 'retropong',
     listed: true,
     text: {
       en: {
@@ -194,7 +186,6 @@ const drafts: Draft[] = [
       { name: 'Culpinak', href: 'https://culpinak.blogspot.com.es/2008/07/aparece-el-dj-mix-de-youtube.html' },
       { name: 'Tuexperto', href: 'https://www.tuexperto.com/2008/11/29/mixmaster-tube-mezcla-tus-videos-musicales/' },
     ],
-    scene: 'mixmaster',
     listed: true,
     text: {
       en: {

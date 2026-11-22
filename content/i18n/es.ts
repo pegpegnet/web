@@ -15,6 +15,13 @@ const es: Dictionary = {
     talk: 'Hablemos',
     lead: 'Estudio independiente de tecnología creativa en Barcelona. Diseñamos, desarrollamos y experimentamos con apps, webs, IA y experiencias inmersivas.',
   },
+  universe: {
+    system: 'El sistema PegPeg · {n} mundos',
+    title: 'Hacemos que lo digital',
+    titleEm: 'cobre vida.',
+    hint: 'Arrastra para orbitar · Desplaza para acercarte',
+    hintTouch: 'Arrastra para orbitar · Pellizca para acercarte',
+  },
   nav: {
     menu: 'Menú',
     close: 'Cerrar',

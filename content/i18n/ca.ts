@@ -15,6 +15,13 @@ const ca: Dictionary = {
     talk: 'Parlem',
     lead: 'Estudi independent de tecnologia creativa a Barcelona. Dissenyem, desenvolupem i experimentem amb apps, webs, IA i experiències immersives.',
   },
+  universe: {
+    system: 'El sistema PegPeg · {n} mons',
+    title: 'Fem que el digital',
+    titleEm: 'cobri vida.',
+    hint: 'Arrossega per orbitar · Desplaça per apropar-te',
+    hintTouch: 'Arrossega per orbitar · Pessiga per apropar-te',
+  },
   nav: {
     menu: 'Menú',
     close: 'Tanca',

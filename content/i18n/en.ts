@@ -13,6 +13,13 @@ const en = {
     talk: "Let's talk",
     lead: 'Independent creative technology studio in Barcelona. We design, develop, and experiment with apps, websites, AI, and immersive experiences.',
   },
+  universe: {
+    system: 'The PegPeg system · {n} worlds',
+    title: 'We make digital things',
+    titleEm: 'come alive.',
+    hint: 'Drag to orbit · Scroll to zoom',
+    hintTouch: 'Drag to orbit · Pinch to zoom',
+  },
   nav: {
     menu: 'Menu',
     close: 'Close',
