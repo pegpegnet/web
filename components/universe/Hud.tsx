@@ -65,9 +65,9 @@ export function Hud({ locale, t }: { locale: Locale; t: Dictionary }) {
       <HideOnFocus className="relative flex items-end justify-between gap-10">
         <div className="max-w-[48rem]">
           <p className={`intro-fade ${label} text-starlight/55`}>{t.universe.system.replace('{n}', String(worlds.length))}</p>
-          <h1 className="mt-5 font-serif text-[clamp(3.1rem,1.3rem+5.8vw,7.6rem)] leading-[0.9] font-normal tracking-[-0.02em] text-balance">
+          <h1 className="mt-5 font-serif text-[clamp(3.1rem,1.3rem+5.8vw,7.6rem)] leading-[0.9] font-light tracking-[-0.02em] text-balance">
             <Words text={t.universe.title} />
-            <em className="text-flare-soft">
+            <em className="text-flare-soft not-italic">
               <Words text={t.universe.titleEm} start={t.universe.title.split(' ').length} />
             </em>
           </h1>

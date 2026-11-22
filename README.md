@@ -2,7 +2,7 @@
 
 Source for [pegpeg.net](https://pegpeg.net), the website of PegPeg, an independent creative technology studio in Barcelona.
 
-An explorable 3D star system, in Spanish, English and Catalan: every project PegPeg has made is a world orbiting an orange star. It's built with Next.js (App Router, static export), React Three Fiber, postprocessing, GSAP and Tailwind CSS, set in Instrument Serif, Geist and Geist Mono. The build output is plain static files, served by Apache.
+An explorable 3D star system, in Spanish, English and Catalan: every project PegPeg has made is a world orbiting an orange star. It's built with Next.js (App Router, static export), React Three Fiber, postprocessing, GSAP and Tailwind CSS, set in Unbounded, Geist and Geist Mono. The build output is plain static files, served by Apache.
 
 ## Develop
 
@@ -53,7 +53,7 @@ CI runs all of these on every pull request.
 
 The palette, type scale and measured contrast are at the top of `app/globals.css`. In short:
 - **Colours:** `space` (background), `nebula` (panels), `starlight` (text), `haze` and `dust` (secondary text), `rim` (hairlines), `flare` (the star's orange, the one accent) and `ion` (the companion's blue).
-- **Type:** Instrument Serif for headlines, Geist for text, Geist Mono for small uppercase labels.
+- **Type:** Unbounded (light, scaled with size-adjust) for headlines, Geist for text, Geist Mono for small uppercase labels.
 - **Panels** are solid, never backdrop-blurred, so they don't cost the 3D any frames.
 
 ## Deploy
