@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { alternates, href, localeNames, locales, type Locale } from '@/lib/i18n';
 import { worlds } from '@/lib/universe';
 import type { Dictionary } from '@/content/i18n';
+import { HideOnFocus } from './FocusBar';
 
 /** Small uppercase monospace text: the instrument labels of the interface. */
 export const label = 'font-mono text-[11px] uppercase tracking-[0.18em]';
@@ -46,7 +47,7 @@ export function Hud({ locale, t }: { locale: Locale; t: Dictionary }) {
         </nav>
       </header>
 
-      <div className="relative flex items-end justify-between gap-10">
+      <HideOnFocus className="relative flex items-end justify-between gap-10">
         <div className="max-w-[48rem]">
           <p className={`${label} text-starlight/55`}>{t.universe.system.replace('{n}', String(worlds.length))}</p>
           <h1 className="mt-5 font-serif text-[clamp(3.1rem,1.3rem+5.8vw,7.6rem)] leading-[0.9] font-normal tracking-[-0.02em] text-balance">
@@ -56,7 +57,7 @@ export function Hud({ locale, t }: { locale: Locale; t: Dictionary }) {
         </div>
         <p className={`${label} hidden shrink-0 text-starlight/50 md:block pointer-coarse:hidden`}>{t.universe.hint}</p>
         <p className={`${label} hidden shrink-0 text-starlight/50 pointer-coarse:md:block`}>{t.universe.hintTouch}</p>
-      </div>
+      </HideOnFocus>
     </div>
   );
 }

@@ -84,6 +84,7 @@ type Props = {
 };
 
 function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
+  const orbitLine = useRef<{ material: { opacity: number } }>(null);
   const carrier = useRef<THREE.Group>(null);
   const axis = useRef<THREE.Group>(null);
   const body = useRef<THREE.Mesh>(null);
@@ -168,6 +169,15 @@ function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
     moonMaterial.uniforms.uReveal!.value = moonMaps ? r : 0;
     material.uniforms.uCloudShift!.value = (state.clock.elapsedTime * clock.spin * 0.0016) % 1;
 
+    // The orbit lights up for the world under the pointer or in focus, and the rest step back.
+    if (orbitLine.current) {
+      const { hover, focus } = universe.get();
+      const on = hover === world.slug || focus === world.slug;
+      const goal = on ? 0.32 : focus ? 0.025 : 0.055;
+      const m = orbitLine.current.material;
+      m.opacity += (goal - m.opacity) * Math.min(1, dt * 6);
+    }
+
     if (!carrier.current || !axis.current) return;
     carrier.current.getWorldPosition(centre);
     axis.current.getWorldQuaternion(q);
@@ -191,12 +201,14 @@ function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
 
   return (
     <group rotation={plane}>
-      <Line points={path} color="#b8c4e8" transparent opacity={0.055} lineWidth={1} depthWrite={false} />
+      <Line ref={orbitLine as never} points={path} color="#b8c4e8" transparent opacity={0.055} lineWidth={1} depthWrite={false} />
       <group ref={carrier}>
         <group ref={axis} rotation-z={world.tilt}>
+          <mesh ref={body} material={material}>
+            <sphereGeometry args={[world.radius, 128, 64]} />
+          </mesh>
+          {/* A larger, invisible target, so small worlds are easy to hit with a finger. */}
           <mesh
-            ref={body}
-            material={material}
             onPointerOver={(e) => {
               e.stopPropagation();
               onPointer(world.slug);
@@ -207,7 +219,8 @@ function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
               onSelect(world.slug);
             }}
           >
-            <sphereGeometry args={[world.radius, 128, 64]} />
+            <sphereGeometry args={[world.radius * 1.6 + 0.4, 16, 8]} />
+            <meshBasicMaterial visible={false} />
           </mesh>
           {atmosphere && (
             <mesh material={atmosphere} renderOrder={2}>

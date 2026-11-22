@@ -10,6 +10,8 @@ import { Worlds } from './scene/Worlds';
 import { Belt } from './scene/Belt';
 import { OVERVIEW, Rig } from './scene/Rig';
 import { Effects } from './scene/Effects';
+import { LabelTracker } from './scene/LabelTracker';
+import { focusWorld } from './navigation';
 
 /** Advances the system's clock once per frame, before anything reads it. */
 function SystemClock({ still }: { still: boolean }) {
@@ -47,10 +49,11 @@ export default function UniverseCanvas({ quality }: { quality: Quality }) {
       <Stars tier={quality.tier} />
       <Star />
       <Companion />
-      <Worlds tier={quality.tier} />
+      <Worlds tier={quality.tier} onSelect={focusWorld} />
       <Belt tier={quality.tier} />
       <ambientLight intensity={0.015} />
       <Rig still={quality.still} />
+      <LabelTracker />
       <Effects tier={quality.tier} />
       <Ready />
     </Canvas>

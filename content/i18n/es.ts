@@ -21,6 +21,11 @@ const es: Dictionary = {
     titleEm: 'cobre vida.',
     hint: 'Arrastra para orbitar · Desplaza para acercarte',
     hintTouch: 'Arrastra para orbitar · Pellizca para acercarte',
+    worlds: 'Mundos',
+    previous: 'Mundo anterior',
+    next: 'Mundo siguiente',
+    back: 'Volver al sistema',
+    of: 'Mundo {n} de {total}',
   },
   nav: {
     menu: 'Menú',

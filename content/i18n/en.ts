@@ -19,6 +19,11 @@ const en = {
     titleEm: 'come alive.',
     hint: 'Drag to orbit · Scroll to zoom',
     hintTouch: 'Drag to orbit · Pinch to zoom',
+    worlds: 'Worlds',
+    previous: 'Previous world',
+    next: 'Next world',
+    back: 'Back to the system',
+    of: 'World {n} of {total}',
   },
   nav: {
     menu: 'Menu',

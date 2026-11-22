@@ -21,6 +21,11 @@ const ca: Dictionary = {
     titleEm: 'cobri vida.',
     hint: 'Arrossega per orbitar · Desplaça per apropar-te',
     hintTouch: 'Arrossega per orbitar · Pessiga per apropar-te',
+    worlds: 'Mons',
+    previous: 'Món anterior',
+    next: 'Món següent',
+    back: 'Tornar al sistema',
+    of: 'Món {n} de {total}',
   },
   nav: {
     menu: 'Menú',
