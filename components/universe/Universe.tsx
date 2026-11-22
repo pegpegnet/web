@@ -15,8 +15,9 @@ export type UniverseText = PanelText & IndexText & { worlds: string; starHint: s
 
 /**
  * The home page's stage: the 3D system fills the screen and the interface sits on top of it. The
- * scene fades in once its first frame is drawn; until then (and without WebGL) the dark sky and
- * the interface are already there.
+ * scene fades in once its first frame is drawn; until then the dark sky and the interface are
+ * already there. Without WebGL (or if the browser drops the graphics context) a pre-rendered picture
+ * of the system stands in, and the index, panels and studio all still work.
  *
  * Keys: ← and → move between worlds, Esc goes back to the whole system. The address follows what's
  * in focus (/es/#abadia, /es/#studio), so it can be shared, and the back button returns.
@@ -26,6 +27,7 @@ export function Universe({ worlds, t, studio, children }: { worlds: WorldInfo[];
   const ready = useUniverse((s) => s.ready);
   const hover = useUniverse((s) => s.hover);
   const started = useUniverse((s) => s.started);
+  const lost = useUniverse((s) => s.lost);
   const webgl = quality ? quality.tier !== 'off' : true;
 
   useEffect(() => {
@@ -55,8 +57,13 @@ export function Universe({ worlds, t, studio, children }: { worlds: WorldInfo[];
 
   return (
     <div data-intro={started ? 'play' : 'wait'} className={`fixed inset-0 overflow-hidden bg-space text-starlight ${hover ? 'cursor-pointer' : ''}`}>
+      {/* Without WebGL, or if the browser takes it away, a picture of the system; everything else still works. */}
+      {(!webgl || lost) && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/universe/poster.webp" width={1600} height={1000} alt="" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-90" />
+      )}
       <div className={`absolute inset-0 transition-opacity duration-[1800ms] ease-out ${ready ? 'opacity-100' : 'opacity-0'}`}>
-        {quality && quality.tier !== 'off' && (
+        {quality && quality.tier !== 'off' && !lost && (
           <Suspense fallback={null}>
             <Scene quality={quality} />
           </Suspense>

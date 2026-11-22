@@ -43,12 +43,18 @@ export default function UniverseCanvas({ quality }: { quality: Quality }) {
       gl={{ antialias: false, alpha: false, stencil: false, powerPreference: 'high-performance' }}
       camera={{ fov: 38, near: 0.5, far: 6000, position: [...OVERVIEW.position] }}
       aria-hidden="true"
+      onCreated={({ gl }) => {
+        gl.domElement.addEventListener('webglcontextlost', (e) => {
+          e.preventDefault();
+          universe.set({ lost: true, started: true });
+        });
+      }}
     >
       <color attach="background" args={['#020308']} />
       <SystemClock still={quality.still} />
       <Sky tier={quality.tier} />
       <Stars tier={quality.tier} />
-      <Star onSelect={() => openStudio(true)} />
+      <Star onSelect={() => openStudio(true)} still={quality.still} />
       <Companion />
       <Worlds tier={quality.tier} onSelect={focusWorld} />
       <Belt tier={quality.tier} />
@@ -56,7 +62,7 @@ export default function UniverseCanvas({ quality }: { quality: Quality }) {
       <Rig still={quality.still} />
       <LabelTracker />
       <Flare />
-      <Effects tier={quality.tier} />
+      <Effects tier={quality.tier} still={quality.still} />
       <Ready />
     </Canvas>
   );

@@ -83,7 +83,7 @@ export default function PortraitCanvas({ slug, quality, active }: { slug: string
       <ambientLight intensity={0.02} />
       <pointLight color="#ffc898" intensity={2.6} decay={0} />
       <Sitter world={world} tier={quality.tier} />
-      <Effects tier={quality.tier} />
+      <Effects tier={quality.tier} still={quality.still} />
     </Canvas>
   );
 }

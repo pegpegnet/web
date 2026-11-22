@@ -97,7 +97,7 @@ void main() {
 
 const additive = { blending: THREE.AdditiveBlending, depthWrite: false, transparent: true } as const;
 
-export function Star({ onSelect }: { onSelect?: () => void }) {
+export function Star({ onSelect, still = false }: { onSelect?: () => void; still?: boolean }) {
   const camera = useThree((s) => s.camera);
   const corona = useRef<THREE.Mesh>(null);
   const surface = useMemo(
@@ -123,7 +123,8 @@ export function Star({ onSelect }: { onSelect?: () => void }) {
   );
 
   useFrame((state) => {
-    const t = state.clock.elapsedTime;
+    // With reduced motion the surface and corona hold still.
+    const t = still ? 0 : state.clock.elapsedTime;
     surface.uniforms.uTime!.value = t;
     coronaMaterial.uniforms.uTime!.value = t;
     corona.current?.quaternion.copy(camera.quaternion);

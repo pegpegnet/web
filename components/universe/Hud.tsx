@@ -5,6 +5,7 @@ import type { Dictionary } from '@/content/i18n';
 import { HideOnFocus } from './HideOnFocus';
 import { HudNav } from './HudNav';
 import { SoundToggle } from './SoundToggle';
+import { ControlsHint } from './ControlsHint';
 import type { CSSProperties } from 'react';
 
 /** Words of a headline, each in its own span for the opening animation. */
@@ -72,8 +73,9 @@ export function Hud({ locale, t }: { locale: Locale; t: Dictionary }) {
           </h1>
           <p className="intro-fade mt-6 max-w-[42ch] font-ui text-[15px] leading-relaxed text-starlight/70 md:text-[16px]">{t.hero.lead}</p>
         </div>
-        <p className={`${label} hidden shrink-0 text-starlight/50 md:block pointer-coarse:hidden`}>{t.universe.hint}</p>
-        <p className={`${label} hidden shrink-0 text-starlight/50 pointer-coarse:md:block`}>{t.universe.hintTouch}</p>
+        <div className="intro-fade">
+          <ControlsHint hint={t.universe.hint} hintTouch={t.universe.hintTouch} list={t.universe.indexTitle} />
+        </div>
       </HideOnFocus>
     </div>
   );

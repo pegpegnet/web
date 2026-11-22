@@ -2,7 +2,7 @@
 
 import { focusWorld, openStudio } from './navigation';
 import { labelElements } from './labels';
-import { universe } from './store';
+import { universe, useUniverse } from './store';
 
 export type WorldName = { slug: string; name: string; number: number };
 
@@ -17,6 +17,9 @@ const common =
  * distant worlds are as easy to pick as big ones, and the keyboard can reach every world.
  */
 export function WorldLabels({ names, label, star }: { names: WorldName[]; label: string; star: string }) {
+  // Labels follow the 3D; without it (the graphics context lost) they'd point at nothing.
+  const lost = useUniverse((s) => s.lost);
+  if (lost) return null;
   return (
     <nav aria-label={label} className="pointer-events-none absolute inset-0 overflow-hidden">
       <ul>

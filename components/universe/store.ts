@@ -21,9 +21,11 @@ export type UniverseState = {
   index: boolean;
   /** The loader has finished and the opening shot has begun */
   started: boolean;
+  /** The browser took the 3D away (lost its graphics context): show the picture instead */
+  lost: boolean;
 };
 
-let state: UniverseState = { focus: null, hover: null, ready: false, baked: 0, studio: false, index: false, started: false };
+let state: UniverseState = { focus: null, hover: null, ready: false, baked: 0, studio: false, index: false, started: false, lost: false };
 const listeners = new Set<() => void>();
 
 export const universe = {

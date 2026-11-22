@@ -12,14 +12,15 @@ const FRINGE = new Vector2(0.0007, 0.0007);
  * for a filmic roll-off, a hint of chromatic aberration towards the corners on capable devices,
  * a vignette, and a little grain so the dark gradients don't band.
  */
-export function Effects({ tier }: { tier: Tier }) {
+export function Effects({ tier, still = false }: { tier: Tier; still?: boolean }) {
   return (
     <EffectComposer multisampling={tier === 'high' ? 4 : 0} enableNormalPass={false}>
       <Bloom mipmapBlur intensity={0.85} luminanceThreshold={0.9} luminanceSmoothing={0.25} radius={0.78} />
       <ToneMapping mode={ToneMappingMode.AGX} />
       {tier === 'high' && <ChromaticAberration offset={FRINGE} radialModulation modulationOffset={0.35} />}
       <Vignette offset={0.22} darkness={0.72} />
-      <Noise premultiply blendFunction={BlendFunction.SCREEN} opacity={0.32} />
+      {/* Grain flickers frame to frame, so it's left out when motion should be reduced. */}
+      {!still && <Noise premultiply blendFunction={BlendFunction.SCREEN} opacity={0.32} />}
     </EffectComposer>
   );
 }
