@@ -32,6 +32,8 @@ const en = {
     studio: 'Studio',
     close: 'Close',
     starHint: 'The star is the studio',
+    loading: 'Forming the system',
+    sound: 'Sound',
     types: {
       ocean: 'Ocean world',
       desert: 'Desert world',

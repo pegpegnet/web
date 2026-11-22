@@ -11,6 +11,7 @@ import { Belt } from './scene/Belt';
 import { OVERVIEW, Rig } from './scene/Rig';
 import { Effects } from './scene/Effects';
 import { LabelTracker } from './scene/LabelTracker';
+import { Flare } from './scene/Flare';
 import { focusWorld, openStudio } from './navigation';
 
 /** Advances the system's clock once per frame, before anything reads it. */
@@ -54,6 +55,7 @@ export default function UniverseCanvas({ quality }: { quality: Quality }) {
       <ambientLight intensity={0.015} />
       <Rig still={quality.still} />
       <LabelTracker />
+      <Flare />
       <Effects tier={quality.tier} />
       <Ready />
     </Canvas>

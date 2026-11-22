@@ -19,9 +19,11 @@ export type UniverseState = {
   studio: boolean;
   /** The index of every world is open */
   index: boolean;
+  /** The loader has finished and the opening shot has begun */
+  started: boolean;
 };
 
-let state: UniverseState = { focus: null, hover: null, ready: false, baked: 0, studio: false, index: false };
+let state: UniverseState = { focus: null, hover: null, ready: false, baked: 0, studio: false, index: false, started: false };
 const listeners = new Set<() => void>();
 
 export const universe = {
@@ -34,7 +36,9 @@ export const universe = {
   },
   subscribe(listener: () => void) {
     listeners.add(listener);
-    return () => listeners.delete(listener);
+    return () => {
+      listeners.delete(listener);
+    };
   },
 };
 

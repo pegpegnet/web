@@ -34,6 +34,8 @@ const ca: Dictionary = {
     studio: 'Estudi',
     close: 'Tancar',
     starHint: 'L’estrella és l’estudi',
+    loading: 'Formant el sistema',
+    sound: 'So',
     types: {
       ocean: 'Món oceànic',
       desert: 'Món desèrtic',

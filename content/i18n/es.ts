@@ -34,6 +34,8 @@ const es: Dictionary = {
     studio: 'Estudio',
     close: 'Cerrar',
     starHint: 'La estrella es el estudio',
+    loading: 'Formando el sistema',
+    sound: 'Sonido',
     types: {
       ocean: 'Mundo oceánico',
       desert: 'Mundo desértico',

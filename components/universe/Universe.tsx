@@ -7,10 +7,11 @@ import { focusWorld, openStudio, readAddress, stepWorld } from './navigation';
 import { WorldLabels } from './WorldLabels';
 import { StudioPanel, WorldPanel, type PanelText, type StudioText, type WorldInfo } from './Panels';
 import { WorldIndex, type IndexText } from './WorldIndex';
+import { Loader } from './Loader';
 
 const Scene = lazy(() => import('./UniverseCanvas'));
 
-export type UniverseText = PanelText & IndexText & { worlds: string; starHint: string };
+export type UniverseText = PanelText & IndexText & { worlds: string; starHint: string; loading: string };
 
 /**
  * The home page's stage: the 3D system fills the screen and the interface sits on top of it. The
@@ -24,6 +25,8 @@ export function Universe({ worlds, t, studio, children }: { worlds: WorldInfo[];
   const quality = useQuality();
   const ready = useUniverse((s) => s.ready);
   const hover = useUniverse((s) => s.hover);
+  const started = useUniverse((s) => s.started);
+  const webgl = quality ? quality.tier !== 'off' : true;
 
   useEffect(() => {
     const fromAddress = () => universe.set(readAddress());
@@ -51,7 +54,7 @@ export function Universe({ worlds, t, studio, children }: { worlds: WorldInfo[];
   }, []);
 
   return (
-    <div className={`fixed inset-0 overflow-hidden bg-space text-starlight ${hover ? 'cursor-pointer' : ''}`}>
+    <div data-intro={started ? 'play' : 'wait'} className={`fixed inset-0 overflow-hidden bg-space text-starlight ${hover ? 'cursor-pointer' : ''}`}>
       <div className={`absolute inset-0 transition-opacity duration-[1800ms] ease-out ${ready ? 'opacity-100' : 'opacity-0'}`}>
         {quality && quality.tier !== 'off' && (
           <Suspense fallback={null}>
@@ -64,6 +67,7 @@ export function Universe({ worlds, t, studio, children }: { worlds: WorldInfo[];
       <WorldPanel worlds={worlds} t={t} />
       <StudioPanel t={studio} />
       <WorldIndex worlds={worlds} t={t} />
+      <Loader text={t.loading} enabled={webgl} />
     </div>
   );
 }

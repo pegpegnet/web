@@ -129,6 +129,45 @@
   }
 }
 
+/* Sound bars in the top bar */
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/*
+ * The home page's opening: once the loader lifts, the headline's words rise out of a blur one
+ * after another, and the rest of the interface follows. Without scripts nothing is hidden.
+ */
+@keyframes rise-in {
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+.js [data-intro] .intro-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.45em);
+  filter: blur(10px);
+}
+.js [data-intro] .intro-fade {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.js [data-intro='play'] .intro-word {
+  animation: rise-in 1.3s var(--ease-out-expo) calc(0.25s + var(--i) * 0.08s) both;
+}
+.js [data-intro='play'] .intro-fade {
+  animation: rise-in 1.2s var(--ease-out-expo) calc(0.9s + var(--i, 0) * 0.1s) both;
+}
+
 @utility container-page {
   width: 100%;
   max-width: 82rem;

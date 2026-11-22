@@ -37,6 +37,16 @@ function panelShare(width: number, height: number) {
   return { x: 0, y: Math.min(height * 0.6, 544) / height };
 }
 
+/** Where the opening shot starts: far out and high, swung round from the overview. */
+function opening(aspect: number): [number, number, number, number, number, number] {
+  const [x, y, z, tx, ty, tz] = overview(aspect);
+  const a = -0.75;
+  const k = 2.6;
+  const dx = (x - tx) * k;
+  const dz = (z - tz) * k;
+  return [tx + dx * Math.cos(a) - dz * Math.sin(a), ty + (y - ty) * k * 1.5, tz + dx * Math.sin(a) + dz * Math.cos(a), tx, ty, tz];
+}
+
 /** The studio: close to the star, looking at it from above its equator. */
 const STUDIO = { position: [17, 7.5, 27] as const, distance: 33 };
 
@@ -63,7 +73,7 @@ export function Rig({ still }: { still: boolean }) {
     c.mouseButtons.middle = ACTION.DOLLY;
     c.touches.two = ACTION.TOUCH_DOLLY;
     c.touches.three = ACTION.NONE;
-    c.setLookAt(...overview(camera.aspect), false);
+    c.setLookAt(...(universe.get().started || still ? overview(camera.aspect) : opening(camera.aspect)), false);
 
     // Shift the view so the subject sits in the space the panel leaves free.
     const makeRoom = (distance: number) => {
@@ -106,7 +116,20 @@ export function Rig({ still }: { still: boolean }) {
     const framingFor = (w: World) => framing(w, camera.aspect) * (sizeRef.current.width >= WIDE ? 1 : 1.6);
     framingRef.current = framingFor;
     go();
-    const unsubscribe = universe.subscribe(go);
+    // The opening shot: once the loader lifts, glide in to the overview (unless the address
+    // already asked for a world or the studio, whose flights take over).
+    let started = universe.get().started;
+    const unsubscribe = universe.subscribe(() => {
+      const s = universe.get();
+      if (s.started && !started) {
+        started = true;
+        if (!s.focus && !s.studio) {
+          c.smoothTime = still ? 0.15 : 1.5;
+          c.setLookAt(...overview(camera.aspect), !still);
+        }
+      }
+      go();
+    });
     // A drag or zoom takes over from any flight in progress.
     const takeOver = () => {
       idle.current = 0;
