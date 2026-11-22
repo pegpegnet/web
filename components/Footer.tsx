@@ -7,14 +7,14 @@ import type { Dictionary } from '@/content/i18n';
 export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
   const home = href(locale);
   const year = new Date().getFullYear();
-  const heading = 'text-step--1 font-medium text-graphite';
-  const link = 'text-step--1 text-char no-underline transition-colors hover:text-volt';
+  const heading = 'font-mono text-[11px] uppercase tracking-[0.18em] text-dust';
+  const link = 'text-step--1 text-starlight/85 no-underline transition-colors hover:text-flare';
   return (
-    <footer className="border-t border-line bg-chalk">
+    <footer className="border-t border-rim bg-nebula">
       <div className="container-page grid gap-12 py-16 md:grid-cols-12">
         <div className="md:col-span-5">
           <Wordmark href={home} />
-          <p className="mt-4 max-w-[36ch] text-step--1 leading-relaxed text-graphite">{t.footer.about}</p>
+          <p className="mt-4 max-w-[36ch] text-step--1 leading-relaxed text-haze">{t.footer.about}</p>
         </div>
         <div className="md:col-span-3">
           <h2 className={heading}>{t.footer.studio}</h2>
@@ -42,7 +42,7 @@ export function Footer({ locale, t }: { locale: Locale; t: Dictionary }) {
           </ul>
         </div>
       </div>
-      <div className="container-page flex justify-between border-t border-line py-6 text-step--1 text-graphite">
+      <div className="container-page flex justify-between border-t border-rim py-6 text-step--1 text-haze">
         <p>© {year} PegPeg</p>
         <p>Barcelona</p>
       </div>

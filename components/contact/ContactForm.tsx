@@ -17,7 +17,7 @@ export function ContactForm({ locale, t }: { locale: Locale; t: Dictionary['cont
   }, []);
 
   const field =
-    'mt-2 w-full rounded-xl border border-transparent bg-chalk px-4 py-3 text-step-0 text-char transition-colors placeholder:text-graphite/60 hover:border-line focus:border-volt focus:bg-bone focus:outline-none user-invalid:border-[#b42318]';
+    'mt-2 w-full rounded-xl border border-transparent bg-nebula px-4 py-3 text-step-0 text-starlight transition-colors placeholder:text-haze/60 hover:border-rim focus:border-flare focus:bg-space focus:outline-none user-invalid:border-[#b42318]';
   const label = 'block text-step--1 font-medium';
 
   return (
@@ -26,19 +26,19 @@ export function ContactForm({ locale, t }: { locale: Locale; t: Dictionary['cont
       <input type="hidden" name="t" ref={started} defaultValue="" />
       <div>
         <label htmlFor="c-name" className={label}>
-          {t.name} <span className="font-normal text-graphite">({t.required})</span>
+          {t.name} <span className="font-normal text-haze">({t.required})</span>
         </label>
         <input id="c-name" name="name" autoComplete="name" required maxLength={200} className={field} />
       </div>
       <div>
         <label htmlFor="c-email" className={label}>
-          {t.email} <span className="font-normal text-graphite">({t.required})</span>
+          {t.email} <span className="font-normal text-haze">({t.required})</span>
         </label>
         <input id="c-email" name="email" type="email" autoComplete="email" required maxLength={254} className={field} />
       </div>
       <div>
         <label htmlFor="c-message" className={label}>
-          {t.message} <span className="font-normal text-graphite">({t.required})</span>
+          {t.message} <span className="font-normal text-haze">({t.required})</span>
         </label>
         <textarea id="c-message" name="message" rows={5} required maxLength={5000} className={`${field} resize-y`} />
       </div>
@@ -50,7 +50,7 @@ export function ContactForm({ locale, t }: { locale: Locale; t: Dictionary['cont
       <button
         type="submit"
         disabled={sending}
-        className="mt-2 h-12 justify-self-start rounded-full bg-char px-7 text-step-0 font-medium text-bone transition-colors hover:bg-volt disabled:cursor-progress disabled:opacity-60"
+        className="mt-2 h-12 justify-self-start rounded-full bg-starlight px-7 text-step-0 font-medium text-space transition-colors hover:bg-flare disabled:cursor-progress disabled:opacity-60"
       >
         {sending ? t.sending : t.send}
       </button>

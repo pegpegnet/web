@@ -5,6 +5,7 @@ import { getDictionary } from '@/content/i18n';
 import { ProjectIndex, type IndexItem } from '@/components/projects/ProjectIndex';
 import { KineticHeading } from '@/components/motion/KineticHeading';
 import { listedProjects, image, textOf } from '@/lib/projects';
+import { getWorld } from '@/lib/universe';
 import { href } from '@/lib/i18n';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { languageAlternates } from '@/lib/seo';
@@ -50,7 +51,7 @@ export default async function SectionPage({ params }: { params: Promise<{ locale
         name: text.name,
         summary: text.summary,
         kinds: p.kinds,
-        meta: [...new Set([...p.kinds.map((k) => t.work.kinds[k]), ...p.platforms])].join(', '),
+        meta: [getWorld(p.slug) ? t.universe.types[getWorld(p.slug)!.type] : null, ...new Set(p.kinds.map((k) => t.work.kinds[k]))].filter(Boolean).join(' · '),
         year: p.year,
         cover: p.cover ? image(p.cover) : null,
         theme: { bg: p.theme.bg, fg: p.theme.fg },
@@ -62,11 +63,11 @@ export default async function SectionPage({ params }: { params: Promise<{ locale
       ...kinds.map((k) => ({ value: k, label: t.work.kinds[k] })),
     ];
     return (
-      <main id="main" className="container-page pt-32 pb-28 md:pt-40">
-        <KineticHeading as="h1" reveal="load" className="type-poster text-step-6">
+      <main id="main" className="container-page pt-12 pb-28 md:pt-20">
+        <KineticHeading as="h1" reveal="load" className="type-poster text-[clamp(3.4rem,1.8rem+5vw,7.5rem)]">
           {t.projects.title}
         </KineticHeading>
-        <p className="mt-6 mb-14 max-w-[46ch] text-step-1 text-graphite">{t.projects.lead}</p>
+        <p className="mt-6 mb-14 max-w-[46ch] text-step-1 text-haze">{t.projects.lead}</p>
         <ProjectIndex items={items} filters={filters} t={{ filterLabel: t.projects.filterLabel, showing: t.projects.showing }} />
       </main>
     );
@@ -74,11 +75,11 @@ export default async function SectionPage({ params }: { params: Promise<{ locale
   if (which === 'sent' || which === 'notSent') {
     const ok = which === 'sent';
     return (
-      <main id="main" className="container-page flex min-h-[80svh] flex-col justify-end pt-40 pb-24">
-        <KineticHeading as="h1" reveal="load" className="type-poster max-w-[14ch] text-step-6">
+      <main id="main" className="container-page flex min-h-[75svh] flex-col justify-end pt-20 pb-24">
+        <KineticHeading as="h1" reveal="load" className="type-poster max-w-[14ch] text-[clamp(3.4rem,1.8rem+5vw,7.5rem)]">
           {ok ? t.contact.sentTitle : t.contact.notSentTitle}
         </KineticHeading>
-        <p className="mt-8 max-w-[44ch] text-step-1 text-graphite">{ok ? t.contact.sentText : t.contact.notSentText}</p>
+        <p className="mt-8 max-w-[44ch] text-step-1 text-haze">{ok ? t.contact.sentText : t.contact.notSentText}</p>
         <div className="mt-10">
           <MagneticButton href={ok ? href(locale) : href(locale, 'contact')}>{ok ? t.contact.sentAction : t.contact.notSentAction}</MagneticButton>
         </div>
@@ -86,25 +87,25 @@ export default async function SectionPage({ params }: { params: Promise<{ locale
     );
   }
   return (
-    <main id="main" className="container-page pt-32 pb-28 md:pt-40">
-      <KineticHeading as="h1" reveal="load" className="type-poster text-step-6">
+    <main id="main" className="container-page pt-12 pb-28 md:pt-20">
+      <KineticHeading as="h1" reveal="load" className="type-poster text-[clamp(3.4rem,1.8rem+5vw,7.5rem)]">
         {t.contact.pageTitle}
       </KineticHeading>
-      <p className="mt-6 max-w-[40ch] text-step-1 text-graphite">{t.contact.pageLead}</p>
+      <p className="mt-6 max-w-[40ch] text-step-1 text-haze">{t.contact.pageLead}</p>
       <div className="mt-14 grid gap-12 md:grid-cols-12">
         <div className="md:col-span-7">
           <ContactForm locale={locale} t={t.contact} />
         </div>
-        <aside className="self-start rounded-[1.5rem] bg-chalk p-8 md:col-span-4 md:col-start-9" aria-labelledby="where-title">
-          <h2 id="where-title" className="font-sans text-step--1 font-medium tracking-normal text-graphite">
+        <aside className="self-start rounded-[1.5rem] border border-rim bg-nebula p-8 md:col-span-4 md:col-start-9" aria-labelledby="where-title">
+          <h2 id="where-title" className="font-mono text-[11px] tracking-[0.18em] text-haze uppercase">
             {t.contact.where}
           </h2>
-          <address className="mt-3 text-step-1 leading-snug not-italic">
+          <address className="mt-3 font-serif text-[1.6rem] leading-snug not-italic">
             Calle de Luis Antúnez&nbsp;6
             <br />
             08006 Barcelona
           </address>
-          <ul className="mt-6 space-y-1 text-step-0 font-medium text-volt">
+          <ul className="mt-6 space-y-1 text-step-0 font-medium text-flare">
             <li><a href="https://www.linkedin.com/company/pegpeg" rel="me external" className="hover:underline">LinkedIn</a></li>
             <li><a href="https://github.com/pegpegnet" rel="me external" className="hover:underline">GitHub</a></li>
           </ul>

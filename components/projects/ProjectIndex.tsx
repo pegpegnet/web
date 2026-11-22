@@ -67,7 +67,7 @@ export function ProjectIndex({ items, filters, t }: Props) {
             type="button"
             aria-pressed={filter === f.value}
             onClick={() => choose(f.value)}
-            className="h-9 rounded-full bg-chalk px-4 text-step--1 font-medium text-graphite transition-colors hover:text-char aria-pressed:bg-char aria-pressed:text-bone"
+            className="h-9 rounded-full border border-rim px-4 font-mono text-[11px] tracking-[0.14em] uppercase text-haze transition-colors hover:text-starlight aria-pressed:bg-starlight aria-pressed:text-space"
           >
             {f.label}
           </button>
@@ -77,12 +77,12 @@ export function ProjectIndex({ items, filters, t }: Props) {
         {t.showing.replace('{n}', String(shown.length))}
       </p>
 
-      <ul ref={list} className="mt-10 border-t border-line">
+      <ul ref={list} className="mt-10 border-t border-rim">
         {shown.map((p) => (
-          <li key={p.slug} className="border-b border-line">
+          <li key={p.slug} className="border-b border-rim">
             <Link
               href={p.href}
-              className="group -mx-3 grid grid-cols-[4.5rem_minmax(0,1fr)_auto] items-center gap-x-5 rounded-2xl px-3 py-4 no-underline transition-colors hover:bg-chalk md:grid-cols-[7rem_minmax(0,1fr)_14rem_4rem] md:gap-x-8 md:py-5"
+              className="group -mx-3 grid grid-cols-[4.5rem_minmax(0,1fr)_auto] items-center gap-x-5 rounded-2xl px-3 py-4 no-underline transition-colors hover:bg-nebula md:grid-cols-[7rem_minmax(0,1fr)_14rem_4rem] md:gap-x-8 md:py-5"
             >
               <span
                 aria-hidden="true"
@@ -102,11 +102,11 @@ export function ProjectIndex({ items, filters, t }: Props) {
                 ) : null}
               </span>
               <span className="min-w-0">
-                <span className="block text-step-2 font-semibold tracking-[-0.025em]">{p.name}</span>
-                <span className="mt-1 line-clamp-2 text-step--1 text-graphite md:line-clamp-1">{p.summary}</span>
+                <span className="block font-serif text-[clamp(1.7rem,1.4rem+1vw,2.4rem)] leading-tight">{p.name}</span>
+                <span className="mt-1 line-clamp-2 text-step--1 text-haze md:line-clamp-1">{p.summary}</span>
               </span>
-              <span className="text-step--1 text-graphite max-md:hidden">{p.meta}</span>
-              <span className="text-right text-step--1 tabular-nums text-graphite">{p.year ?? ''}</span>
+              <span className="font-mono text-[11px] tracking-[0.14em] text-haze uppercase max-md:hidden">{p.meta}</span>
+              <span className="text-right font-mono text-[11px] tabular-nums text-haze">{p.year ?? ''}</span>
             </Link>
           </li>
         ))}

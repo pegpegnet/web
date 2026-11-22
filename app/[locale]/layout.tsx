@@ -52,7 +52,7 @@ export default async function LocaleLayout({
       <body>
         <a
           href="#main"
-          className="fixed top-2 left-2 z-[100] -translate-y-24 rounded-full bg-char px-4 py-2 text-bone focus:translate-y-0"
+          className="fixed top-2 left-2 z-[100] -translate-y-24 rounded-full bg-starlight px-4 py-2 text-space focus:translate-y-0"
         >
           {t.nav.skip}
         </a>

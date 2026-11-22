@@ -12,7 +12,7 @@ export default async function SiteLayout({ children, params }: { children: React
   const t = getDictionary(locale);
   return (
     <>
-      <Header locale={locale} t={t.nav} />
+      <Header locale={locale} t={t.nav} system={t.universe.back} />
       {children}
       <Footer locale={locale} t={t} />
     </>

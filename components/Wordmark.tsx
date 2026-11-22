@@ -1,12 +1,10 @@
 import Link from 'next/link';
 
-/** The PegPeg wordmark: the original lowercase "pegpeg" in volt blue, set in Inter. */
+/** The PegPeg wordmark: lowercase "pegpeg" in Geist, as on the home page's top bar. */
 export function Wordmark({ href, className = '' }: { href: string; className?: string }) {
   return (
-    <Link href={href} className={`inline-block text-volt no-underline ${className}`} aria-label="PegPeg, home">
-      <span aria-hidden="true" className="block font-display text-[1.45rem] leading-none font-[700] tracking-[-0.05em]">
-        pegpeg
-      </span>
+    <Link href={href} className={`inline-block font-ui text-[19px] leading-none font-semibold tracking-[-0.04em] text-starlight no-underline ${className}`}>
+      pegpeg
     </Link>
   );
 }

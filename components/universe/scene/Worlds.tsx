@@ -75,22 +75,17 @@ function useMaps(material: THREE.ShaderMaterial, maps: WorldMaps | null) {
   }, [material, maps]);
 }
 
-type Props = {
-  world: World;
-  maps: WorldMaps | null;
-  moonMaps: WorldMaps | null;
-  onPointer: (slug: string | null) => void;
-  onSelect: (slug: string) => void;
-};
+type BodyProps = { world: World; maps: WorldMaps | null; moonMaps: WorldMaps | null; children?: React.ReactNode };
 
-function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
-  const orbitLine = useRef<{ material: { opacity: number } }>(null);
-  const carrier = useRef<THREE.Group>(null);
+/**
+ * One world's body: its surface, atmosphere, rings and moons, turning on its tilted axis. Place it
+ * anywhere; it lights itself from the star at the origin.
+ */
+export function WorldBody({ world, maps, moonMaps, children }: BodyProps) {
+  const root = useRef<THREE.Group>(null);
   const axis = useRef<THREE.Group>(null);
   const body = useRef<THREE.Mesh>(null);
   const moonGroup = useRef<THREE.Group>(null);
-  const plane = useMemo(() => orbitPlane(world.orbit), [world.orbit]);
-  const path = useMemo(() => orbitCircle(world.orbit.radius), [world.orbit.radius]);
   const material = useMemo(() => planetMaterial(world), [world]);
   const moonMaterial = useMemo(() => planetMaterial(null), []);
   const shell = world.radius * (world.type === 'gas' ? 1.04 : 1.055);
@@ -158,8 +153,6 @@ function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
   const q = useMemo(() => new THREE.Quaternion(), []);
 
   useFrame((state, dt) => {
-    const a = orbitAngle(world.orbit, clock.time);
-    carrier.current?.position.set(Math.cos(a) * world.orbit.radius, 0, -Math.sin(a) * world.orbit.radius);
     if (body.current) body.current.rotation.y += (dt * clock.spin * Math.PI * 2) / world.day;
 
     // Fade in once baked.
@@ -169,17 +162,8 @@ function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
     moonMaterial.uniforms.uReveal!.value = moonMaps ? r : 0;
     material.uniforms.uCloudShift!.value = (state.clock.elapsedTime * clock.spin * 0.0016) % 1;
 
-    // The orbit lights up for the world under the pointer or in focus, and the rest step back.
-    if (orbitLine.current) {
-      const { hover, focus } = universe.get();
-      const on = hover === world.slug || focus === world.slug;
-      const goal = on ? 0.32 : focus ? 0.025 : 0.055;
-      const m = orbitLine.current.material;
-      m.opacity += (goal - m.opacity) * Math.min(1, dt * 6);
-    }
-
-    if (!carrier.current || !axis.current) return;
-    carrier.current.getWorldPosition(centre);
+    if (!root.current || !axis.current) return;
+    root.current.getWorldPosition(centre);
     axis.current.getWorldQuaternion(q);
     up.set(0, 1, 0).applyQuaternion(q);
     material.uniforms.uCenter!.value.copy(centre);
@@ -200,13 +184,67 @@ function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
   });
 
   return (
+    <group ref={root}>
+      <group ref={axis} rotation-z={world.tilt}>
+        <mesh ref={body} material={material}>
+          <sphereGeometry args={[world.radius, 128, 64]} />
+        </mesh>
+        {children}
+        {atmosphere && (
+          <mesh material={atmosphere} renderOrder={2}>
+            <sphereGeometry args={[shell, 64, 32]} />
+          </mesh>
+        )}
+        {ring && world.rings && (
+          <mesh material={ring} rotation-x={-Math.PI / 2} renderOrder={3}>
+            <ringGeometry args={[world.radius * world.rings.inner, world.radius * world.rings.outer, 256, 1]} />
+          </mesh>
+        )}
+        <group ref={moonGroup}>
+          {world.moons.map((m, i) => (
+            <mesh key={i} material={moonMaterial}>
+              <sphereGeometry args={[m.radius, 48, 24]} />
+            </mesh>
+          ))}
+        </group>
+      </group>
+    </group>
+  );
+}
+
+type Props = {
+  world: World;
+  maps: WorldMaps | null;
+  moonMaps: WorldMaps | null;
+  onPointer: (slug: string | null) => void;
+  onSelect: (slug: string) => void;
+};
+
+/** A world on its orbit, with the orbit drawn and a generous target for the pointer. */
+function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
+  const orbitLine = useRef<{ material: { opacity: number } }>(null);
+  const carrier = useRef<THREE.Group>(null);
+  const plane = useMemo(() => orbitPlane(world.orbit), [world.orbit]);
+  const path = useMemo(() => orbitCircle(world.orbit.radius), [world.orbit.radius]);
+
+  useFrame((_, dt) => {
+    const a = orbitAngle(world.orbit, clock.time);
+    carrier.current?.position.set(Math.cos(a) * world.orbit.radius, 0, -Math.sin(a) * world.orbit.radius);
+    // The orbit lights up for the world under the pointer or in focus, and the rest step back.
+    if (orbitLine.current) {
+      const { hover, focus } = universe.get();
+      const on = hover === world.slug || focus === world.slug;
+      const goal = on ? 0.32 : focus ? 0.025 : 0.055;
+      const m = orbitLine.current.material;
+      m.opacity += (goal - m.opacity) * Math.min(1, dt * 6);
+    }
+  });
+
+  return (
     <group rotation={plane}>
       <Line ref={orbitLine as never} points={path} color="#b8c4e8" transparent opacity={0.055} lineWidth={1} depthWrite={false} />
       <group ref={carrier}>
-        <group ref={axis} rotation-z={world.tilt}>
-          <mesh ref={body} material={material}>
-            <sphereGeometry args={[world.radius, 128, 64]} />
-          </mesh>
+        <WorldBody world={world} maps={maps} moonMaps={moonMaps}>
           {/* A larger, invisible target, so small worlds are easy to hit with a finger. */}
           <mesh
             onPointerOver={(e) => {
@@ -222,31 +260,14 @@ function Planet({ world, maps, moonMaps, onPointer, onSelect }: Props) {
             <sphereGeometry args={[world.radius * 1.6 + 0.4, 16, 8]} />
             <meshBasicMaterial visible={false} />
           </mesh>
-          {atmosphere && (
-            <mesh material={atmosphere} renderOrder={2}>
-              <sphereGeometry args={[shell, 64, 32]} />
-            </mesh>
-          )}
-          {ring && world.rings && (
-            <mesh material={ring} rotation-x={-Math.PI / 2} renderOrder={3}>
-              <ringGeometry args={[world.radius * world.rings.inner, world.radius * world.rings.outer, 256, 1]} />
-            </mesh>
-          )}
-          <group ref={moonGroup}>
-            {world.moons.map((m, i) => (
-              <mesh key={i} material={moonMaterial}>
-                <sphereGeometry args={[m.radius, 48, 24]} />
-              </mesh>
-            ))}
-          </group>
-        </group>
+        </WorldBody>
       </group>
     </group>
   );
 }
 
 /** The grey, cratered look every moon shares. */
-const MOON: Pick<World, 'type' | 'seed' | 'palette' | 'clouds'> = {
+export const MOON: Pick<World, 'type' | 'seed' | 'palette' | 'clouds'> = {
   type: 'barren',
   seed: 77,
   palette: ['#3a3836', '#6e6a64', '#a39d94', '#ffffff'],
