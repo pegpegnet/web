@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 
 const BUDGET_KB = 320;
-const pages = ['es/index.html', 'es/proyectos/index.html', 'es/contacto/index.html'];
+const pages = ['es/index.html', 'es/proyectos/index.html', 'es/proyectos/app-visionos-yutub/index.html', 'es/contacto/index.html'];
 let failed = false;
 
 for (const page of pages) {
