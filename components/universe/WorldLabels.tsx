@@ -1,18 +1,22 @@
 'use client';
 
-import { focusWorld } from './navigation';
+import { focusWorld, openStudio } from './navigation';
 import { labelElements } from './labels';
 import { universe } from './store';
 
 export type WorldName = { slug: string; name: string; number: number };
 
 const pad = (n: number) => String(n).padStart(2, '0');
+/** The label key for the star itself. */
+export const STAR = '@star';
+const common =
+  'pointer-events-auto absolute top-0 left-0 flex items-center gap-2 py-2 pr-2 font-mono text-[10px] tracking-[0.16em] whitespace-nowrap uppercase transition-[color] will-change-transform [text-shadow:0_0_6px_rgb(2_3_8),0_0_14px_rgb(2_3_8/0.9)] focus-visible:outline-offset-0';
 
 /**
  * A label for every world: its number and name beside it in space. They're buttons, so small or
  * distant worlds are as easy to pick as big ones, and the keyboard can reach every world.
  */
-export function WorldLabels({ names, label }: { names: WorldName[]; label: string }) {
+export function WorldLabels({ names, label, star }: { names: WorldName[]; label: string; star: string }) {
   return (
     <nav aria-label={label} className="pointer-events-none absolute inset-0 overflow-hidden">
       <ul>
@@ -30,7 +34,7 @@ export function WorldLabels({ names, label }: { names: WorldName[]; label: strin
               onFocus={() => universe.set({ hover: w.slug })}
               onBlur={() => universe.set({ hover: null })}
               style={{ opacity: 0, visibility: 'hidden' }}
-              className="pointer-events-auto absolute top-0 left-0 flex items-center gap-2 py-2 pr-2 font-mono text-[10px] tracking-[0.16em] whitespace-nowrap text-starlight uppercase transition-[color] will-change-transform [text-shadow:0_0_6px_rgb(2_3_8),0_0_14px_rgb(2_3_8/0.9)] hover:text-flare-soft focus-visible:outline-offset-0"
+              className={`${common} text-starlight hover:text-flare-soft`}
             >
               <span aria-hidden="true" className="h-px w-3 bg-current opacity-50" />
               <span aria-hidden="true" className="tabular-nums opacity-50">
@@ -40,6 +44,21 @@ export function WorldLabels({ names, label }: { names: WorldName[]; label: strin
             </button>
           </li>
         ))}
+        <li>
+          <button
+            type="button"
+            ref={(el) => {
+              if (el) labelElements.set(STAR, el);
+              else labelElements.delete(STAR);
+            }}
+            onClick={() => openStudio(true)}
+            style={{ opacity: 0, visibility: 'hidden' }}
+            className={`${common} text-flare-soft hover:text-starlight`}
+          >
+            <span aria-hidden="true" className="h-px w-3 bg-current opacity-50" />
+            <span>{star}</span>
+          </button>
+        </li>
       </ul>
     </nav>
   );

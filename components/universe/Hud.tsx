@@ -2,7 +2,8 @@ import Link from 'next/link';
 import { alternates, href, localeNames, locales, type Locale } from '@/lib/i18n';
 import { worlds } from '@/lib/universe';
 import type { Dictionary } from '@/content/i18n';
-import { HideOnFocus } from './FocusBar';
+import { HideOnFocus } from './HideOnFocus';
+import { HudNav } from './HudNav';
 
 /** Small uppercase monospace text: the instrument labels of the interface. */
 export const label = 'font-mono text-[11px] uppercase tracking-[0.18em]';
@@ -22,9 +23,7 @@ export function Hud({ locale, t }: { locale: Locale; t: Dictionary }) {
           pegpeg
         </Link>
         <nav aria-label={t.nav.mainNav} className={`flex items-center gap-5 md:gap-8 ${label}`}>
-          <Link href={href(locale, 'projects')} className="no-underline text-starlight/75 transition-colors hover:text-starlight">
-            {t.projects.title}
-          </Link>
+          <HudNav index={t.universe.index} studio={t.universe.studio} />
           <Link href={href(locale, 'contact')} className="no-underline text-starlight/75 transition-colors hover:text-starlight">
             {t.nav.contact}
           </Link>

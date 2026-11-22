@@ -15,9 +15,13 @@ export type UniverseState = {
   ready: boolean;
   /** Share of the worlds' surfaces baked so far, 0 to 1 */
   baked: number;
+  /** The studio panel (the star) is open */
+  studio: boolean;
+  /** The index of every world is open */
+  index: boolean;
 };
 
-let state: UniverseState = { focus: null, hover: null, ready: false, baked: 0 };
+let state: UniverseState = { focus: null, hover: null, ready: false, baked: 0, studio: false, index: false };
 const listeners = new Set<() => void>();
 
 export const universe = {

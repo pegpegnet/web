@@ -30,6 +30,16 @@ function framing(w: World, aspect: number) {
   return reach * 3.1 * Math.max(1, 0.95 / aspect);
 }
 
+/** Wide screens show panels down the right; narrow ones as a sheet from the bottom (see Panels.tsx). */
+const WIDE = 768;
+function panelShare(width: number, height: number) {
+  if (width >= WIDE) return { x: (Math.min(Math.max(352, width * 0.34), 464) + 20) / width, y: 0 };
+  return { x: 0, y: Math.min(height * 0.6, 544) / height };
+}
+
+/** The studio: close to the star, looking at it from above its equator. */
+const STUDIO = { position: [17, 7.5, 27] as const, distance: 33 };
+
 /**
  * The camera. Drag to orbit, scroll or pinch to zoom; no panning, so nobody gets lost. In the
  * overview it drifts slowly round the star when left alone. Focusing a world flies there and
@@ -39,7 +49,11 @@ export function Rig({ still }: { still: boolean }) {
   const controls = useRef<CameraControlsImpl>(null);
   const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   const idle = useRef(0);
-  const flight = useRef<{ world: World | null; flying: boolean; since: number }>({ world: null, flying: false, since: 0 });
+  const size = useThree((s) => s.size);
+  const sizeRef = useRef(size);
+  sizeRef.current = size;
+  const flight = useRef<{ key: string | null; world: World | null; flying: boolean; since: number }>({ key: null, world: null, flying: false, since: 0 });
+  const framingRef = useRef((w: World) => framing(w, 1));
   const tmp = useMemo(() => ({ p: new THREE.Vector3(), dir: new THREE.Vector3(), side: new THREE.Vector3(), cam: new THREE.Vector3() }), []);
 
   useEffect(() => {
@@ -51,24 +65,46 @@ export function Rig({ still }: { still: boolean }) {
     c.touches.three = ACTION.NONE;
     c.setLookAt(...overview(camera.aspect), false);
 
+    // Shift the view so the subject sits in the space the panel leaves free.
+    const makeRoom = (distance: number) => {
+      const { width, height } = sizeRef.current;
+      const share = panelShare(width, height);
+      const half = distance * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+      // camera-controls measures the vertical offset downwards, like the screen.
+      c.setFocalOffset(share.x * half * camera.aspect, share.y * half, 0, !still);
+    };
+
     const go = () => {
-      const slug = universe.get().focus;
-      const world = slug ? (getWorld(slug) ?? null) : null;
-      if (world === flight.current.world) return;
-      flight.current = { world, flying: true, since: 0 };
+      const { focus, studio } = universe.get();
+      const world = focus ? (getWorld(focus) ?? null) : null;
+      const key = studio ? '@studio' : (world?.slug ?? null);
+      if (key === flight.current.key) return;
+      flight.current = { key, world, flying: !!world, since: 0 };
+      c.smoothTime = still ? 0.15 : 0.8;
       if (world) {
         c.dollyToCursor = false;
         c.minDistance = world.radius * 1.35;
         c.maxDistance = Math.max(world.radius * 16, 18);
-        c.smoothTime = still ? 0.15 : 0.75;
+        makeRoom(framingFor(world));
+      } else if (studio) {
+        c.dollyToCursor = false;
+        c.minDistance = 9;
+        c.maxDistance = 140;
+        // Pull back on tall screens so the star fits across, and further where the sheet takes half the view.
+        const k = Math.max(1, 0.95 / camera.aspect) * (sizeRef.current.width >= WIDE ? 1 : 1.25);
+        makeRoom(STUDIO.distance * k);
+        c.setLookAt(STUDIO.position[0] * k, STUDIO.position[1] * k, STUDIO.position[2] * k, 0, 0, 0, !still);
       } else {
         c.dollyToCursor = true;
         c.minDistance = 8;
         c.maxDistance = 420;
-        c.smoothTime = still ? 0.15 : 0.9;
-        c.setLookAt(...overview(camera.aspect), true);
+        c.setFocalOffset(0, 0, 0, !still);
+        c.setLookAt(...overview(camera.aspect), !still);
       }
     };
+    // On narrow screens the world shares the view with the sheet, so stand further back.
+    const framingFor = (w: World) => framing(w, camera.aspect) * (sizeRef.current.width >= WIDE ? 1 : 1.6);
+    framingRef.current = framingFor;
     go();
     const unsubscribe = universe.subscribe(go);
     // A drag or zoom takes over from any flight in progress.
@@ -83,6 +119,7 @@ export function Rig({ still }: { still: boolean }) {
       c.removeEventListener('controlstart', takeOver);
     };
   }, [still, camera]);
+
 
   useFrame((_, dt) => {
     const c = controls.current;
@@ -106,7 +143,7 @@ export function Rig({ still }: { still: boolean }) {
           .addScaledVector(tmp.side, 0.82)
           .addScaledVector(UP, 0.3)
           .normalize()
-          .multiplyScalar(framing(f.world, camera.aspect))
+          .multiplyScalar(framingRef.current(f.world))
           .add(p);
         c.setLookAt(tmp.cam.x, tmp.cam.y, tmp.cam.z, p.x, p.y, p.z, true);
       }
@@ -114,7 +151,7 @@ export function Rig({ still }: { still: boolean }) {
         f.flying = false;
         c.smoothTime = 0.4;
       }
-    } else if (!f.world) {
+    } else if (!f.key) {
       idle.current += dt;
       if (!still && idle.current > 4) c.azimuthAngle += dt * 0.012;
     }

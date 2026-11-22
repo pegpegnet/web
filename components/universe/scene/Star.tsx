@@ -5,6 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { noise } from '../shaders/noise';
 import { COMPANION, STAR_RADIUS } from '@/lib/universe';
+import { universe } from '../store';
 
 const surfaceVertex = /* glsl */ `
 varying vec3 vObj;
@@ -35,14 +36,17 @@ void main() {
   float mu = clamp(dot(n, v), 0.0, 1.0);
   vec3 p = vObj * 2.4;
   float t = uTime * 0.025;
-  float granules = ridged(p * 5.5 + vec3(t, -t * 0.7, t * 0.4), 4);
+  // Granulation: bright cells of rising gas with dark lanes between them, on two scales.
+  float granules = ridged(p * 9.0 + vec3(t, -t * 0.7, t * 0.4), 4);
+  float fine = ridged(p * 26.0 + vec3(-t, t, 0.0), 3);
   float cells = fbm(p * 1.4 + vec3(0.0, t * 0.4, t * 0.2), 4) * 0.5 + 0.5;
-  float patches = smoothstep(0.6, 0.74, fbm(p * 0.8 + 3.1, 3) * 0.5 + 0.5);
-  float heat = clamp(0.45 + 0.4 * granules + 0.3 * cells - 0.4 * patches, 0.0, 1.2);
-  float limb = 0.3 + 0.7 * pow(mu, 0.55);
-  vec3 hot = vec3(1.0, 0.7, 0.42);
-  vec3 cool = vec3(1.0, 0.3, 0.07);
-  vec3 col = mix(cool, hot, clamp(heat * limb, 0.0, 1.0)) * (0.9 + 2.3 * heat) * limb;
+  // A few small, dark spots.
+  float spots = smoothstep(0.74, 0.8, fbm(p * 1.6 + 3.1, 4) * 0.5 + 0.5);
+  float heat = clamp(0.3 + 0.45 * granules + 0.15 * fine + 0.25 * cells - 0.75 * spots, 0.0, 1.2);
+  float limb = 0.25 + 0.75 * pow(mu, 0.5);
+  vec3 hot = vec3(1.0, 0.56, 0.25);
+  vec3 cool = vec3(0.85, 0.16, 0.03);
+  vec3 col = mix(cool, hot, clamp(heat * limb, 0.0, 1.0)) * (0.5 + 1.55 * heat) * limb;
   gl_FragColor = vec4(col, 1.0);
 }
 `;
@@ -133,6 +137,11 @@ export function Star({ onSelect }: { onSelect?: () => void }) {
           e.stopPropagation();
           onSelect?.();
         }}
+        onPointerOver={(e) => {
+          e.stopPropagation();
+          universe.set({ hover: '@star' });
+        }}
+        onPointerOut={() => universe.set({ hover: null })}
       >
         <sphereGeometry args={[STAR_RADIUS, 96, 48]} />
       </mesh>
