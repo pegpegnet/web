@@ -171,6 +171,133 @@ export const ca: Record<string, ProjectText> = {
       },
     ],
   },
+  'lennon': {
+    name: 'Lennon',
+    summary: 'Un agent de codi a l’estil de Claude Code, escrit en Rust, que continua amb Codex o Gemini quan arribes a un límit d’ús.',
+    sections: [
+      {
+        heading: 'Un company fidel per a la feina a mitges',
+        body: [
+          'Lennon s’assembla i es comporta com Claude Code: el mateix quadre de text, la mateixa transcripció, ordres amb barra, modes de permisos, dreceres i opcions de línia d’ordres. Quan Claude Code avisa d’un límit d’ús, Lennon desa la conversa i l’activitat d’eines que pot veure i continua la mateixa tasca amb el proveïdor següent, OpenAI Codex i després Gemini CLI per defecte, a la mateixa sessió i el mateix espai de treball.',
+        ],
+      },
+      {
+        heading: 'Com funciona',
+        body: [],
+        list: [
+          'Fa servir els agents de codi que ja tens, amb els seus propis inicis de sessió, eines i sessions',
+          'Un sol executable natiu: Lennon no necessita Node.js, cap entorn de JavaScript ni clau d’API',
+          'Una implementació independent, no un fork de Claude Code',
+        ],
+      },
+      {
+        heading: 'Estat',
+        body: [
+          'Una alfa funcional per a macOS i Linux, de codi obert amb llicència MIT. Porta el nom de Lennon, un podenc negre de pèl dur, que també n’és la icona.',
+        ],
+      },
+    ],
+  },
+  'mktagent': {
+    name: 'mktagent',
+    summary: 'Un equip de màrqueting autònom amb IA, fet amb el Claude Agent SDK.',
+    sections: [
+      {
+        heading: 'Un equip de màrqueting que treballa cada dia',
+        body: [
+          'Dona un producte a mktagent i cada dia el seu equip planifica, crea i lliura feina de màrqueting: campanyes, bàners, publicacions a xarxes, vídeos curts, fitxes d’App Store, plans d’anuncis i dossiers de premsa. Tot arriba com a fitxers que tu revises i aproves.',
+        ],
+      },
+      {
+        heading: 'L’equip',
+        body: [
+          'Un agent CMO dirigeix onze especialistes. Llegeix la memòria de l’equip, decideix les prioritats del dia, reparteix la feina en paral·lel, ho passa tot per control de qualitat i escriu l’informe del dia.',
+        ],
+        list: [
+          'Recerca, estratègia de creixement i optimització per a App Store',
+          'Redacció, xarxes socials i premsa',
+          'Disseny visual, producció de vídeo i campanyes de pagament',
+          'Anàlisi de dades, i un guardià de marca per a la revisió final',
+        ],
+      },
+      {
+        heading: 'Peces reals, no només text',
+        body: [
+          'Les seves eines d’estudi generen bàners amb la marca del producte com a fitxers PNG en 19 mides predefinides, i vídeos MP4 verticals, quadrats o apaïsats amb tipografia animada, imatge de portada i subtítols SRT. De codi obert amb llicència MIT.',
+        ],
+      },
+    ],
+  },
+  'instavision': {
+    name: 'InstaVision',
+    summary: 'Un visor natiu d’Instagram per a Apple Vision Pro, pensat per als Reels.',
+    sections: [
+      {
+        heading: 'Primer, els Reels',
+        body: [
+          'InstaVision s’obre amb una graella dels teus Reels. Passa’ls en una finestra de reproducció vertical on el Reel visible es reprodueix en bucle, amb els m’agrada, els comentaris i el silenci en un ornament al costat. El Reel següent i l’anterior es carreguen per endavant, així que passar d’un a l’altre és instantani.',
+        ],
+      },
+      {
+        heading: 'Fet per a l’espai',
+        body: [],
+        list: [
+          'Reels Theater: un espai immersiu que reprodueix Reels en una pantalla de 3,2 metres d’alt mentre l’habitació s’enfosqueix',
+          'Gallery Wall: les teves 16 últimes publicacions penjades en una paret corba al teu voltant',
+          'Les publicacions s’obren en finestres pròpies, per repartir-les per l’habitació',
+          'Un mode demo per provar-ho tot sense compte',
+        ],
+      },
+      {
+        heading: 'Com està fet',
+        body: [
+          'SwiftUI, AVFoundation i RealityKit, amb el token d’accés desat al clauer i renovat automàticament. De codi obert amb llicència MIT, i sense relació amb Instagram ni Meta.',
+        ],
+      },
+    ],
+  },
+  'whassap': {
+    name: 'Whassap',
+    summary: 'Un client no oficial de WhatsApp per a Apple Vision Pro.',
+    sections: [
+      {
+        heading: 'WhatsApp com a app pròpia',
+        body: [
+          'Whassap permet fer servir WhatsApp al Vision Pro com una app pròpia, en lloc d’una pestanya del navegador, fins que hi hagi una app oficial. Embolcalla WhatsApp Web en una finestra nativa, així que hi ha tot el que WhatsApp Web permet, adaptat a visionOS.',
+          'És no oficial i no té relació amb WhatsApp.',
+        ],
+      },
+    ],
+  },
+  'swiftui-debug-tools': {
+    name: 'SwiftUIDebugTools',
+    summary: 'Una llibreria lleugera per depurar SwiftUI: veure el layout, inspeccionar vistes i vigilar el rendiment.',
+    sections: [
+      {
+        heading: 'Una línia per començar',
+        body: [
+          'Afegeix el paquet, crida .debugEnvironment() a la vista arrel de la teva app i totes les vistes es poden depurar. Les eines viuen en un full inferior; al simulador d’iOS, ⌘⇧D el mostra i l’amaga.',
+        ],
+      },
+      {
+        heading: 'Les eines',
+        body: [],
+        list: [
+          'Colors de fons aleatoris que revelen la jerarquia del layout',
+          'Amplada i alçada superposades a cada vista',
+          'Un monitor en directe de FPS i temps per fotograma',
+          'Toca qualsevol vista per veure’n la mida, la posició i el marc',
+          'Una graella amb regles de 5, 8 o 20 px',
+        ],
+      },
+      {
+        heading: 'Només en depuració',
+        body: [
+          'Tot va dins de #if DEBUG, així que les versions de publicació no en porten res.',
+        ],
+      },
+    ],
+  },
   'app-iphone-tv3': {
     name: 'App de TV3',
     summary: 'La primera app oficial de TV3 per a iPhone.',

@@ -171,6 +171,133 @@ export const es: Record<string, ProjectText> = {
       },
     ],
   },
+  'lennon': {
+    name: 'Lennon',
+    summary: 'Un agente de código al estilo de Claude Code, escrito en Rust, que sigue con Codex o Gemini cuando llegas a un límite de uso.',
+    sections: [
+      {
+        heading: 'Un compañero fiel para el trabajo a medias',
+        body: [
+          'Lennon se ve y se comporta como Claude Code: el mismo cuadro de texto, la misma transcripción, comandos con barra, modos de permisos, atajos y opciones de línea de comandos. Cuando Claude Code avisa de un límite de uso, Lennon guarda la conversación y la actividad de herramientas que puede ver y continúa la misma tarea con el siguiente proveedor, OpenAI Codex y después Gemini CLI por defecto, en la misma sesión y el mismo espacio de trabajo.',
+        ],
+      },
+      {
+        heading: 'Cómo funciona',
+        body: [],
+        list: [
+          'Maneja los agentes de código que ya usas, con sus propios inicios de sesión, herramientas y sesiones',
+          'Un único ejecutable nativo: Lennon no necesita Node.js, ningún entorno de JavaScript ni clave de API',
+          'Una implementación independiente, no un fork de Claude Code',
+        ],
+      },
+      {
+        heading: 'Estado',
+        body: [
+          'Una alfa funcional para macOS y Linux, de código abierto con licencia MIT. Se llama como Lennon, un podenco negro de pelo duro, que también es su icono.',
+        ],
+      },
+    ],
+  },
+  'mktagent': {
+    name: 'mktagent',
+    summary: 'Un equipo de marketing autónomo con IA, hecho con el Claude Agent SDK.',
+    sections: [
+      {
+        heading: 'Un equipo de marketing que trabaja cada día',
+        body: [
+          'Dale un producto a mktagent y cada día su equipo planifica, crea y entrega trabajo de marketing: campañas, banners, publicaciones en redes, vídeos cortos, fichas de App Store, planes de anuncios y dosieres de prensa. Todo llega como archivos que tú revisas y apruebas.',
+        ],
+      },
+      {
+        heading: 'El equipo',
+        body: [
+          'Un agente CMO dirige a once especialistas. Lee la memoria del equipo, decide las prioridades del día, reparte el trabajo en paralelo, lo pasa todo por control de calidad y escribe el informe del día.',
+        ],
+        list: [
+          'Investigación, estrategia de crecimiento y optimización para App Store',
+          'Redacción, redes sociales y prensa',
+          'Diseño visual, producción de vídeo y campañas de pago',
+          'Análisis de datos, y un guardián de marca para la revisión final',
+        ],
+      },
+      {
+        heading: 'Piezas reales, no solo texto',
+        body: [
+          'Sus herramientas de estudio generan banners con la marca del producto como archivos PNG en 19 tamaños predefinidos, y vídeos MP4 verticales, cuadrados o apaisados con tipografía animada, imagen de portada y subtítulos SRT. De código abierto con licencia MIT.',
+        ],
+      },
+    ],
+  },
+  'instavision': {
+    name: 'InstaVision',
+    summary: 'Un visor nativo de Instagram para Apple Vision Pro, pensado para los Reels.',
+    sections: [
+      {
+        heading: 'Primero, los Reels',
+        body: [
+          'InstaVision se abre con una cuadrícula de tus Reels. Pásalos en una ventana de reproducción vertical donde el Reel visible se reproduce en bucle, con los me gusta, los comentarios y el silencio en un ornamento al lado. El Reel siguiente y el anterior se cargan por adelantado, así que pasar de uno a otro es instantáneo.',
+        ],
+      },
+      {
+        heading: 'Hecho para el espacio',
+        body: [],
+        list: [
+          'Reels Theater: un espacio inmersivo que reproduce Reels en una pantalla de 3,2 metros de alto mientras la habitación se oscurece',
+          'Gallery Wall: tus 16 últimas publicaciones colgadas en una pared curva a tu alrededor',
+          'Las publicaciones se abren en sus propias ventanas, para repartirlas por la habitación',
+          'Un modo demo para probarlo todo sin cuenta',
+        ],
+      },
+      {
+        heading: 'Cómo está hecho',
+        body: [
+          'SwiftUI, AVFoundation y RealityKit, con el token de acceso guardado en el llavero y renovado automáticamente. De código abierto con licencia MIT, y sin relación con Instagram ni Meta.',
+        ],
+      },
+    ],
+  },
+  'whassap': {
+    name: 'Whassap',
+    summary: 'Un cliente no oficial de WhatsApp para Apple Vision Pro.',
+    sections: [
+      {
+        heading: 'WhatsApp como app propia',
+        body: [
+          'Whassap permite usar WhatsApp en el Vision Pro como una app propia, en lugar de una pestaña del navegador, hasta que haya una app oficial. Envuelve WhatsApp Web en una ventana nativa, así que está todo lo que WhatsApp Web permite, adaptado a visionOS.',
+          'Es no oficial y no tiene relación con WhatsApp.',
+        ],
+      },
+    ],
+  },
+  'swiftui-debug-tools': {
+    name: 'SwiftUIDebugTools',
+    summary: 'Una librería ligera para depurar SwiftUI: ver el layout, inspeccionar vistas y vigilar el rendimiento.',
+    sections: [
+      {
+        heading: 'Una línea para empezar',
+        body: [
+          'Añade el paquete, llama a .debugEnvironment() en la vista raíz de tu app y todas las vistas se pueden depurar. Las herramientas viven en una hoja inferior; en el simulador de iOS, ⌘⇧D la muestra y la oculta.',
+        ],
+      },
+      {
+        heading: 'Las herramientas',
+        body: [],
+        list: [
+          'Colores de fondo aleatorios que revelan la jerarquía del layout',
+          'Ancho y alto superpuestos en cada vista',
+          'Un monitor en vivo de FPS y tiempo por fotograma',
+          'Toca cualquier vista para ver su tamaño, posición y marco',
+          'Una cuadrícula con reglas de 5, 8 o 20 px',
+        ],
+      },
+      {
+        heading: 'Solo en depuración',
+        body: [
+          'Todo va dentro de #if DEBUG, así que las versiones de publicación no llevan nada.',
+        ],
+      },
+    ],
+  },
   'app-iphone-tv3': {
     name: 'App de TV3',
     summary: 'La primera app oficial de TV3 para iPhone.',
