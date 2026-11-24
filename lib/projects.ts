@@ -15,9 +15,6 @@ export function image(name: string): Media {
 }
 
 export const listedProjects = projects.filter((p) => p.listed);
-export const featuredProjects = projects.filter((p) => p.scene);
-export const openSourceProjects = projects.filter((p) => p.kinds.includes('open-source') && !p.scene);
-export const archiveProjects = projects.filter((p) => p.listed && !p.scene && !p.kinds.includes('open-source'));
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);

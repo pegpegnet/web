@@ -11,9 +11,6 @@ import { ca } from './projects.ca.ts';
 
 export type Kind = 'app' | 'web' | 'game' | 'open-source';
 
-/** Projects with their own interactive scene in the Selected Work section. */
-export type SceneId = 'yutub' | 'socialpreview' | 'retropong' | 'mixmaster';
-
 export type Section = { heading: string; body: string[]; list?: string[] };
 
 export type ProjectText = {
@@ -30,7 +27,7 @@ export type Project = {
   kinds: Kind[];
   year?: number;
   platforms: string[];
-  /** The project's own colours, used for its chapter and page. */
+  /** The project's own colours, used for its page. */
   theme: { bg: string; fg: string; accent: string };
   /** Main picture; a few old projects have none. */
   cover?: string;
@@ -38,7 +35,6 @@ export type Project = {
   links: Link[];
   youtube?: string;
   press?: { name: string; href: string }[];
-  scene?: SceneId;
   repo?: string;
   /** Hidden projects keep their page (old links work) but are not listed. */
   listed: boolean;
@@ -55,7 +51,6 @@ const downloadLabel = { en: 'Download for Mac', es: 'Descargar para Mac', ca: 'D
 type Draft = Omit<Project, 'text'> & { text: { en: ProjectText } };
 
 const drafts: Draft[] = [
-  // Selected work: each has its own scene on the home page.
   {
     slug: 'app-visionos-yutub',
     kinds: ['app', 'open-source'],
@@ -65,7 +60,6 @@ const drafts: Draft[] = [
     cover: 'yutub-top',
     gallery: ['yutub-screenshot', 'yutub-capture'],
     links: [github('pballada/yutub')],
-    scene: 'yutub',
     repo: 'pballada/yutub',
     listed: true,
     text: {
@@ -111,7 +105,6 @@ const drafts: Draft[] = [
         href: 'https://t.me/socialpreviewbot',
       },
     ],
-    scene: 'socialpreview',
     listed: true,
     text: {
       en: {
@@ -154,7 +147,6 @@ const drafts: Draft[] = [
     gallery: ['pong-capture', 'pong-ipad', 'pong-iphone', 'pong-box'],
     links: [],
     youtube: '9_xsibeqIqM',
-    scene: 'retropong',
     listed: true,
     text: {
       en: {
@@ -194,7 +186,6 @@ const drafts: Draft[] = [
       { name: 'Culpinak', href: 'https://culpinak.blogspot.com.es/2008/07/aparece-el-dj-mix-de-youtube.html' },
       { name: 'Tuexperto', href: 'https://www.tuexperto.com/2008/11/29/mixmaster-tube-mezcla-tus-videos-musicales/' },
     ],
-    scene: 'mixmaster',
     listed: true,
     text: {
       en: {
@@ -346,6 +337,200 @@ const drafts: Draft[] = [
   },
 
   // Client and studio work from earlier years.
+  {
+    slug: 'lennon',
+    kinds: ['app', 'open-source'],
+    year: 2026,
+    platforms: ['macOS', 'Linux'],
+    theme: { bg: '#1c201d', fg: '#efe8dc', accent: '#c9b99a' },
+    cover: 'lennon-mascot',
+    gallery: [],
+    links: [github('pballada/lennon')],
+    repo: 'pballada/lennon',
+    listed: true,
+    text: {
+      en: {
+        name: 'Lennon',
+        summary: 'A Claude Code–style coding agent, written in Rust, that carries on with Codex or Gemini when you hit a usage limit.',
+        sections: [
+          {
+            heading: 'A loyal companion for unfinished work',
+            body: [
+              'Lennon looks and behaves like Claude Code: the same prompt box, transcript, slash commands, permission modes, shortcuts and command-line options. When Claude Code reports a usage limit, Lennon saves the conversation and tool activity it can see and continues the same task with the next provider, OpenAI Codex and then Gemini CLI by default, in the same session and workspace.',
+            ],
+          },
+          {
+            heading: 'How it works',
+            body: [],
+            list: [
+              'It drives the coding agents you already use, with their own logins, tools and sessions',
+              'One native executable: Lennon itself needs no Node.js, no JavaScript runtime and no API key',
+              'An independent implementation, not a fork of Claude Code',
+            ],
+          },
+          {
+            heading: 'Status',
+            body: [
+              'A working alpha for macOS and Linux, open source under the MIT licence. It’s named after Lennon, a wiry black podenco, who is also its icon.',
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    slug: 'mktagent',
+    kinds: ['app', 'open-source'],
+    year: 2026,
+    platforms: ['Python'],
+    theme: { bg: '#2a1a10', fg: '#f6ead8', accent: '#f0a23a' },
+    cover: 'mktagent-creatives',
+    gallery: [],
+    links: [github('pballada/mktagent')],
+    repo: 'pballada/mktagent',
+    listed: true,
+    text: {
+      en: {
+        name: 'mktagent',
+        summary: 'An autonomous AI marketing team, built on the Claude Agent SDK.',
+        sections: [
+          {
+            heading: 'A marketing team that works every day',
+            body: [
+              'Give mktagent a product and every day its team plans, creates and ships marketing work: campaigns, banners, social posts, short videos, App Store listings, ad plans and press kits. Everything arrives as files for you to review and approve.',
+            ],
+          },
+          {
+            heading: 'The team',
+            body: [
+              'A CMO agent leads eleven specialists. It reads the team’s memory, sets the day’s priorities, hands out work in parallel, sends everything to QA and writes the day’s report.',
+            ],
+            list: [
+              'Research, growth strategy and App Store optimisation',
+              'Copywriting, social media and PR',
+              'Visual design, video production and paid campaigns',
+              'Data analysis, and a brand guardian for the final checks',
+            ],
+          },
+          {
+            heading: 'Real assets, not just text',
+            body: [
+              'Its studio tools render on-brand banners as PNG files in 19 preset sizes, and vertical, square or landscape MP4 videos with kinetic typography, a cover image and SRT captions. Open source under the MIT licence.',
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    slug: 'instavision',
+    kinds: ['app', 'open-source'],
+    year: 2026,
+    platforms: ['visionOS'],
+    theme: { bg: '#f3efe9', fg: '#161719', accent: '#d62976' },
+    cover: 'instavision-reels',
+    gallery: ['instavision-player', 'instavision-feed'],
+    links: [github('pballada/instavision')],
+    repo: 'pballada/instavision',
+    listed: true,
+    text: {
+      en: {
+        name: 'InstaVision',
+        summary: 'A native Instagram viewer for Apple Vision Pro, built around Reels.',
+        sections: [
+          {
+            heading: 'Reels first',
+            body: [
+              'InstaVision opens on a grid of your Reels. Swipe through them in a vertical player window where the visible Reel plays and loops, with likes, comments and mute in an ornament beside it. The next and previous Reels load ahead of time, so swipes are instant.',
+            ],
+          },
+          {
+            heading: 'Made for space',
+            body: [],
+            list: [
+              'Reels Theater: an immersive space that plays Reels on a screen 3.2 metres tall while your room dims',
+              'Gallery Wall: your 16 latest posts hung on a curved wall around you',
+              'Posts open in their own windows, to arrange around the room',
+              'A demo mode to try everything without an account',
+            ],
+          },
+          {
+            heading: 'How it’s built',
+            body: [
+              'SwiftUI, AVFoundation and RealityKit, with the access token kept in the Keychain and refreshed automatically. Open source under the MIT licence, and not affiliated with Instagram or Meta.',
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    slug: 'whassap',
+    kinds: ['app', 'open-source'],
+    year: 2024,
+    platforms: ['visionOS'],
+    theme: { bg: '#e6f4ea', fg: '#161719', accent: '#1faa59' },
+    gallery: [],
+    links: [github('pballada/whassap')],
+    repo: 'pballada/whassap',
+    listed: true,
+    text: {
+      en: {
+        name: 'Whassap',
+        summary: 'An unofficial WhatsApp client for Apple Vision Pro.',
+        sections: [
+          {
+            heading: 'WhatsApp as its own app',
+            body: [
+              'Whassap lets Vision Pro owners use WhatsApp as its own app, rather than a browser tab, until an official app is available. It wraps WhatsApp Web in a native window, so everything WhatsApp Web supports is there, laid out for visionOS.',
+              'It’s unofficial and not affiliated with WhatsApp.',
+            ],
+          },
+        ],
+      },
+    },
+  },
+  {
+    slug: 'swiftui-debug-tools',
+    kinds: ['open-source'],
+    year: 2025,
+    platforms: ['iOS'],
+    theme: { bg: '#eef1f6', fg: '#161719', accent: '#0a6cff' },
+    cover: 'debugtools-panel',
+    gallery: ['debugtools-grid', 'debugtools-inspector'],
+    links: [github('pballada/SwiftUIDebugTools')],
+    repo: 'pballada/SwiftUIDebugTools',
+    listed: true,
+    text: {
+      en: {
+        name: 'SwiftUIDebugTools',
+        summary: 'A lightweight debugging library for SwiftUI: see layouts, inspect views and watch performance.',
+        sections: [
+          {
+            heading: 'One line to set up',
+            body: [
+              'Add the package, call .debugEnvironment() on your app’s root view and every view becomes debuggable. The tools live in a bottom sheet; in the iOS Simulator, ⌘⇧D shows and hides it.',
+            ],
+          },
+          {
+            heading: 'The tools',
+            body: [],
+            list: [
+              'Random background colours that reveal the layout hierarchy',
+              'Width and height overlays on every view',
+              'A live FPS and frame-time monitor',
+              'Tap any view to see its size, position and frame',
+              'A grid with rulers at 5, 8 or 20 px',
+            ],
+          },
+          {
+            heading: 'Debug builds only',
+            body: ['Everything sits inside #if DEBUG, so release builds carry none of it.'],
+          },
+        ],
+      },
+    },
+  },
   {
     slug: 'app-iphone-tv3',
     kinds: ['app'],

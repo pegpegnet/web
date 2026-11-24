@@ -44,5 +44,5 @@ export function PageTransition() {
     gsap.to(el, { autoAlpha: 0, duration: 0.3, delay: 0.05, ease: 'power1.inOut' });
   }, [pathname]);
 
-  return <div ref={veil} aria-hidden="true" className="pointer-events-none invisible fixed inset-0 z-[150] bg-bone opacity-0" />;
+  return <div ref={veil} aria-hidden="true" className="pointer-events-none invisible fixed inset-0 z-[150] bg-space opacity-0" />;
 }

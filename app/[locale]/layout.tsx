@@ -4,12 +4,9 @@ import { notFound } from 'next/navigation';
 import { locales, isLocale } from '@/lib/i18n';
 import { getDictionary } from '@/content/i18n';
 import { languageAlternates } from '@/lib/seo';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
 import { ScrollRestoration } from '@/components/motion/ScrollRestoration';
 import { PageTransition } from '@/components/motion/PageTransition';
 import { QualityProvider } from '@/components/three/QualityProvider';
-import { StageLoader } from '@/components/three/StageLoader';
 import '../globals.css';
 
 export const dynamicParams = false;
@@ -48,23 +45,20 @@ export default async function LocaleLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var d=document.documentElement;d.classList.add('motion');setTimeout(function(){d.classList.remove('motion')},3000)}",
+              "document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var d=document.documentElement;d.classList.add('motion');setTimeout(function(){d.classList.remove('motion')},3000)}",
           }}
         />
       </head>
       <body>
         <a
           href="#main"
-          className="fixed top-2 left-2 z-[100] -translate-y-24 rounded-full bg-char px-4 py-2 text-bone focus:translate-y-0"
+          className="fixed top-2 left-2 z-[100] -translate-y-24 rounded-full bg-starlight px-4 py-2 text-space focus:translate-y-0"
         >
           {t.nav.skip}
         </a>
         <QualityProvider>
           <ScrollRestoration />
-          <Header locale={locale} t={t.nav} />
           {children}
-          <Footer locale={locale} t={t} />
-          <StageLoader />
           <PageTransition />
         </QualityProvider>
       </body>
